@@ -1,6 +1,32 @@
 <?php
 
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\DosenController;
+use App\Http\Controllers\DosenDashController;
+use App\Http\Controllers\SessionController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+
+
+Route::get('/login', [SessionController::class, 'index'])->name('login');// Mengarahkan ke halaman login
+Route::post('/login/submit',[SessionController::class,'login'])->name('login.submit');
+Route::post('/logout', [SessionController::class, 'logout'])->name('logout');
+
+Route::group(['middleware' => ['auth:admin']], function () {
+    Route::get('/AdminDash', [AdminController::class, 'index'])->name('AdminDashboard');
+    Route::get('/Datacreate', [UserController::class, 'create'])->name('Admincreate');
+    Route::post('/create-data', [UserController::class, 'store'])->name('store-data');
+    Route::get('/dataview', [AdminController::class, 'showUsers'])->name('Dataview');
+});
+
+Route::group(['middleware' => ['auth:dosen']], function () {
+    Route::get('/DosenDashboard', [DosenController::class, 'index'])->name('dosDash');
+});
+
+Route::group(['middleware' => ['auth:mahasiswa']], function(){
+
+});
 
 Route::get('/profile', function () {
     return view('profile', 
