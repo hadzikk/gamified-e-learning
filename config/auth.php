@@ -40,6 +40,18 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'admin' => [
+            'driver' => 'session',
+            'provider' => 'admin',
+        ],
+        'mahasiswa' => [
+            'driver' => 'session',
+            'provider' => 'mahasiswa',
+        ],
+        'dosen' => [
+            'driver' => 'session',
+            'provider' => 'dosen',
+        ],
     ],
 
     /*
@@ -63,6 +75,22 @@ return [
         'users' => [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\User::class),
+            
+        ],
+        'admin' => [
+            'driver' => 'eloquent',
+            'model' =>  App\Models\User::class,
+            
+        ],
+        'mahasiswa' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\User::class,
+            
+        ],
+        'dosen' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\User::class,
+            
         ],
 
         // 'users' => [
