@@ -1,12 +1,13 @@
 <?php
 
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\DosenController;
-use App\Http\Controllers\DosenDashController;
 use App\Http\Controllers\SessionController;
-use App\Http\Controllers\UserController;
-use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\DosenDashController;
 
 
 Route::get('/login', [SessionController::class, 'index'])->name('login');// Mengarahkan ke halaman login
@@ -40,35 +41,128 @@ Route::get('/profile', function () {
     ]);
 });
 
-Route::get('/home', function () {
-    return view('home', [
-        'title' => 'E-Learning - Home',
-        'profile_picture' => 'images/hadzik.jpeg',
-        'posts' => [
+Route::get('/post', function () {
+    return view('post', [
+        'tasks' => [
             [
                 'id' => 1,
-                'title' => 'Object Oriented Programming',
-                'lecturer' => 'Mohamad Nurkamal Fauzan, S.T., M.T., SFPC',
-                'post_date' => '27 Desember 2024',
-                'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi, nisi? Quos dolores ratione fuga, commodi maiores iure debitis cum tenetur tempore consectetur architecto atque eum dignissimos adipisci perspiciatis at saepe.',
+                'lecturer' => 'Cahyo Prianto, S.Pd., M.T., CDSP, SFPC',
+                'subject' => 'literasi data',
+                'title' => 'array multidimensi',
+                'level' => 'basic',
                 'link' => ''
             ],
             [
                 'id' => 2,
-                'title' => 'Comparative Adjective',
-                'lecturer' => 'Rd. Nuraini Siti Fathonah, S.S., M.Hum., SFPC',
-                'post_date' => '20 Desember 2024',
-                'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Animi, nisi? Quos dolores ratione fuga, commodi maiores iure debitis cum tenetur tempore consectetur architecto atque eum dignissimos adipisci perspiciatis at saepe.Minus sunt maiores amet sapiente provident quaerat praesentium exercitationem quis temporibus minima consectetur assumenda odit',
+                'lecturer' => 'Syafrial Fachri Pane, ST. MTI, EBDP.CDSP, SFPC',
+                'subject' => 'metodologi penelitian',
+                'title' => 'systematic literature review - watase uake',
+                'level' => 'advance',
                 'link' => ''
             ],
             [
                 'id' => 3,
-                'title' => 'Systematic Literature Review',
-                'lecturer' => 'Syafrial Fachri Pane,ST. MTI,EBDP.CDSP,SFPC',
-                'post_date' => '1 Desember 2024',
-                'description' => 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quasi aut ullam natus, quia nobis vitae. Doloremque in dolorem nesciunt fugiat asperiores molestias exercitationem, dolor, optio qui dignissimos, iste earum dolorum.Molestias beatae velit exercitationem quae quasi odio assumenda corrupti? Numquam consectetur sapiente beatae qui similique reiciendis dignissimos id eveniet assumenda ducimus. Pariatur, iure consequuntur doloremque quas harum itaque nemo est.',
+                'lecturer' => 'Mohamad Nurkamal Fauzan, S.T., M.T., SFPC',
+                'subject' => 'algoritma',
+                'title' => 'bubble sort algorithm',
+                'level' => 'proficient',
+                'link' => ''
+            ],
+            [
+                'id' => 4,
+                'lecturer' => 'Syafrial Fachri Pane, ST. MTI, EBDP.CDSP, SFPC',
+                'subject' => 'basis data II / database II',
+                'title' => 'inner join',
+                'level' => 'proficient',
+                'link' => ''
+            ],
+            [
+                'id' => 5,
+                'lecturer' => 'Rd. Nuraini Siti Fathonah, S.S., M.Hum., SFPC',
+                'subject' => 'bahasa inggris',
+                'title' => 'comparative adjective',
+                'level' => 'advance',
                 'link' => ''
             ]
+        ]
+    ]);
+});
+
+Route::get('/review', function () {
+    return view('review');
+});
+
+Route::get('/review/{id}', function ($id) {
+    $tasks = [
+        [
+            'id' => 1,
+            'lecturer' => 'Cahyo Prianto, S.Pd., M.T., CDSP, SFPC',
+            'subject' => 'literasi data',
+            'title' => 'array multidimensi',
+            'level' => 'basic',
+            'link' => ''
+        ],
+        [
+            'id' => 2,
+            'lecturer' => 'Syafrial Fachri Pane, ST. MTI, EBDP.CDSP, SFPC',
+            'subject' => 'metodologi penelitian',
+            'title' => 'systematic literature review - watase uake',
+            'level' => 'advance',
+            'link' => ''
+        ],
+        [
+            'id' => 3,
+            'lecturer' => 'Mohamad Nurkamal Fauzan, S.T., M.T., SFPC',
+            'subject' => 'algoritma',
+            'title' => 'bubble sort algorithm',
+            'level' => 'proficient',
+            'link' => ''
+        ],
+        [
+            'id' => 4,
+            'lecturer' => 'Syafrial Fachri Pane, ST. MTI, EBDP.CDSP, SFPC',
+            'subject' => 'basis data II / database II',
+            'title' => 'inner join',
+            'level' => 'proficient',
+            'link' => ''
+        ],
+        [
+            'id' => 5,
+            'lecturer' => 'Rd. Nuraini Siti Fathonah, S.S., M.Hum., SFPC',
+            'subject' => 'bahasa inggris',
+            'title' => 'comparative adjective',
+            'level' => 'advance',
+            'link' => ''
+        ]
+    ];
+
+    $task = Arr::first($tasks, function ($task) use ($id) {
+        return $task['id'] == $id;
+    });
+
+    return view('review', [
+        'task' => $task,
+        'quizzes' => [
+            [
+                'id' => 1,
+                'question' => 'Apa tujuan utama dari algoritma Bubble Sort?',
+            ],
+            [
+                'id' => 2,
+                'question' => 'Bagaimana cara kerja algoritma Bubble Sort?',
+            ],
+            [
+                'id' => 3,
+                'question' => 'Berapa jumlah maksimum perbandingan yang dilakukan oleh Bubble Sort untuk mengurutkan array dengan n elemen?',
+            ],
+            [
+                'id' => 4,
+                'question' => 'Apa kompleksitas waktu terburuk dari algoritma Bubble Sort?',
+            ],
+            [
+                'id' => 5,
+                'question' => 'Bagaimana cara mengoptimalkan Bubble Sort untuk mengurangi jumlah iterasi yang tidak perlu?',
+            ],
         ]
     ]);
 });
@@ -77,9 +171,8 @@ Route::get('/home/{id}', function ($id) {
     dd($id);
 });
 
-Route::get('/post', function () {
-    return view('post', [
-        'title' => 'E-Learning - Post Detail',
-        'profile_picture' => 'images/hadzik.jpeg',
+Route::get('/', function () {
+    return view('welcome', [
+        'title' => 'Welcome'
     ]);
 });
