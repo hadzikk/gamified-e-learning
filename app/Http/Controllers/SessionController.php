@@ -32,7 +32,7 @@ class SessionController extends Controller
         }elseif (Auth::guard('dosen')->attempt(['email'=>$data['email'],'password'=>$data['password'], 'role' => 'dosen'])) {
             // Regenerasi session untuk mencegah session fixation
             $request->session()->regenerate();
-            return redirect()->route('dosDash');
+            return redirect()->route('dosdash');
         }
         // Jika autentikasi gagal
         return redirect()->back()->with('failed', 'Email or password is incorrect');

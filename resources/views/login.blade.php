@@ -67,20 +67,6 @@
         .btn:hover {
             background-color: #4f46e5;
         }
-        .text-center {
-            text-align: center;
-            font-size: 0.9rem;
-            color: #555;
-            margin-top: 20px;
-        }
-        .text-center a {
-            color: #6366f1;
-            text-decoration: none;
-            font-weight: bold;
-        }
-        .text-center a:hover {
-            text-decoration: underline;
-        }
     </style>
 </head>
 <body>
@@ -110,11 +96,6 @@
             <!-- Tombol Login -->
             <button type="submit" class="btn">Login</button>
         </form>
-        <!-- Tautan Register -->
-        <p class="text-center">
-            Belum punya akun? Silahkan klik 
-            <a href="{{}}">Register</a>
-        </p>
     </div>
 </body>
 </html>

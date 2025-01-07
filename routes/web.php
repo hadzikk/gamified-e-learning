@@ -22,7 +22,10 @@ Route::group(['middleware' => ['auth:admin']], function () {
 });
 
 Route::group(['middleware' => ['auth:dosen']], function () {
-    Route::get('/DosenDashboard', [DosenController::class, 'index'])->name('dosDash');
+    Route::get('/DosenDashboard', [DosenController::class, 'index'])->name('dosdash');
+    Route::get('/QuizDashboard', [DosenController::class, 'quiz'])->name('quizdos');
+    Route::get('/MateriDashboard', [DosenController::class, 'materi'])->name('materidos');
+    Route::get('/PreviewDashboard', [DosenController::class, 'review'])->name('reviewidos');
 });
 
 Route::group(['middleware' => ['auth:mahasiswa']], function(){
@@ -38,7 +41,7 @@ Route::get('/profile', function () {
         'level' => 'basic',
         'profile_picture' => 'images/hadzik.jpeg',
         'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim?'
-    ]);
+    ])-> name('profile');
 });
 
 Route::get('/post', function () {

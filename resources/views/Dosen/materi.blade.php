@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Dosen</title>
+    <title>Dashboard Dosen - Create Materi</title>
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/trix@2.0.8/dist/trix.css">
+    <script type="text/javascript" src="https://unpkg.com/trix@2.0.8/dist/trix.umd.min.js"></script>
     <style>
         /* General Styling */
         body {
@@ -70,24 +72,6 @@
             background-color: #2563eb;
         }
 
-        /* Logout Styling */
-        .logout {
-            margin-top: auto;
-            padding: 1rem;
-            width: 100%;
-            text-align: center;
-            background-color: #ef4444;
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-            border-top: 1px solid #cbd5e1;
-            transition: background-color 0.3s;
-        }
-
-        .logout:hover {
-            background-color: #dc2626;
-        }
-
         /* Main Content Styling */
         .main-content {
             flex: 1;
@@ -102,9 +86,45 @@
             margin-bottom: 1rem;
         }
 
-        .main-content p {
+        .main-content form {
+            background-color: #f1f5f9;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .main-content .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .main-content label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .main-content input,
+        .main-content textarea {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 0.25rem;
             font-size: 1rem;
-            color: #333333;
+        }
+
+        .main-content button {
+            background-color: #1e3a8a;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 0.25rem;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .main-content button:hover {
+            background-color: #2563eb;
         }
     </style>
 </head>
@@ -124,6 +144,7 @@
                     <li><a href="{{ route('reviewidos') }}">Preview</a></li>
                 </ul>
             </nav>
+            <!-- Tombol Logout -->
             <div class="logout-button" style="margin-top: auto; width: 100%; padding: 1rem 0; text-align: center;">
                 <form method="POST" action="{{ route('logout') }}">
                     @csrf
@@ -136,9 +157,40 @@
 
         <!-- Main Content -->
         <main class="main-content">
-            <section id="home">
-                <h2>Home</h2>
-                <p>Selamat datang di dashboard dosen. Pilih menu di sidebar untuk memulai.</p>
+            <section id="create-materi">
+                <h2>Create Materi</h2>
+                <form method="POST" action="/materi/store" enctype="multipart/form-data">
+                    <!-- CSRF Token -->
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}">
+
+                    <!-- Judul Materi -->
+                    <div class="form-group">
+                        <label for="judul_materi">Judul Materi:</label>
+                        <input type="text" id="judul_materi" name="judul_materi" placeholder="Masukkan judul materi" required>
+                    </div>
+
+                    <!-- Thumbnail Materi -->
+                    <div class="form-group">
+                        <label for="thumbnail_materi">Thumbnail Materi:</label>
+                        <input type="file" id="thumbnail_materi" name="thumbnail_materi" accept="image/*">
+                    </div>
+
+                    <!-- Konten Materi (Trix Editor) -->
+                    <div class="form-group">
+                        <label for="isi_materi">Isi Materi:</label>
+                        <input id="isi_materi" type="hidden" name="isi_materi">
+                        <trix-editor input="isi_materi"></trix-editor>
+                    </div>
+
+                    <!-- Upload File -->
+                    <div class="form-group">
+                        <label for="file_materi">Upload File (Opsional):</label>
+                        <input type="file" id="file_materi" name="file_materi">
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit">Simpan Materi</button>
+                </form>
             </section>
         </main>
     </div>

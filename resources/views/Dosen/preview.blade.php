@@ -136,9 +136,9 @@
 
         <!-- Main Content -->
         <main class="main-content">
-            <section id="home">
-                <h2>Home</h2>
-                <p>Selamat datang di dashboard dosen. Pilih menu di sidebar untuk memulai.</p>
+            <section id="preview">
+                <h2>Preview</h2>
+                <p>Di sini Anda dapat melihat preview quiz atau materi yang telah dibuat.</p>
             </section>
         </main>
     </div>

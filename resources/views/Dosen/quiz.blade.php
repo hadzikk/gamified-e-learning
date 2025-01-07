@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Dosen</title>
+    <title>Dashboard Dosen - Create Quiz</title>
     <style>
         /* General Styling */
         body {
@@ -70,24 +70,6 @@
             background-color: #2563eb;
         }
 
-        /* Logout Styling */
-        .logout {
-            margin-top: auto;
-            padding: 1rem;
-            width: 100%;
-            text-align: center;
-            background-color: #ef4444;
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-            border-top: 1px solid #cbd5e1;
-            transition: background-color 0.3s;
-        }
-
-        .logout:hover {
-            background-color: #dc2626;
-        }
-
         /* Main Content Styling */
         .main-content {
             flex: 1;
@@ -102,9 +84,45 @@
             margin-bottom: 1rem;
         }
 
-        .main-content p {
+        .main-content form {
+            background-color: #f1f5f9;
+            padding: 1.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .main-content .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .main-content label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .main-content input,
+        .main-content textarea {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #cbd5e1;
+            border-radius: 0.25rem;
             font-size: 1rem;
-            color: #333333;
+        }
+
+        .main-content button {
+            background-color: #1e3a8a;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 0.25rem;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .main-content button:hover {
+            background-color: #2563eb;
         }
     </style>
 </head>
@@ -136,9 +154,19 @@
 
         <!-- Main Content -->
         <main class="main-content">
-            <section id="home">
-                <h2>Home</h2>
-                <p>Selamat datang di dashboard dosen. Pilih menu di sidebar untuk memulai.</p>
+            <section id="create-quiz">
+                <h2>Create Quiz</h2>
+                <form>
+                    <div class="form-group">
+                        <label>Judul Quiz:</label>
+                        <input type="text" placeholder="Masukkan judul quiz">
+                    </div>
+                    <div class="form-group">
+                        <label>Deskripsi:</label>
+                        <textarea placeholder="Deskripsi singkat"></textarea>
+                    </div>
+                    <button type="submit">Simpan Quiz</button>
+                </form>
             </section>
         </main>
     </div>
