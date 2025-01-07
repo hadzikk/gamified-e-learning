@@ -64,8 +64,44 @@
     </div>
 
     <div class="popup --hide" id="popupEnrollment">
-        <div class="popup-navigation-bar">
-            <i class="fa-solid fa-xmark" id="closePopupEnrollment"></i>
+        <div class="popup-content-container">
+            <div class="popup-content">
+                <div class="popup-content-navigation">
+                    <i class="fa-solid fa-xmark" id="closePopupEnrollment"></i>
+                </div>
+                <div class="popup-content-details">
+                    <p class="popup-content-status">kuis belum diambil</p>
+                    <p class="popup-content-title">{{ $task['title'] }}</p>
+                    <p class="popup-content-lecturer">{{ $task['lecturer'] }}</p>
+                    <div class="popup-content-info">
+                        <div class="popup-content-level-container">
+                            <span class="popup-content-level">{{ $task['level'] }}</span>
+                            @if ($task['level'] == 'basic')
+                            <i class="fa-regular fa-chess-pawn"></i>
+                            @elseif ($task['level'] == 'advance')
+                            <i class="fa-regular fa-chess-knight"></i>
+                            @else
+                            <i class="fa-regular fa-chess-queen"></i>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="popup-content-questions-info-container">
+                        <div class="popup-content-question-box">
+                            <p class="popup-content-question-title">soal</p>
+                        </div>
+                        <div class="popup-content-question-box">
+                            <p class="popup-content-question-value">5</p>
+                        </div>
+                    </div>
+                    <div class="popup-content-quizzes-container">
+                        <div class="popup-content-quiz-question-container">
+                            @foreach ($quizzes as $quiz)
+                                <p class="popup-content-quiz-question">{{ $quiz['question'] }}</p>
+                            @endforeach
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 

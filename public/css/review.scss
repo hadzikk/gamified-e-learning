@@ -213,20 +213,104 @@ body {
     height: 100vh;
     background: rgba(0, 0, 0, 0.5);
     transition: 500ms;
+    z-index: 10;
 
-    .popup-navigation-bar {
+    .popup-content-container {
+        width: 100%;
+        height: 100%;
         display: flex;
-        justify-content: end;
-        padding: 10px 20px;
+        justify-content: center;
 
-        .fa-xmark {
-            font-size: 20px;
-            transition: 500ms;
-        }
+        .popup-content {
+            width: 600px;
+            height: 100%;
+            background: #fff;
+            padding: 10px 20px;
 
-        .fa-xmark:hover {
-            cursor: pointer;
-            color: #2b2e4a;
+            .popup-content-navigation {
+                width: 100%;
+                display: flex;
+                justify-content: end;
+
+                .fa-xmark {
+                    font-size: 20px;
+                }
+
+                .fa-xmark:hover {
+                    cursor: pointer;
+                }
+            }
+
+            .popup-content-details {
+
+                .popup-content-status {
+                    text-transform: capitalize;
+                    color: gray;
+                    padding: 5px 0;
+                }
+                
+                .popup-content-title {
+                    font-family: 'satoshi-black';
+                    font-size: 2rem;
+                    text-transform: uppercase;
+                }
+
+                .popup-content-lecturer {
+                    padding: 10px 0;
+                }
+
+                .popup-content-info {
+                    display: flex;
+                    gap: 10px;
+                    align-items: center;
+
+                    .popup-content-level-container {
+                        width: fit-content;
+                        padding: 8px;
+                        border-radius: 4px;
+                        background: #000;
+                        color: #fff;
+                        text-transform: capitalize;
+                    }
+
+                    .popup-content-status {
+                        display: inline-block;
+                        text-transform: capitalize;
+                        color: gray;
+                    }
+                }
+
+                .popup-content-questions-info-container {
+                    margin: 40px 0;
+                    width: 100%;
+                    display: flex;
+                    border-bottom: 1px solid #eee;
+
+                    .popup-content-question-box {
+                        width: 60px;
+                        padding: 0 10px 0 0;
+                        text-transform: capitalize;
+                        color: gray;
+                        border-right: 1px solid #eee;
+                        font-size: 1.1rem;
+
+                        .popup-question-quizzes-container {
+                            width: 100%;
+                            padding: 10px 0;
+
+                            .popup-content-quiz-question-container {
+                                width: 100%;
+
+                                .popup-content-quiz-question {
+                                    width: 100%;
+                                    padding: 10px 0;
+                                    border-bottom: 1px solid #eee;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
