@@ -1,17 +1,8 @@
-@import url("https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: "Nunito", sans-serif;
+@font-face {
+  font-family: "Satoshi-Black";
+  src: url("../fonts/satoshi/Fonts/OTF/Satoshi-Black.otf");
 }
-
-.object-cover {
-  -o-object-fit: cover;
-     object-fit: cover;
-}
-
-.mt-12 {
-  margin-top: 20px;
+@font-face {
+  font-family: "PassengerSans-Regular";
+  src: url("../fonts/passenger-sans/PassengerSans-Regular-BF63eaffd178ad9.otf");
 }/*# sourceMappingURL=global.css.map */

@@ -48,4 +48,14 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    // Additional function 
+    public function posts() {
+        return $this->hasMany(Post::class);
+    }    
+
+    public function quiz_users()
+    {
+        return $this->belongsToMany(Quiz::class, 'quiz_user')->withTimestamps();
+    }
 }

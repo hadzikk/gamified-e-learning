@@ -6,23 +6,24 @@
     <title>Review</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="{{ asset('css/review.scss') }}">
+    <link rel="stylesheet" href="{{ asset('icons/fontawesome-free-6.5.2-web/css/all.min.css') }}">
 </head>
 <body>
     <div class="review">
-        <p class="review-title">{{ $task['title'] }}</p>
+        <p class="review-title">{{ $post['title'] }}</p>
         <div class="review-info">
             <div class="review-details-container">
                 <div class="review-detail-row">
                     <p class="review-row-title">mata kuliah</p>
-                    <p class="review-row-value">{{ $task['subject'] }}</p>
+                    <p class="review-row-value">{{ $post['subject'] }}</p>
                 </div>
                 <div class="review-detail-row">
                     <p class="review-row-title">level</p>
-                    <p class="review-row-value">{{ $task['level'] }}</p>
+                    <p class="review-row-value">{{ $post['level'] }}</p>
                 </div>
                 <div class="review-detail-row">
                     <p class="review-row-title">dosen</p>
-                    <p class="review-row-value">{{ $task['lecturer'] }}</p>
+                    <p style="text-transform: capitalize" class="review-row-value">{{ $post->user->first_name }} {{ $post->user->last_name }} <span style="text-transform: capitalize;">{{ $post->user->degree }}</p>
                 </div>
                 <div class="review-detail-row">
                     <p class="review-row-title">deskripsi</p>
@@ -46,59 +47,61 @@
     </div>
 
     <div class="quiz {{ false ? '--unlocked' : '--locked' }}">
-        @foreach ($quizzes as $quiz)
+        @if (false)
+        @foreach ($questions as $question)
         <div class="quiz-questions-container">
-            <p class="quiz-question">{{ $quiz['question'] }}</p>
+            <p class="quiz-question">{{ $question['question_text'] }}</p>
         </div>
         @if (false)
         <div class="quiz-options-container">
-            @for ($i = 0; $i < 4; $i++)
+            @foreach ($options as $option)
             <div class="quiz-options-wrapper">
                 <input class="quiz-option" type="radio" name="" id="">&nbsp;
-                <label class="quiz-option-label" for="">Menggunakan struktur data tambahan untuk menyimpan elemen yang diurutkan</label>
+                <label class="quiz-option-label" for="">{{ $option['option_text'] }}</label>
             </div>
-            @endfor
+            @endforeach
         </div>
         @endif
         @endforeach
+        @else
+            <p class="quiz-question">Soal kuiz akan muncul disini ketika telah mendaftar kuis.</p>
+        @endif
     </div>
 
     <div class="popup --hide" id="popupEnrollment">
         <div class="popup-content-container">
             <div class="popup-content">
                 <div class="popup-content-navigation">
+                    <span class="popup-content-status">kuis belum diambil</span>
                     <i class="fa-solid fa-xmark" id="closePopupEnrollment"></i>
                 </div>
                 <div class="popup-content-details">
-                    <p class="popup-content-status">kuis belum diambil</p>
-                    <p class="popup-content-title">{{ $task['title'] }}</p>
-                    <p class="popup-content-lecturer">{{ $task['lecturer'] }}</p>
+                    <p class="popup-content-title">{{ $post['title'] }}</p>
+                    <p style="text-transform: capitalize;" class="popup-content-lecturer">{{ $post->user->first_name }} {{ $post->user->last_name }} <span style="text-transform: capitalize;">{{ $post->user->degree }}</p>
                     <div class="popup-content-info">
                         <div class="popup-content-level-container">
-                            <span class="popup-content-level">{{ $task['level'] }}</span>
-                            @if ($task['level'] == 'basic')
+                            {{-- <span class="popup-content-level">{{ $post['level'] }}</span>
+                            @if ($post['level'] == 'basic')
                             <i class="fa-regular fa-chess-pawn"></i>
-                            @elseif ($task['level'] == 'advance')
+                            @elseif ($post['level'] == 'advance')
                             <i class="fa-regular fa-chess-knight"></i>
                             @else
                             <i class="fa-regular fa-chess-queen"></i>
-                            @endif
+                            @endif --}}
+                            <a class="popup-content-link" href="">ambil kuis ini</a>
                         </div>
                     </div>
-                    <div class="popup-content-questions-info-container">
-                        <div class="popup-content-question-box">
-                            <p class="popup-content-question-title">soal</p>
-                        </div>
-                        <div class="popup-content-question-box">
-                            <p class="popup-content-question-value">5</p>
+                    <div class="popup-questions">
+                        <div class="popup-quizzes-container">
+                            <div class="popup-content-quizzes-container">
+                                @foreach ($questions as $question)
+                                <div class="popup-content-quiz-question-container">
+                                    <p class="popup-content-quiz-question">{{ $question['question_text'] }}</p>
+                                </div>
+                                @endforeach
+                            </div>
                         </div>
                     </div>
-                    <div class="popup-content-quizzes-container">
-                        <div class="popup-content-quiz-question-container">
-                            @foreach ($quizzes as $quiz)
-                                <p class="popup-content-quiz-question">{{ $quiz['question'] }}</p>
-                            @endforeach
-                        </div>
                     </div>
                 </div>
             </div>

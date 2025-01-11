@@ -21,7 +21,7 @@ class DummyuserSeeder extends Seeder
                 'email'=>'admin@gmail.com',
                 'role'=>'admin',
                 'password'=>bcrypt('123')
-            ],
+            ]
         ];
         foreach($userData as $key => $val){
             User::create($val);

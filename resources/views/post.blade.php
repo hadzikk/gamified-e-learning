@@ -9,14 +9,14 @@
 </head>
 <body>
     <div class="task-container">
-        @foreach ($tasks as $task)
+        @foreach ($posts as $post)
         <div class="task-post">
             <div class="task-post-navigation">
                 <div class="task-level-container">
-                    <span class="task-level-label">{{ $task['level'] }}</span>
-                    @if ($task['level'] == 'basic')
+                    <span class="task-level-label">{{ $post['level'] }}</span>
+                    @if ($post['level'] == 'basic')
                     <i class="fa-regular fa-chess-pawn"></i>
-                    @elseif ($task['level'] == 'advance')
+                    @elseif ($post['level'] == 'advance')
                     <i class="fa-regular fa-chess-knight"></i>
                     @else
                     <i class="fa-regular fa-chess-queen"></i>
@@ -24,13 +24,14 @@
                 </div>
 
                 <div class="task-subject-wrapper">
-                    <span class="task-subject">{{ $task['subject'] }}</span>
+                    <span class="task-subject">{{ $post['subject'] }}</span>
                 </div>
             </div>
-            <p class="task-post-title">{{ $task['title'] }}</p>
+            <p class="task-post-title">{{ $post['title'] }}</p>
+            {{-- <p style="font-size: 12px; color: gray;">{{ $post->created_at->diffForHumans() }}</p> --}}
             <div class="task-post-footer">
-                <span class="task-post-author">{{ $task['lecturer'] }}</span>
-                <a class="task-preview-link" href="review/{{ $task['id'] }}">lihat detail</a>
+                <span class="task-post-author">{{ $post->user->first_name }} {{ $post->user->last_name }} <span style="text-transform: capitalize;">{{ $post->user->degree }}</span></span>
+                <a class="task-preview-link" href="review/{{ $post['slug'] }}">lihat detail</a>
             </div>
         </div>
         @endforeach

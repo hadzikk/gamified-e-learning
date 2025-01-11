@@ -1,70 +1,314 @@
-.navbar {
+body {
+  background: #F5F5F5;
+}
+body .navbar {
   width: 100%;
   padding: 10px 20px;
   border: 1px solid #EEEEEE;
+  background: #FFFFFF;
 }
-.navbar .navbar-top-side {
+body .navbar .navbar-top-side {
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 10px;
 }
-.navbar .navbar-top-side .logo {
+body .navbar .navbar-top-side .logo {
   font-size: 1.5rem;
   font-weight: 700;
 }
-.navbar .navbar-top-side .search-container {
+body .navbar .navbar-top-side .search-container {
+  display: flex;
+  align-items: center;
+}
+body .navbar .navbar-top-side .search-container .search-environtment-container {
   display: flex;
   align-items: center;
   border: 1px solid #EEEEEE;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
+  gap: 5px;
+  padding: 0 10px;
 }
-.navbar .navbar-top-side .search-container .search-text-box-container {
-  border-top-left-radius: 50px;
-  border-bottom-left-radius: 50px;
+body .navbar .navbar-top-side .search-container .search-environtment-container .search-icon-container .fa-magnifying-glass {
+  font-size: 14px;
 }
-.navbar .navbar-top-side .search-container .search-text-box-container .search-text-box {
-  padding: 1px 10px;
+body .navbar .navbar-top-side .search-container .search-environtment-container .search-text-box-container .search-text-box {
+  padding: 2.6px;
   border-top-left-radius: 50px;
   border-bottom-left-radius: 50px;
   outline: none;
   border: none;
+  color: #0a0a0a;
 }
-.navbar .navbar-top-side .search-container .search-filter-box-container {
+body .navbar .navbar-top-side .search-container .search-filter-box-container {
   border: 1px solid #EEEEEE;
+  border-top-left-radius: 4px;
+  border-bottom-left-radius: 4px;
 }
-.navbar .navbar-top-side .search-container .search-filter-box-container .search-filter-box {
+body .navbar .navbar-top-side .search-container .search-filter-box-container .search-filter-box {
   padding: 2px 0;
   outline: none;
   border: none;
 }
-.navbar .navbar-top-side .navbar-feature-container {
+body .navbar .navbar-top-side .navbar-feature-container {
   display: flex;
   align-items: center;
   gap: 25px;
 }
-.navbar .navbar-top-side .navbar-feature-container .fa-bell {
+body .navbar .navbar-top-side .navbar-feature-container .fa-bell {
   font-size: 1.2rem;
 }
-.navbar .navbar-top-side .navbar-feature-container .profile-picture-container {
-  width: 40px;
-  height: 40px;
+body .navbar .navbar-top-side .navbar-feature-container .profile-picture-container {
+  width: 35px;
+  height: 35px;
   border-radius: 50%;
 }
-.navbar .navbar-top-side .navbar-feature-container .profile-picture-container .profile-picture {
+body .navbar .navbar-top-side .navbar-feature-container .profile-picture-container .profile-picture {
   width: 100%;
   height: 100%;
   border-radius: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
 }
-.navbar .navbar-bottom-side {
+body .navbar .navbar-bottom-side {
   width: 100%;
 }
-.navbar .navbar-bottom-side .navbar-links-container .navbar-list {
+body .navbar .navbar-bottom-side .navbar-links-container .navbar-list {
   display: inline-block;
   text-decoration: none;
   margin: 0 10px;
 }
-.navbar .navbar-bottom-side .navbar-links-container .navbar-list .navbar-link {
+body .navbar .navbar-bottom-side .navbar-links-container .navbar-list .navbar-link {
   text-decoration: none;
   color: #000000;
+  font-size: 14px;
+}
+
+.container {
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  gap: 20px;
+}
+.container .student-task-detail {
+  width: 100%;
+  height: 100vh;
+  background: #FFFFFF;
+  border-radius: 8px;
+  border: 1px solid #EEEEEE;
+}
+.container .student-task {
+  width: 100%;
+  height: auto;
+  background: #FFFFFF;
+  border-radius: 8px;
+  border: 1px solid #EEEEEE;
+}
+.container .student-task .student-task-posts-container {
+  width: 100%;
+  height: 100%;
+  padding: 20px 40px;
+}
+.container .student-task .student-task-posts-container .student-task-post-container {
+  width: 100%;
+  font-family: "Roboto", serif;
+  border-bottom: 1px solid #EEEEEE;
+  border-radius: 4px;
+  padding: 40px 10px;
+}
+.container .student-task .student-task-posts-container .student-task-post-container .student-task-post-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #000000;
+  text-decoration: none;
+}
+.container .student-task .student-task-posts-container .student-task-post-container .student-task-post-author-info-container {
+  font-size: 14px;
+  margin: 10px 0 5px 0;
+}
+.container .student-task .student-task-posts-container .student-task-post-container .student-task-post-description {
+  font-weight: 300;
+  width: 80%;
+}
+.container .student-task .student-task-posts-container .student-task-post-container .student-task-post-detail {
+  margin: 10px 0;
+  color: green;
+  text-decoration: none;
+  font-weight: 600;
+}
+.container .student-task .student-task-posts-container .student-task-post-container:hover {
+  background: #EEEEEE;
+}
+.container .student-task .student-task-posts-container .student-task-post-container:hover .student-task-post-title {
+  color: green;
+}
+.container .student-profile {
+  width: 250px !important;
+  background: #FFFFFF;
+  border: 1px solid #EEEEEE;
+  border-radius: 8px;
+  padding: 20px;
+}
+.container .student-profile .student-profile-navigation {
+  width: 100%;
+  height: 10%;
+  display: flex;
+  justify-content: end;
+}
+.container .student-profile .student-profile-navigation .student-profile-navigation-icons .fa-ellipsis {
+  cursor: pointer;
+}
+.container .student-profile .student-header-profile {
+  width: 100%;
+  display: flex;
+  gap: 10px;
+}
+.container .student-profile .student-header-profile .student-picture-container {
+  width: 85px;
+  height: 85px;
+  border-radius: 50%;
+}
+.container .student-profile .student-header-profile .student-picture-container .student-picture {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.container .student-profile .student-header-profile .student-name-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: 100px;
+}
+.container .student-profile .student-header-profile .student-name-container .student-name-overlay {
+  position: absolute;
+}
+.container .student-profile .student-header-profile .student-name-container .student-name-overlay .student-full-name {
+  color: #000000;
+  text-decoration: none;
+  background: #FFFFFF;
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-weight: 600;
+  text-transform: capitalize;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100px;
+  cursor: pointer;
+}
+.container .student-profile .student-header-profile .student-name-container .student-name-overlay .student-username {
+  color: #2b2e4a;
+  font-size: 14px;
+  padding: 2px 6px;
+}
+.container .student-profile .student-middle-profile {
+  margin: 25px 0;
+}
+.container .student-profile .student-middle-profile .student-badges-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+.container .student-profile .student-middle-profile .student-badges-container {
+  width: 100%;
+  height: 13%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+.container .student-profile .student-middle-profile .student-badges-container .student-badge-container {
+  width: 35px;
+  height: 35px;
+}
+.container .student-profile .student-middle-profile .student-badges-container .student-badge-container .student-badge {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.container .student-profile .student-progress-bar .student-progress-bar-level-badge-container {
+  width: -moz-fit-content;
+  width: fit-content;
+  border: 1px solid #000000;
+  border-radius: 8px;
+  padding: 2px 5px;
+  font-size: 14px;
+}
+.container .student-profile .student-footer-profile {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.container .student-profile .student-footer-profile .student-footer-icons {
+  padding: 5px 20px;
+  display: flex;
+  gap: 10px;
+  font-size: 1.2rem;
+}
+.container .student-profile .student-footer-profile .student-footer-icons .fa-spotify {
+  border: 1px solid #EEEEEE;
+  border-radius: 4px;
+  padding: 10px;
+}
+.container .student-profile .student-footer-profile .student-footer-icons .fa-instagram {
+  border: 1px solid #EEEEEE;
+  border-radius: 4px;
+  padding: 10px;
+}
+.container .student-profile .student-footer-profile .student-footer-icons .fa-linkedin {
+  border: 1px solid #EEEEEE;
+  border-radius: 4px;
+  padding: 10px;
+}
+.container .student-profile .student-profile-description {
+  margin: 10px 0 0 0;
+}
+.container .student-profile .student-profile-description .student-description {
+  font-size: 14px;
+}
+.container .student-activity-container {
+  width: 80%;
+  height: 522.78px;
+  background: #FFFFFF;
+  border: 1px solid #EEEEEE;
+  border-radius: 8px;
+  padding: 20px;
+}
+.container .student-activity-container .student-courses-container {
+  width: 100%;
+  display: flex;
+  gap: 10px;
+}
+.container .student-activity-container .student-courses-container .student-course-container {
+  width: 200px;
+  height: 200px;
+}
+.container .student-activity-container .student-courses-container .student-course-container .student-course-picture-container {
+  width: 100%;
+  height: 90%;
+  border: 1px solid #EEEEEE;
+  border-radius: 10px;
+}
+.container .student-activity-container .student-courses-container .student-course-container .student-course-picture-container .student-course-picture {
+  width: 100%;
+  height: 100%;
+  border: 1px solid #EEEEEE;
+  border-radius: 10px;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.container .student-activity-container .student-courses-container .student-course-container .student-course-picture-container .student-course-title {
+  padding: 10px 0;
+  color: green;
+}
+.container .student-activity-container .student-courses-container .student-course-container .student-course-picture-container .student-course-title:hover {
+  text-decoration: underline;
+}
+.container .student-activity-container .student-courses-container .student-course-container .student-course-picture-container:hover {
+  box-shadow: 1px 1px 6px #EEEEEE;
+  cursor: pointer;
 }/*# sourceMappingURL=profile.css.map */

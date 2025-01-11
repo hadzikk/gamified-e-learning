@@ -1,33 +1,10 @@
 <?php
 
-use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Auth;
+use App\Models\Post;
+use App\Models\User;
+use App\Models\Option;
+use App\Models\Question;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\DosenController;
-use App\Http\Controllers\SessionController;
-use App\Http\Controllers\DosenDashController;
-
-
-Route::get('/login', [SessionController::class, 'index'])->name('login');// Mengarahkan ke halaman login
-Route::post('/login/submit',[SessionController::class,'login'])->name('login.submit');
-Route::post('/logout', [SessionController::class, 'logout'])->name('logout');
-
-Route::group(['middleware' => ['auth:admin']], function () {
-    Route::get('/AdminDash', [AdminController::class, 'index'])->name('AdminDashboard');
-    Route::get('/Datacreate', [UserController::class, 'create'])->name('Admincreate');
-    Route::post('/create-data', [UserController::class, 'store'])->name('store-data');
-    Route::get('/dataview', [AdminController::class, 'showUsers'])->name('Dataview');
-});
-
-Route::group(['middleware' => ['auth:dosen']], function () {
-    Route::get('/DosenDashboard', [DosenController::class, 'index'])->name('dosDash');
-});
-
-Route::group(['middleware' => ['auth:mahasiswa']], function(){
-
-});
 
 Route::get('/profile', function () {
     return view('profile', 
@@ -41,129 +18,22 @@ Route::get('/profile', function () {
     ]);
 });
 
+// mengalihkan ke halaman post mahasiswa
 Route::get('/post', function () {
-    return view('post', [
-        'tasks' => [
-            [
-                'id' => 1,
-                'lecturer' => 'Cahyo Prianto, S.Pd., M.T., CDSP, SFPC',
-                'subject' => 'literasi data',
-                'title' => 'array multidimensi',
-                'level' => 'basic',
-                'link' => ''
-            ],
-            [
-                'id' => 2,
-                'lecturer' => 'Syafrial Fachri Pane, ST. MTI, EBDP.CDSP, SFPC',
-                'subject' => 'metodologi penelitian',
-                'title' => 'systematic literature review - watase uake',
-                'level' => 'advance',
-                'link' => ''
-            ],
-            [
-                'id' => 3,
-                'lecturer' => 'Mohamad Nurkamal Fauzan, S.T., M.T., SFPC',
-                'subject' => 'algoritma',
-                'title' => 'bubble sort algorithm',
-                'level' => 'proficient',
-                'link' => ''
-            ],
-            [
-                'id' => 4,
-                'lecturer' => 'Syafrial Fachri Pane, ST. MTI, EBDP.CDSP, SFPC',
-                'subject' => 'basis data II / database II',
-                'title' => 'inner join',
-                'level' => 'proficient',
-                'link' => ''
-            ],
-            [
-                'id' => 5,
-                'lecturer' => 'Rd. Nuraini Siti Fathonah, S.S., M.Hum., SFPC',
-                'subject' => 'bahasa inggris',
-                'title' => 'comparative adjective',
-                'level' => 'advance',
-                'link' => ''
-            ]
-        ]
-    ]);
+    return view('post', ['posts' => Post::all()]); // mengambil semua data menggunakan method all dari class Post
 });
 
 Route::get('/review', function () {
     return view('review');
 });
 
-Route::get('/review/{id}', function ($id) {
-    $tasks = [
-        [
-            'id' => 1,
-            'lecturer' => 'Cahyo Prianto, S.Pd., M.T., CDSP, SFPC',
-            'subject' => 'literasi data',
-            'title' => 'array multidimensi',
-            'level' => 'basic',
-            'link' => ''
-        ],
-        [
-            'id' => 2,
-            'lecturer' => 'Syafrial Fachri Pane, ST. MTI, EBDP.CDSP, SFPC',
-            'subject' => 'metodologi penelitian',
-            'title' => 'systematic literature review - watase uake',
-            'level' => 'advance',
-            'link' => ''
-        ],
-        [
-            'id' => 3,
-            'lecturer' => 'Mohamad Nurkamal Fauzan, S.T., M.T., SFPC',
-            'subject' => 'algoritma',
-            'title' => 'bubble sort algorithm',
-            'level' => 'proficient',
-            'link' => ''
-        ],
-        [
-            'id' => 4,
-            'lecturer' => 'Syafrial Fachri Pane, ST. MTI, EBDP.CDSP, SFPC',
-            'subject' => 'basis data II / database II',
-            'title' => 'inner join',
-            'level' => 'proficient',
-            'link' => ''
-        ],
-        [
-            'id' => 5,
-            'lecturer' => 'Rd. Nuraini Siti Fathonah, S.S., M.Hum., SFPC',
-            'subject' => 'bahasa inggris',
-            'title' => 'comparative adjective',
-            'level' => 'advance',
-            'link' => ''
-        ]
-    ];
-
-    $task = Arr::first($tasks, function ($task) use ($id) {
-        return $task['id'] == $id;
-    });
-
+// mengalihkan ke halaman review
+// data ditampilkan berdasarkan id pada link post yang dikirim ke route
+Route::get('/review/{post:slug}', function (Post $post) {
     return view('review', [
-        'task' => $task,
-        'quizzes' => [
-            [
-                'id' => 1,
-                'question' => 'Apa tujuan utama dari algoritma Bubble Sort?',
-            ],
-            [
-                'id' => 2,
-                'question' => 'Bagaimana cara kerja algoritma Bubble Sort?',
-            ],
-            [
-                'id' => 3,
-                'question' => 'Berapa jumlah maksimum perbandingan yang dilakukan oleh Bubble Sort untuk mengurutkan array dengan n elemen?',
-            ],
-            [
-                'id' => 4,
-                'question' => 'Apa kompleksitas waktu terburuk dari algoritma Bubble Sort?',
-            ],
-            [
-                'id' => 5,
-                'question' => 'Bagaimana cara mengoptimalkan Bubble Sort untuk mengurangi jumlah iterasi yang tidak perlu?',
-            ],
-        ]
+        'post' => $post,
+        'questions' => Question::all(),
+        'options' => Option::all()
     ]);
 });
 
@@ -175,4 +45,8 @@ Route::get('/', function () {
     return view('welcome', [
         'title' => 'Welcome'
     ]);
+});
+
+Route::get('administrator/dashboard-mahasiswa', function () {
+    return view('administrator.dashboard_mahasiswa', ['users' => User::all()]);
 });
