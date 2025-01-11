@@ -15,7 +15,7 @@ Route::get('/profile', function () {
         'level' => 'basic',
         'profile_picture' => 'images/hadzik.jpeg',
         'description' => 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Enim?'
-    ]);
+    ])-> name('profile');
 });
 
 // mengalihkan ke halaman post mahasiswa
