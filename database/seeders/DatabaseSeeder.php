@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use App\Models\Post;
+use App\Models\Quiz;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -13,14 +15,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-
-        $this->call(DummyUserSeeder::class);
-        // User::factory(10)->create();
-
-        // User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
-        
+        $this->call(UserSeeder::class);   
+        $this->call(PostSeeder::class);   
+        $this->call(QuizSeeder::class);   
+        $this->call(QuestionSeeder::class);   
+        $this->call(OptionSeeder::class);   
     }
 }

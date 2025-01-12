@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Option;
 use App\Models\Question;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -17,12 +18,13 @@ class OptionFactory extends Factory
      */
     public function definition(): array
     {
-        $question = Question::factory()->create();  // Membuat Question terlebih dahulu
+        // Membuat atau mengambil instansi Question
+        $question = Question::factory()->create(); // Membuat Question baru, atau bisa menggunakan Question::first() untuk mengambil yang sudah ada
 
         return [
             'question_id' => $question->id,  // Relasi ke question yang sudah ada
-            'option_text' => fake()->sentence(5),  // Teks opsi (kalimat acak dengan 5 kata)
-            'is_correct' => fake()->boolean(),  // Menentukan apakah opsi ini benar
+            'option_text' => $this->faker->sentence(5),  // Teks opsi (kalimat acak dengan 5 kata)
+            'is_correct' => $this->faker->boolean(),  // Menentukan apakah opsi ini benar
             'created_at' => now(),
             'updated_at' => now(),
         ];

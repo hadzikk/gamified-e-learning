@@ -4,8 +4,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Post</title>
-    <link rel="stylesheet" href="{{ asset('css/post.scss') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="{{ asset('icons/fontawesome-free-6.5.2-web/css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/student/post.scss') }}">
 </head>
 <body>
     <div class="task-container">
@@ -35,6 +35,32 @@
             </div>
         </div>
         @endforeach
-    </div>
+        <!-- Pagination -->
+<div class="pagination">
+    @if ($posts->onFirstPage())
+        <span>Previous</span>
+    @else
+        <a href="{{ $posts->previousPageUrl() }}">Previous</a>
+    @endif
+
+    @foreach ($posts->getUrlRange(1, $posts->lastPage()) as $page => $url)
+        @if ($page == $posts->currentPage())
+            <span>{{ $page }}</span>
+        @else
+            <a href="{{ $url }}">{{ $page }}</a>
+        @endif
+    @endforeach
+
+    @if ($posts->hasMorePages())
+        <a href="{{ $posts->nextPageUrl() }}">Next</a>
+    @else
+        <span>Next</span>
+    @endif
+</div>
+
+<!-- Showing Results -->
+<div class="showing-results">
+    <p>Showing {{ $posts->firstItem() }} to {{ $posts->lastItem() }} of {{ $posts->total() }} results</p>
+</div>
 </body>
 </html>

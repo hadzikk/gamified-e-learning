@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('username')->unique(); // Menambahkan kolom username
             $table->string('first_name'); // Menambahkan kolom first_name
             $table->string('last_name'); // Menambahkan kolom last_name
+            $table->string('slug')->unique();
             $table->string('degree')->nullable(); // Kolom gelar untuk dosen
             $table->string('email')->unique(); // Kolom email tetap ada
             $table->string('password'); // Kolom password tetap ada

@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->string('subject');
             $table->string('title');
+            $table->string('description', 230)->nullable();
             $table->string('slug')->unique();  // Menambahkan kolom slug
             $table->enum('level', ['basic', 'advance', 'proficient']);
             $table->timestamps();

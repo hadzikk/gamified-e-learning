@@ -6,6 +6,6 @@
     <title>Welcome</title>
 </head>
 <body>
-    
+    <a href="/oa/account-security/login">get started</a>
 </body>
 </html>

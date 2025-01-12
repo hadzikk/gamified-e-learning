@@ -1,0 +1,280 @@
+@font-face {
+  font-family: "satoshi-black";
+  src: url("../fonts/satoshi/Fonts/OTF/Satoshi-Black.otf");
+}
+@font-face {
+  font-family: "passenger-sans-regular";
+  src: url("../fonts/passenger-sans/PassengerSans-Regular-BF63eaffd178ad9.otf");
+}
+@font-face {
+  font-family: "passenger-sans-light";
+  src: url("../fonts/passenger-sans/PassengerSans-Light-BF63eaffd28789a.otf");
+}
+@font-face {
+  font-family: "work-sans-black";
+  src: url("../fonts/work-sans/static/WorkSans-Black.ttf");
+}
+@font-face {
+  font-family: "typefesse-claire-obscure";
+  src: url("../fonts/typefesse-master/Fonts/1-otf/Typefesse_Claire-Obscure.otf");
+}
+@font-face {
+  font-family: "outward-borders";
+  src: url("../fonts/outward-master/fonts/ttf/outward-block.ttf");
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "passenger-sans-regular";
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: #ffffff;
+  padding: 40px;
+}
+
+.review {
+  width: 100%;
+}
+.review .review-title {
+  font-family: "satoshi-black";
+  font-size: 120px;
+  text-transform: uppercase;
+  margin: 100px 0;
+}
+.review .review-info {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  gap: 100px;
+}
+.review .review-info .review-details-container {
+  width: 50%;
+  height: 100%;
+}
+.review .review-info .review-details-container .review-detail-row {
+  border-bottom: 1px solid #eee;
+  height: -moz-fit-content;
+  height: fit-content;
+  padding: 25px 0;
+}
+.review .review-info .review-details-container .review-detail-row .review-row-title {
+  font-size: 20px;
+  text-transform: capitalize;
+  padding: 0 0 10px 0;
+}
+.review .review-info .review-details-container .review-detail-row .review-row-value {
+  font-size: 20px;
+  text-transform: capitalize;
+  color: gray;
+}
+.review .review-info .review-details-container .review-detail-row:nth-child(5) {
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 25px 0 0 0;
+  border: none;
+}
+.review .review-info .review-details-container .review-detail-row:nth-child(5) .review-row-title {
+  display: block;
+  text-decoration: none;
+  color: #000;
+}
+.review .review-info .review-details-container .review-detail-row:nth-child(5) .review-row-title .review-title-icon {
+  font-size: 12px;
+}
+.review .review-info .review-details-container .review-detail-row:nth-child(5):hover {
+  border-bottom: 1px solid #000;
+  cursor: pointer;
+}
+.review .review-info .review-details-container .review-link:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+.review .review-info .review-cover {
+  position: relative;
+  width: 50%;
+  height: 100%;
+  border-radius: 40px;
+}
+.review .review-info .review-cover .review-cover-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  color: #fff;
+}
+.review .review-info .review-cover .review-cover-overlay .review-overlay-content {
+  text-align: center;
+}
+.review .review-info .review-cover .review-cover-overlay .review-overlay-content .review-overlay-logo {
+  font-family: "outward-borders";
+  font-size: 12rem;
+  text-transform: capitalize;
+}
+.review .review-info .review-cover .review-cover-overlay .review-overlay-content .review-overlay-brandname {
+  font-size: 1.5rem;
+}
+.review .review-info .review-cover .review-cover-overlay .review-overlay-content .review-developers {
+  font-size: 12px;
+  padding: 300px 0 0 0;
+}
+.review .review-info .review-cover .review-picture {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  border-radius: 40px;
+}
+
+.--transform-none {
+  text-transform: none !important;
+}
+
+.quiz {
+  margin: 60px 0 0 0;
+  width: 100%;
+  font-size: 20px;
+  color: gray;
+  border-radius: 20px;
+}
+.quiz .quiz-questions-container {
+  width: 100%;
+  border-bottom: 1px solid #eee;
+}
+.quiz .quiz-questions-container .quiz-question {
+  padding: 10px 0;
+}
+.quiz .quiz-options-container {
+  width: 100%;
+  padding: 10px 0;
+}
+.quiz .quiz-options-container .quiz-options-wrapper {
+  width: 100%;
+  margin: 5px 0;
+  padding: 10px 0;
+}
+.quiz .quiz-options-container .quiz-options-wrapper .quiz-option-label {
+  font-family: "Times New Roman", Times, serif;
+  color: #2b2e4a;
+}
+
+.--unlocked {
+  color: #000;
+}
+
+.--locked {
+  color: gray;
+}
+
+.popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  transition: 500ms;
+  z-index: 10;
+}
+.popup .popup-content-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+}
+.popup .popup-content-container .popup-content {
+  width: 600px;
+  height: 100%;
+  background: #fff;
+  padding: 10px 20px;
+}
+.popup .popup-content-container .popup-content .popup-content-navigation {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.popup .popup-content-container .popup-content .popup-content-navigation .popup-content-status {
+  text-transform: capitalize;
+  color: gray;
+  padding: 5px 0;
+}
+.popup .popup-content-container .popup-content .popup-content-navigation .fa-xmark {
+  font-size: 20px;
+}
+.popup .popup-content-container .popup-content .popup-content-navigation .fa-xmark:hover {
+  cursor: pointer;
+}
+.popup .popup-content-container .popup-content .popup-content-details .popup-content-title {
+  font-family: "satoshi-black";
+  font-size: 2rem;
+  text-transform: uppercase;
+}
+.popup .popup-content-container .popup-content .popup-content-details .popup-content-lecturer {
+  padding: 10px 0;
+}
+.popup .popup-content-container .popup-content .popup-content-details .popup-content-info {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.popup .popup-content-container .popup-content .popup-content-details .popup-content-info .popup-content-level-container {
+  width: -moz-fit-content;
+  width: fit-content;
+  padding: 8px;
+  border-radius: 4px;
+  background: #000;
+  color: #fff;
+  text-transform: capitalize;
+}
+.popup .popup-content-container .popup-content .popup-content-details .popup-content-info .popup-content-level-container .popup-content-link {
+  color: #fff;
+  text-decoration: none;
+}
+.popup .popup-content-container .popup-content .popup-content-details .popup-content-info .popup-content-status {
+  display: inline-block;
+  text-transform: capitalize;
+  color: gray;
+}
+.popup .popup-content-container .popup-content .popup-content-details .popup-questions {
+  width: 100%;
+  height: 70%;
+  padding: 8px;
+  margin: 40px 0;
+  border-radius: 8px;
+  border: 1px solid #eee;
+  overflow-y: scroll;
+}
+.popup .popup-content-container .popup-content .popup-content-details .popup-questions .popup-quizzes-container {
+  width: 100%;
+  height: -moz-fit-content;
+  height: fit-content;
+}
+.popup .popup-content-container .popup-content .popup-content-details .popup-questions .popup-quizzes-container .popup-content-quizzes-container .popup-content-quiz-question-container {
+  border-bottom: 1px solid #eee;
+}
+.popup .popup-content-container .popup-content .popup-content-details .popup-questions .popup-quizzes-container .popup-content-quizzes-container .popup-content-quiz-question-container .popup-content-quiz-question {
+  padding: 5px 0;
+  color: gray;
+}
+
+.--appear {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.--hide {
+  opacity: 0;
+  pointer-events: none; /* Mencegah interaksi saat disembunyikan */
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}/*# sourceMappingURL=review.css.map */

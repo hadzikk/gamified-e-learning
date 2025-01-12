@@ -8,6 +8,8 @@ use Illuminate\View\Component;
 
 class Navigation extends Component
 {
+    /** @test */
+
     /**
      * Create a new component instance.
      */
