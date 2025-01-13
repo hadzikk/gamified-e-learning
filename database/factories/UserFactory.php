@@ -23,26 +23,18 @@ class UserFactory extends Factory
      */
     public function definition(): array
     {
-        $degree = fake()->randomElement(
-            [
-                'S. Tr Kom, ',
-                'A.Md.Kom'
-            ]
-        );
-
         return [
-            'profile_picture' => null,  // Menambahkan foto profil yang dapat null
-            'username' => fake()->unique()->userName(),  // Username yang unik
-            'first_name' => fake()->firstName(),  // Nama depan mahasiswa
-            'last_name' => fake()->lastName(),  // Nama belakang mahasiswa
-            'degree' => $degree,  // Gelar kosong, hanya dosen yang memiliki gelar
-            'email' => fake()->unique()->safeEmail(),  // Email yang unik
-            'password' => static::$password ??= Hash::make('password'),  // Password default
-            'role' => 'dosen',  // Role mahasiswa
-            'score' => fake()->numberBetween(0, 100),  // Skor mahasiswa
-            'remember_token' => Str::random(10),  // Token untuk "remember me"
-            'created_at' => now(),
-            'updated_at' => now(),
+            'profile_picture' => $this->faker->imageUrl(),
+            'username' => $this->faker->unique()->userName,
+            'first_name' => $this->faker->firstName,
+            'last_name' => $this->faker->lastName,
+            'slug' => $this->faker->unique()->slug,
+            'degree' => $this->faker->randomElement(['Dr.', 'Prof.', 'M.Sc.']),
+            'email' => $this->faker->unique()->safeEmail,
+            'password' => bcrypt('password'), // default password
+            'role' => $this->faker->randomElement(['admin', 'mahasiswa', 'dosen']),
+            'score' => $this->faker->numberBetween(0, 100),
+            'remember_token' => Str::random(10),
         ];
     }
 

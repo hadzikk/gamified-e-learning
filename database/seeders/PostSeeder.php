@@ -23,5 +23,27 @@ class PostSeeder extends Seeder
                 'level' => 'proficient'
             ]
         );
+
+        Post::create(
+            [
+                'user_id' => 4,
+                'subject' => 'metodologi penelitian',
+                'title' => 'systmatic literature review',
+                'description' => 'lorem ipsum dolor sit amet adispiscing elit.',
+                'slug' => 'metodologi-penelitian',
+                'level' => 'advance'
+            ]
+        );
+
+        Post::create(
+            [
+                'user_id' => 5,
+                'subject' => 'bahasa inggris',
+                'title' => 'comparative adjective',
+                'description' => 'lorem ipsum dolor sit amet adispiscing elit.',
+                'slug' => 'comparative-adjective',
+                'level' => 'basic'
+            ]
+        );
     }
 }

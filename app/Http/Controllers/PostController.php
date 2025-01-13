@@ -33,11 +33,4 @@ class PostController extends Controller
             'quiz' => $quiz
         ]);
     }
-
-    // CRUD
-    // create
-    public function store() {
-        return view('lecturer.build');
-    }
-
 }

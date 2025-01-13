@@ -1,44 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1736658744">
-  <project timestamp="1736658744">
+<coverage generated="1736731218">
+  <project timestamp="1736731218">
     <package name="App\Http\Controllers">
-      <file name="D:\Hadzik Mochamad Sofyan\gamified-e-learning\app\Http\Controllers\Controller.php">
+      <file name="D:\Arsip Tugas Kuliah\Semester 3\Proyek II\gamified-e-learning\app\Http\Controllers\Controller.php">
         <class name="App\Http\Controllers\Controller" namespace="App\Http\Controllers">
           <metrics complexity="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
         </class>
         <metrics loc="9" ncloc="8" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
       </file>
-      <file name="D:\Hadzik Mochamad Sofyan\gamified-e-learning\app\Http\Controllers\OpenAccess.php">
+      <file name="D:\Arsip Tugas Kuliah\Semester 3\Proyek II\gamified-e-learning\app\Http\Controllers\OpenAccess.php">
         <class name="App\Http\Controllers\OpenAccess" namespace="App\Http\Controllers">
-          <metrics complexity="1" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="0" elements="2" coveredelements="0"/>
+          <metrics complexity="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
         </class>
-        <line num="9" type="method" name="index" visibility="public" complexity="1" crap="2" count="0"/>
-        <line num="10" type="stmt" count="0"/>
-        <metrics loc="13" ncloc="13" classes="1" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="0" elements="2" coveredelements="0"/>
+        <line num="9" type="method" name="index" visibility="public" complexity="1" crap="1" count="1"/>
+        <line num="10" type="stmt" count="1"/>
+        <metrics loc="13" ncloc="13" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
       </file>
-      <file name="D:\Hadzik Mochamad Sofyan\gamified-e-learning\app\Http\Controllers\PostController.php">
+      <file name="D:\Arsip Tugas Kuliah\Semester 3\Proyek II\gamified-e-learning\app\Http\Controllers\PostController.php">
         <class name="App\Http\Controllers\PostController" namespace="App\Http\Controllers">
-          <metrics complexity="4" methods="4" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="12" coveredstatements="0" elements="16" coveredelements="0"/>
+          <metrics complexity="4" methods="4" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="12" coveredstatements="12" elements="16" coveredelements="16"/>
         </class>
-        <line num="13" type="method" name="posted" visibility="public" complexity="1" crap="2" count="0"/>
-        <line num="15" type="stmt" count="0"/>
-        <line num="16" type="stmt" count="0"/>
-        <line num="17" type="stmt" count="0"/>
-        <line num="21" type="method" name="all" visibility="public" complexity="1" crap="2" count="0"/>
-        <line num="22" type="stmt" count="0"/>
-        <line num="23" type="stmt" count="0"/>
-        <line num="27" type="method" name="review" visibility="public" complexity="1" crap="2" count="0"/>
-        <line num="28" type="stmt" count="0"/>
-        <line num="29" type="stmt" count="0"/>
-        <line num="31" type="stmt" count="0"/>
-        <line num="32" type="stmt" count="0"/>
-        <line num="33" type="stmt" count="0"/>
-        <line num="34" type="stmt" count="0"/>
-        <line num="39" type="method" name="store" visibility="public" complexity="1" crap="2" count="0"/>
-        <line num="40" type="stmt" count="0"/>
-        <metrics loc="44" ncloc="39" classes="1" methods="4" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="12" coveredstatements="0" elements="16" coveredelements="0"/>
+        <line num="13" type="method" name="posted" visibility="public" complexity="1" crap="1" count="1"/>
+        <line num="15" type="stmt" count="1"/>
+        <line num="16" type="stmt" count="1"/>
+        <line num="17" type="stmt" count="1"/>
+        <line num="21" type="method" name="all" visibility="public" complexity="1" crap="1" count="1"/>
+        <line num="22" type="stmt" count="1"/>
+        <line num="23" type="stmt" count="1"/>
+        <line num="27" type="method" name="review" visibility="public" complexity="1" crap="1" count="1"/>
+        <line num="28" type="stmt" count="1"/>
+        <line num="29" type="stmt" count="1"/>
+        <line num="31" type="stmt" count="1"/>
+        <line num="32" type="stmt" count="1"/>
+        <line num="33" type="stmt" count="1"/>
+        <line num="34" type="stmt" count="1"/>
+        <line num="39" type="method" name="store" visibility="public" complexity="1" crap="1" count="1"/>
+        <line num="40" type="stmt" count="1"/>
+        <metrics loc="44" ncloc="39" classes="1" methods="4" coveredmethods="4" conditionals="0" coveredconditionals="0" statements="12" coveredstatements="12" elements="16" coveredelements="16"/>
       </file>
-      <file name="D:\Hadzik Mochamad Sofyan\gamified-e-learning\app\Http\Controllers\UserController.php">
+      <file name="D:\Arsip Tugas Kuliah\Semester 3\Proyek II\gamified-e-learning\app\Http\Controllers\UserController.php">
         <class name="App\Http\Controllers\UserController" namespace="App\Http\Controllers">
           <metrics complexity="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
         </class>
@@ -48,102 +48,100 @@
       </file>
     </package>
     <package name="App\Models">
-      <file name="D:\Hadzik Mochamad Sofyan\gamified-e-learning\app\Models\Option.php">
+      <file name="D:\Arsip Tugas Kuliah\Semester 3\Proyek II\gamified-e-learning\app\Models\Option.php">
         <class name="App\Models\Option" namespace="App\Models">
-          <metrics complexity="1" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="0" elements="2" coveredelements="0"/>
+          <metrics complexity="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
         </class>
-        <line num="14" type="method" name="question" visibility="public" complexity="1" crap="2" count="0"/>
-        <line num="16" type="stmt" count="0"/>
-        <metrics loc="20" ncloc="19" classes="1" methods="1" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="0" elements="2" coveredelements="0"/>
+        <line num="14" type="method" name="question" visibility="public" complexity="1" crap="1" count="1"/>
+        <line num="16" type="stmt" count="1"/>
+        <metrics loc="20" ncloc="19" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
       </file>
-      <file name="D:\Hadzik Mochamad Sofyan\gamified-e-learning\app\Models\Post.php">
+      <file name="D:\Arsip Tugas Kuliah\Semester 3\Proyek II\gamified-e-learning\app\Models\Post.php">
         <class name="App\Models\Post" namespace="App\Models">
-          <metrics complexity="2" methods="2" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="4" coveredstatements="3" elements="6" coveredelements="4"/>
+          <metrics complexity="2" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="4" coveredstatements="4" elements="6" coveredelements="6"/>
         </class>
-        <line num="18" type="method" name="user" visibility="public" complexity="1" crap="2" count="0"/>
-        <line num="20" type="stmt" count="0"/>
-        <line num="24" type="method" name="booted" visibility="protected" complexity="1" crap="1" count="2"/>
-        <line num="26" type="stmt" count="2"/>
-        <line num="28" type="stmt" count="2"/>
-        <line num="29" type="stmt" count="2"/>
-        <metrics loc="32" ncloc="29" classes="1" methods="2" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="4" coveredstatements="3" elements="6" coveredelements="4"/>
+        <line num="18" type="method" name="user" visibility="public" complexity="1" crap="1" count="5"/>
+        <line num="20" type="stmt" count="5"/>
+        <line num="24" type="method" name="booted" visibility="protected" complexity="1" crap="1" count="18"/>
+        <line num="26" type="stmt" count="18"/>
+        <line num="28" type="stmt" count="18"/>
+        <line num="29" type="stmt" count="18"/>
+        <metrics loc="32" ncloc="29" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="4" coveredstatements="4" elements="6" coveredelements="6"/>
       </file>
-      <file name="D:\Hadzik Mochamad Sofyan\gamified-e-learning\app\Models\Question.php">
+      <file name="D:\Arsip Tugas Kuliah\Semester 3\Proyek II\gamified-e-learning\app\Models\Question.php">
         <class name="App\Models\Question" namespace="App\Models">
           <metrics complexity="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
         </class>
-        <line num="13" type="method" name="options" visibility="public" complexity="1" crap="1" count="1"/>
-        <line num="15" type="stmt" count="1"/>
+        <line num="13" type="method" name="options" visibility="public" complexity="1" crap="1" count="2"/>
+        <line num="15" type="stmt" count="2"/>
         <metrics loc="17" ncloc="17" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
       </file>
-      <file name="D:\Hadzik Mochamad Sofyan\gamified-e-learning\app\Models\Quiz.php">
+      <file name="D:\Arsip Tugas Kuliah\Semester 3\Proyek II\gamified-e-learning\app\Models\Quiz.php">
         <class name="App\Models\Quiz" namespace="App\Models">
-          <metrics complexity="3" methods="3" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="3" elements="8" coveredelements="4"/>
+          <metrics complexity="3" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="5" elements="8" coveredelements="8"/>
         </class>
         <line num="15" type="method" name="users" visibility="public" complexity="1" crap="1" count="1"/>
         <line num="17" type="stmt" count="1"/>
         <line num="18" type="stmt" count="1"/>
         <line num="19" type="stmt" count="1"/>
-        <line num="22" type="method" name="post" visibility="public" complexity="1" crap="2" count="0"/>
-        <line num="24" type="stmt" count="0"/>
-        <line num="27" type="method" name="questions" visibility="public" complexity="1" crap="2" count="0"/>
-        <line num="29" type="stmt" count="0"/>
-        <metrics loc="31" ncloc="31" classes="1" methods="3" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="3" elements="8" coveredelements="4"/>
+        <line num="22" type="method" name="post" visibility="public" complexity="1" crap="1" count="1"/>
+        <line num="24" type="stmt" count="1"/>
+        <line num="27" type="method" name="questions" visibility="public" complexity="1" crap="1" count="2"/>
+        <line num="29" type="stmt" count="2"/>
+        <metrics loc="31" ncloc="31" classes="1" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="5" elements="8" coveredelements="8"/>
       </file>
-      <file name="D:\Hadzik Mochamad Sofyan\gamified-e-learning\app\Models\QuizResult.php">
+      <file name="D:\Arsip Tugas Kuliah\Semester 3\Proyek II\gamified-e-learning\app\Models\QuizResult.php">
         <class name="App\Models\QuizResult" namespace="App\Models">
-          <metrics complexity="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+          <metrics complexity="2" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="4" coveredelements="4"/>
         </class>
-        <metrics loc="12" ncloc="12" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+        <line num="14" type="method" name="user" visibility="public" complexity="1" crap="1" count="2"/>
+        <line num="16" type="stmt" count="2"/>
+        <line num="19" type="method" name="quiz" visibility="public" complexity="1" crap="1" count="1"/>
+        <line num="21" type="stmt" count="1"/>
+        <metrics loc="23" ncloc="23" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="4" coveredelements="4"/>
       </file>
-      <file name="D:\Hadzik Mochamad Sofyan\gamified-e-learning\app\Models\QuizUser.php">
+      <file name="D:\Arsip Tugas Kuliah\Semester 3\Proyek II\gamified-e-learning\app\Models\QuizUser.php">
         <class name="App\Models\QuizUser" namespace="App\Models">
-          <metrics complexity="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+          <metrics complexity="2" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="4" coveredelements="4"/>
         </class>
-        <metrics loc="11" ncloc="10" classes="0" methods="0" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="0" coveredstatements="0" elements="0" coveredelements="0"/>
+        <line num="15" type="method" name="user" visibility="public" complexity="1" crap="1" count="1"/>
+        <line num="17" type="stmt" count="1"/>
+        <line num="20" type="method" name="quiz" visibility="public" complexity="1" crap="1" count="1"/>
+        <line num="22" type="stmt" count="1"/>
+        <metrics loc="24" ncloc="24" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="4" coveredelements="4"/>
       </file>
-      <file name="D:\Hadzik Mochamad Sofyan\gamified-e-learning\app\Models\User.php">
+      <file name="D:\Arsip Tugas Kuliah\Semester 3\Proyek II\gamified-e-learning\app\Models\User.php">
         <class name="App\Models\User" namespace="App\Models">
-          <metrics complexity="5" methods="5" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="16" coveredstatements="10" elements="21" coveredelements="11"/>
+          <metrics complexity="5" methods="5" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="6" coveredstatements="2" elements="11" coveredelements="4"/>
         </class>
-        <line num="47" type="method" name="casts" visibility="protected" complexity="1" crap="1" count="2"/>
-        <line num="49" type="stmt" count="2"/>
-        <line num="50" type="stmt" count="2"/>
-        <line num="51" type="stmt" count="2"/>
-        <line num="52" type="stmt" count="2"/>
-        <line num="56" type="method" name="quizzes" visibility="public" complexity="1" crap="2" count="0"/>
-        <line num="58" type="stmt" count="0"/>
-        <line num="59" type="stmt" count="0"/>
-        <line num="60" type="stmt" count="0"/>
-        <line num="63" type="method" name="posts" visibility="public" complexity="1" crap="2" count="0"/>
-        <line num="65" type="stmt" count="0"/>
-        <line num="68" type="method" name="quiz_users" visibility="public" complexity="1" crap="2" count="0"/>
-        <line num="70" type="stmt" count="0"/>
-        <line num="73" type="method" name="boot" visibility="protected" complexity="1" crap="1.00" count="2"/>
-        <line num="75" type="stmt" count="2"/>
-        <line num="77" type="stmt" count="2"/>
-        <line num="78" type="stmt" count="2"/>
-        <line num="79" type="stmt" count="2"/>
-        <line num="81" type="stmt" count="2"/>
-        <line num="82" type="stmt" count="0"/>
-        <line num="83" type="stmt" count="2"/>
-        <metrics loc="86" ncloc="68" classes="1" methods="5" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="16" coveredstatements="10" elements="21" coveredelements="11"/>
+        <line num="57" type="method" name="posts" visibility="public" complexity="1" crap="1" count="1"/>
+        <line num="59" type="stmt" count="1"/>
+        <line num="67" type="method" name="quiz_user" visibility="public" complexity="1" crap="2" count="0"/>
+        <line num="69" type="stmt" count="0"/>
+        <line num="77" type="method" name="quizUsers" visibility="public" complexity="1" crap="1" count="1"/>
+        <line num="79" type="stmt" count="1"/>
+        <line num="82" type="method" name="quiz_result" visibility="public" complexity="1" crap="2" count="0"/>
+        <line num="84" type="stmt" count="0"/>
+        <line num="92" type="method" name="quizzes" visibility="public" complexity="1" crap="2" count="0"/>
+        <line num="94" type="stmt" count="0"/>
+        <line num="95" type="stmt" count="0"/>
+        <metrics loc="98" ncloc="60" classes="1" methods="5" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="6" coveredstatements="2" elements="11" coveredelements="4"/>
       </file>
     </package>
     <package name="App\Providers">
-      <file name="D:\Hadzik Mochamad Sofyan\gamified-e-learning\app\Providers\AppServiceProvider.php">
+      <file name="D:\Arsip Tugas Kuliah\Semester 3\Proyek II\gamified-e-learning\app\Providers\AppServiceProvider.php">
         <class name="App\Providers\AppServiceProvider" namespace="App\Providers">
           <metrics complexity="2" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="4" coveredelements="4"/>
         </class>
-        <line num="13" type="method" name="register" visibility="public" complexity="1" crap="1" count="5"/>
-        <line num="16" type="stmt" count="5"/>
-        <line num="21" type="method" name="boot" visibility="public" complexity="1" crap="1" count="5"/>
-        <line num="23" type="stmt" count="5"/>
+        <line num="13" type="method" name="register" visibility="public" complexity="1" crap="1" count="24"/>
+        <line num="16" type="stmt" count="24"/>
+        <line num="21" type="method" name="boot" visibility="public" complexity="1" crap="1" count="24"/>
+        <line num="23" type="stmt" count="24"/>
         <metrics loc="26" ncloc="19" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="4" coveredelements="4"/>
       </file>
     </package>
     <package name="App\View\Components\administrator">
-      <file name="D:\Hadzik Mochamad Sofyan\gamified-e-learning\app\View\Components\administrator\Navigation.php">
+      <file name="D:\Arsip Tugas Kuliah\Semester 3\Proyek II\gamified-e-learning\app\View\Components\administrator\Navigation.php">
         <class name="App\View\Components\administrator\Navigation" namespace="App\View\Components\administrator">
           <metrics complexity="2" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="4" coveredelements="4"/>
         </class>
@@ -154,6 +152,6 @@
         <metrics loc="29" ncloc="21" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="4" coveredelements="4"/>
       </file>
     </package>
-    <metrics files="13" loc="356" ncloc="303" classes="10" methods="22" coveredmethods="9" conditionals="0" coveredconditionals="0" statements="45" coveredstatements="22" elements="67" coveredelements="31"/>
+    <metrics files="13" loc="392" ncloc="320" classes="12" methods="26" coveredmethods="23" conditionals="0" coveredconditionals="0" statements="39" coveredstatements="35" elements="65" coveredelements="58"/>
   </project>
 </coverage>

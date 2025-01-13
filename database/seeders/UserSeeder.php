@@ -44,13 +44,39 @@ class UserSeeder extends Seeder
             'username' => 'mnurkamal',
             'first_name' => 'mohamad',
             'last_name' => 'nurkamal fauzan',
-            'degree' => 'S.T., M.T., SFPC',
+            'degree' => ', S.T., M.T., SFPC',
             'email' => 'm.nurkamal.f@ulbi.ac.id', 
             'password' => bcrypt('rahasiapakkamal'),
             'role' => 'dosen',
             'score' => 0,
             'remember_token' => Str::random(10),
             'slug' => Str::slug('mohamad nurkamal fauzan')
+        ]);
+
+        User::create([
+            'username' => 'syafrialpane',
+            'first_name' => 'syafrial fachri',
+            'last_name' => 'pane',
+            'degree' => ', ST. MTI,EBDP.CDSP,SFPC',
+            'email' => ' syafrial.fachri@ulbi.ac.id', 
+            'password' => bcrypt('rahasiapakfachrie'),
+            'role' => 'dosen',
+            'score' => 0,
+            'remember_token' => Str::random(10),
+            'slug' => Str::slug('syafrial fachri pane')
+        ]);
+
+        User::create([
+            'username' => 'nurainisf',
+            'first_name' => 'rd. nuraini',
+            'last_name' => 'siti fathonah',
+            'degree' => ', S.S., M.Hum., SFPC',
+            'email' => ' nurainisf@ulbi.ac.id', 
+            'password' => bcrypt('rahasiamissnur'),
+            'role' => 'dosen',
+            'score' => 0,
+            'remember_token' => Str::random(10),
+            'slug' => Str::slug('rd nuraini siti fathonah')
         ]);
     }
 }

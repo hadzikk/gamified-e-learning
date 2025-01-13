@@ -17,16 +17,12 @@ class QuizFactory extends Factory
      */
     public function definition(): array
     {
-        $post = Post::factory()->create();
-
         return [
-            'post_id' => $post->id,  // Relasi ke post yang sudah ada
-            'title' => $post->title,  // Mengambil title dari Post (optional jika ingin berbeda)
-            'level' => $post->level,  // Mengambil level dari Post
-            'deadline' => now()->addDays(fake()->numberBetween(1, 7)),  // Deadline dalam rentang 1-7 hari ke depan
-            'penalty' => fake()->numberBetween(1, 10),  // Pengurangan skor (opsional, bisa diubah sesuai kebijakan)
-            'created_at' => now(),
-            'updated_at' => now(),
+            'post_id' => Post::factory(),
+            'title' => $this->faker->sentence,
+            'level' => $this->faker->randomElement(['basic', 'intermediate', 'proficient']),
+            'deadline' => $this->faker->dateTimeBetween('now', '+1 month'),
+            'penalty' => $this->faker->numberBetween(0, 10),
         ];
     }
 }
