@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 // Controller User
 Route::get('/', [UserController::class, 'index']); // Welcome
 Route::get('oa/account-security/login', [OpenAccess::class, 'index']); // Login User
+Route::post('/oa/account-security/login', [OpenAccess::class, 'authenticate']);
 
 // Controller Admin
 Route::get('/administrator/{id}/data', [UserController::class, 'showAllUsers']);

@@ -1,0 +1,190 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+
+@font-face {
+    font-family: 'Satoshi-Black';
+    src: url('../../fonts/satoshi/Fonts/OTF/Satoshi-Black.otf');
+}
+
+@font-face {
+    font-family: 'PassengerSans-Regular';
+    src: url('../../fonts/passenger-sans/PassengerSans-Regular-BF63eaffd178ad9.otf');
+}
+
+* {
+    margin: 0; padding: 0;
+    box-sizing: border-box;
+    font-family: 'PassengerSans-Regular';
+}
+
+.login-container {
+    width: 100%;
+    height: 100vh;
+    padding: 0 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 60px;
+
+        .login-content-wrapper {
+            width: 50%;
+
+            .login-link-container {
+                position: relative;
+                transition: 500ms;
+                width: 15%;
+
+                .login-link-back {
+                    text-decoration: none;
+                    color: #000;
+                    font-size: 1.2rem;
+                    padding: 0 20px;
+                    transition: 500ms;
+                    width: 100;
+                }
+            }
+
+            .login-link-container:hover {
+
+                .login-link-back {
+                    padding: 0;
+                }
+            }
+
+            .login-form {
+                width: 100%;
+
+                .login-title {
+                    font-family: 'Satoshi-Black';
+                    font-size: 3rem;
+                    margin: 30px 0;
+                }
+
+                .login-description {
+                    margin: 20px 0;
+                    font-size: 1rem;
+                }
+
+                .login-textbox-container {
+                    width: 75%;
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+                    padding: 10px 15px;
+                    border: 1px solid #eee;
+                    border-radius: 4px;
+                    margin: 10px 0;
+                    transition: border 500ms ease-in-out;
+
+                    .login-textbox-icon {
+                        font-size: 1rem;
+                        color: gray;
+                    }
+
+                    .login-textbox-input {
+                        border: none;
+                        outline: none !important;
+                        width: 100%;
+                        font-size: 1rem;
+                        background: #fff !important;
+                    }
+                }
+
+                .button-submit {
+                    background: #fff;
+                    outline: none;
+                    border: 1px solid #000;
+                    color: #000;
+                    border-radius: 4px;
+                    padding: 10px;
+                    width: 15%;
+                    margin: 10px 0;
+                    transition: 500ms;
+                    font-size: 1rem;
+                }
+
+                .button-submit:hover {
+                    background: #000;
+                    color: #fff;
+                    cursor: pointer;
+                    font-weight: bold;
+                    text-decoration: underline;
+                }
+            }
+        }
+
+        .login-content-wrapper:nth-child(2) {
+            width: 50%;
+            height: 80%;
+
+            .login-image-container {
+                width: 100%;
+                height: 100%;
+                border-radius: 4px;
+
+            .login-image-cover {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-radius: 4px;
+            }
+        }
+    }
+}
+
+.--border-black {
+    border: 1.5px solid #000 !important;
+}
+
+.--color-black {
+    color: #000 !important;
+}
+
+.--invalid-feedback {
+    font-size: 14px;
+    color: #e91e63;
+    padding: 0 15px;
+}
+
+.--hide {
+    transition: 500ms ease-in-out;
+    opacity: 0;
+    display: none;
+}
+
+.popup-authentication-status {
+    position: fixed;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    border-radius: 4px;
+    padding: 5px 0;
+
+    .popup-status-message {
+        width: 200px;
+        display: flex;
+        gap: 30px;
+        justify-content: end;
+        align-items: center;
+        padding: 10px 20px;
+        border: 1px solid #eee;
+        text-align: center;
+        opacity: 1;
+        transition: 1000ms ease-in-out;
+        background: #fff;
+
+        .close {
+            cursor: pointer;
+        }
+    }
+}
+
+.footer {
+    width: 100%;
+    height: 600px;
+    padding: 40px 20px;
+    background: #f4f5f6;
+    color: #2b2e4a;
+    font-family: "Open Sans", serif !important;
+}
