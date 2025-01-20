@@ -5,9 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Post</title>
     <link rel="stylesheet" href="{{ asset('icons/fontawesome-free-6.5.2-web/css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/components/student/navbar.scss') }}">
     <link rel="stylesheet" href="{{ asset('css/student/post.scss') }}">
 </head>
 <body>
+    <x-student.navbar></x-student.navbar>
     <div class="task-container">
         @foreach ($posts as $post)
         <div class="task-post">
@@ -62,5 +64,8 @@
 <div class="showing-results">
     <p>Showing {{ $posts->firstItem() }} to {{ $posts->lastItem() }} of {{ $posts->total() }} results</p>
 </div>
+
+<script src="{{ asset('js/event.js') }}"></script>
+
 </body>
 </html>
