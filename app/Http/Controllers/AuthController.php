@@ -24,11 +24,11 @@ class AuthController extends Controller
             // Cek role pengguna
             $user = Auth::user();
             switch ($user->role) {
-                case 'admin':
+                case 'administrator':
                     return redirect()->intended('/administrator/' . $user->id . '/data');
-                case 'dosen':
+                case 'lecturer':
                     return redirect()->intended('/lecturer/dashboard/create');
-                case 'mahasiswa':
+                case 'student':
                     return redirect()->intended('/student/post');
                 default:
                     Auth::logout();
