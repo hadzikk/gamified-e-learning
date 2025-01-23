@@ -6,6 +6,7 @@
     <title>Login</title>
     <link rel="stylesheet" href="{{ asset('icons/fontawesome-free-6.5.2-web/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/auth/login.scss') }}">
+    <link rel="stylesheet" href="{{ asset('css/components/global/footer.scss') }}">
 </head>
 <body>
     <div class="login-container">
@@ -48,6 +49,8 @@
         </div>
     </div>
     @endif
+
+    <x-global.footer></x-global.footer>
 
     <script src="{{ asset('js/event.js') }}"></script>
 </body>

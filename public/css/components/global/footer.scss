@@ -1,0 +1,99 @@
+@font-face {
+    font-family: 'WorkSans-Regular';
+    src: url('../../../fonts/work-sans/static/WorkSans-Regular.ttf');
+}
+
+* {
+    margin: 0; padding: 0;
+    box-sizing: border-box;
+}
+
+.footer {
+    width: 100%;
+    padding: 60px 30px;
+    border: 1px solid #eee;
+
+    .footer-content {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        gap: 60px;
+
+        .footer-box:nth-child(1) {
+            width: 40%;
+            height: 200px;
+
+            .footer-video-wrapper {
+                width: 100%;
+                height: 100%;
+
+                .footer-video {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    border-radius: 8px;
+                }
+            }
+        }
+
+        .footer-box:nth-child(2) {
+            width: 77%;
+            display: flex;
+            justify-content: space-between;
+            padding: 20px 60px 20px 0;
+            border-top: 1px solid #eee;
+
+            .list-container {
+
+                .list-title {
+                    font-size: 1.1rem;
+                    font-weight: bold;
+                    font-family: 'Satoshi-Black';
+                    text-transform: uppercase;
+                    margin: 0 0 10px 0;
+                }
+
+                .list {
+                    margin: 5px 0;
+                    list-style: none;
+
+                    .link {
+                        font-family: 'WorkSans-Regular';
+                        text-decoration: none;
+                        color: #000;
+                        text-transform: uppercase;
+                    }
+                }
+            }
+        }
+    }
+
+    .socials {
+        width: 100%;
+        border-bottom: 1px solid #eee;
+        padding: 0 0 20px 0;
+
+        .socials-list-container {
+
+            .social-list {
+                display: inline-block;
+                list-style: none;
+                margin: 20px 10px;
+
+                .social-link {
+                    font-size: 1.3rem;
+                    color: #000;
+                }
+            }
+        }
+
+        .socials-author-list {
+            list-style: none;
+
+            .author-list {
+                list-style: none;
+                font-family: 'WorkSans-Regular';
+            }
+        }
+    }
+}

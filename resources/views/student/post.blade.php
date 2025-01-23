@@ -6,6 +6,7 @@
     <title>Post</title>
     <link rel="stylesheet" href="{{ asset('icons/fontawesome-free-6.5.2-web/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/components/student/navbar.scss') }}">
+    <link rel="stylesheet" href="{{ asset('css/components/global/footer.scss') }}">
     <link rel="stylesheet" href="{{ asset('css/student/post.scss') }}">
 </head>
 <body>
@@ -64,6 +65,8 @@
 <div class="showing-results">
     <p>Showing {{ $posts->firstItem() }} to {{ $posts->lastItem() }} of {{ $posts->total() }} results</p>
 </div>
+
+<x-global.footer></x-global.footer>
 
 <script src="{{ asset('js/event.js') }}"></script>
 

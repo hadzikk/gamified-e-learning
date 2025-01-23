@@ -6,6 +6,7 @@
     <title>Review</title>
     <link rel="stylesheet" href="{{ asset('icons/fontawesome-free-6.5.2-web/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/student/review.scss') }}">
+    <link rel="stylesheet" href="{{ asset('css/components/global/footer.scss') }}">
 </head>
 <body>
     <div class="review">
@@ -112,6 +113,7 @@
             </div>
         </div>
     </div>
+    <x-global.footer></x-global.footer>
 
     <script src="{{ asset('js/event.js') }}"></script>
 </body>

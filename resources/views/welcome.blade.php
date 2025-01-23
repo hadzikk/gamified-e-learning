@@ -5,13 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Welcome</title>
     <link rel="stylesheet" href="{{ asset('css/components/global/navbar.scss') }}">
+    <link rel="stylesheet" href="{{ asset('css/components/global/footer.scss') }}">
     <link rel="stylesheet" href="{{ asset('icons/fontawesome-free-6.5.2-web/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('css/welcome/welcome.scss') }}">
 </head>
 <body>
     <x-global.navbar></x-global.navbar>
     <div class="hero-section">
-        <p class="hero-title">hi, selamat datang</p>
+        <p class="hero-title">Belajar Jadi Lebih Menyenangkan dengan Gamifikasi</p>
     </div>
     <div class="levels-container">
         <p class="level-text">Mulai dari Basic, Taklukkan Advance, dan Jadilah Proficient!</p>
@@ -59,5 +60,6 @@
             <p class="get-started-text">gamified e-learning</p>
         </div>
     </div>
+    <x-global.footer></x-global.footer>
 </body>
 </html>

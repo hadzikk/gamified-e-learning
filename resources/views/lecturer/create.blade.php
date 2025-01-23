@@ -6,6 +6,7 @@
         <title>Create</title>
         <link rel="stylesheet" href="{{ asset('icons/fontawesome-free-6.5.2-web/css/all.min.css') }}">
         <link rel="stylesheet" href="{{ asset('css/lecturer/create.scss') }}">
+        <link rel="stylesheet" href="{{ asset('css/components/global/footer.scss') }}">
     </head>
     <body>
         <form action="/lecturer/dashboard/create" method="post">
@@ -67,6 +68,7 @@
             </div>
         </div>
     </form>
+    <x-global.footer></x-global.footer>
 
     <script src="{{ asset('js/event.js') }}"></script>
 </body>
