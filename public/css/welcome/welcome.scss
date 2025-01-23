@@ -1,0 +1,189 @@
+@font-face {
+    font-family: 'Satoshi-Black';
+    src: url('../../fonts/satoshi/Fonts/OTF/Satoshi-Black.otf');
+}
+
+@font-face {
+    font-family: 'WorkSans-Black';
+    src: url('../../fonts/work-sans/static/WorkSans-Black.ttf');
+}
+
+@font-face {
+    font-family: 'PassengerSans-Regular';
+    src: url('../../fonts/passenger-sans/PassengerSans-Regular-BF63eaffd178ad9.otf');
+}
+
+* {
+    margin: 0; padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+.levels-container {
+    width: 100%;
+    height: fit-content;
+    padding: 40px 80px;
+    background: #000;
+    margin: 40px 0;
+
+    .level-text {
+        font-size: 6rem;
+        font-family: 'Satoshi-Black';
+        color: #fff;
+        font-weight: bold;
+        text-transform: uppercase;
+        margin: 0 0 220px 0;
+    }
+
+    .level-cards {
+        width: 100%;
+        height: 600px;
+        display: flex;
+        justify-content: center;
+        gap: 60px;
+        margin: 200px 0 0 0;
+
+        .level-card {
+            position: relative;
+            width: 300px;
+            height: 100%;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 10px;
+            transition: 1000ms ease-in-out;
+            overflow: hidden;
+
+            .level-cover {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: 0;
+                border-radius: 8px;
+                opacity: 0;
+            }
+
+            .level-title {
+                position: absolute;
+                padding: 20px;
+                top: 0;
+                left: 0;
+                color: grey;
+                text-transform: capitalize;
+                opacity: 0;
+                z-index: 30;
+            }
+
+            .level-icon-container {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 10;
+
+                .icon {
+                    font-size: 9rem;
+                    color: grey;
+                }
+            }
+        }
+
+        .level-card:hover {
+
+            .level-cover {
+                opacity: 1;
+            }
+            
+            .level-title {
+                opacity: 1;
+                color: #fff;
+            }
+
+            .icon {
+                color: #fff;
+            }
+        }
+    }
+
+    .level-additional-information {
+        width: 50%;
+        margin: 100px 0 0 0;
+        
+        .level-additional-title {
+            color: #fff;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-family: 'Satoshi-Black';
+            margin: 5px 0;
+        }
+
+        .level-additional-description {
+            color: #fff;
+            text-align: justify;
+            font-family: 'PassengerSans-Regular';
+        }
+    }
+}
+
+.get-started {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 40px;
+    gap: 20px;
+
+    .get-started-box {
+        width: 100%;
+
+        .get-started-description {
+        }
+
+        .get-started-container {
+            width: 100%;
+            height: 75%;
+            display: flex;
+            align-items: center;
+
+            .get-started-button {
+                padding: 10px 20px;
+                background: #fff;
+                border-radius: 4px;
+                font-family: 'Satoshi-Black';
+                text-transform: uppercase;
+
+                .get-started-link {
+                    color: #000;
+                    text-decoration: underline;
+                }
+
+            }
+
+            .get-started-button:hover {
+                background: #000;
+
+                .get-started-link {
+                    color: #fff;
+                    font-weight: bold;
+                    text-decoration: none;
+                    box-shadow: 1px 1px 5px #000;
+                }
+            }
+        }
+
+        .get-started-text {
+            font-family: 'Satoshi-Black';
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 5.5rem;
+        }
+    }
+}

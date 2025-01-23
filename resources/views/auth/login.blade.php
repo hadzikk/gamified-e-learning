@@ -49,10 +49,6 @@
     </div>
     @endif
 
-    <footer class="footer">
-        <p>&copy; 2025 Your Company Name. All rights reserved.</p>
-    </footer>
-
     <script src="{{ asset('js/event.js') }}"></script>
 </body>
 </html>

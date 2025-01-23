@@ -12,6 +12,9 @@ class Quiz extends Model
 {
     use HasFactory;
 
+    protected $table = 'quizzes';
+    protected $fillable = ['post_id'];
+
     public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'quiz_user')
