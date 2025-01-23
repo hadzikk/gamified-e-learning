@@ -10,6 +10,7 @@
 </head>
 <body>
     <div class="review">
+        <a class="link-back" href="{{ url()->previous() }}"><i class="fa-solid fa-arrow-left-long"></i></a>
         <p class="review-title">{{ $post['title'] }}</p>
         <div class="review-info">
             <div class="review-details-container">

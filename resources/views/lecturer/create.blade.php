@@ -9,6 +9,7 @@
         <link rel="stylesheet" href="{{ asset('css/components/global/footer.scss') }}">
     </head>
     <body>
+        <a class="link-back" href="{{ url()->previous() }}"><i class="fa-solid fa-arrow-left-long"></i></a>
         <form action="/lecturer/dashboard/create" method="post">
         @csrf
         <p class="title">membuat postingan kuis</p>

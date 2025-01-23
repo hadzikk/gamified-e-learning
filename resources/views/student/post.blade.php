@@ -39,7 +39,7 @@
         </div>
         @endforeach
         <!-- Pagination -->
-<div class="pagination">
+    <div class="pagination">
     @if ($posts->onFirstPage())
         <span>Previous</span>
     @else
@@ -65,6 +65,7 @@
 <div class="showing-results">
     <p>Showing {{ $posts->firstItem() }} to {{ $posts->lastItem() }} of {{ $posts->total() }} results</p>
 </div>
+    </div>
 
 <x-global.footer></x-global.footer>
 

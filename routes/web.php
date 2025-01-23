@@ -14,6 +14,7 @@ Route::post('/oa/account-security/logout', [AuthController::class, 'logout']);
 
 // Controller Lecturer
 Route::prefix('lecturer')->group(function () {
+    Route::get('/dashboard', [LecturerController::class, 'index']);
     Route::get('/dashboard/create', [LecturerController::class, 'create']);
     Route::post('/dashboard/create', [PostController::class, 'store']); // Automatically maps CRUD
 });

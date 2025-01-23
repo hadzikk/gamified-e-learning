@@ -71,8 +71,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Handle logout logic
   function handleLogout() {
-      const logoutLink = document.querySelector('.profile-navigation-list a[href="#"]'); // Assuming the 'keluar' link has href="#"
-      const logoutForm = document.querySelector('.profile-navigation-wrapper form');
+      const logoutLink = document.getElementById('logout'); // Assuming the 'keluar' link has href="#"
+      const logoutForm = document.querySelector('.logout-wrapper form');
 
       if (logoutLink && logoutForm) {
           logoutLink.addEventListener('click', (event) => {

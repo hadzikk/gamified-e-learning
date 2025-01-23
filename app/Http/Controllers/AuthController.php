@@ -27,7 +27,7 @@ class AuthController extends Controller
                 case 'administrator':
                     return redirect()->intended('/administrator/' . $user->id . '/data');
                 case 'lecturer':
-                    return redirect()->intended('/lecturer/dashboard/create');
+                    return redirect()->intended('/lecturer/dashboard');
                 case 'student':
                     return redirect()->intended('/student/post');
                 default:
