@@ -21,7 +21,7 @@ class UserSeeder extends Seeder
             'degree' => null,
             'email' => 'hadzikmochammad@gmail.com', 
             'password' => bcrypt('rahasiahadzik'),
-            'role' => 'mahasiswa',
+            'role' => 'student',
             'score' => 70,
             'remember_token' => Str::random(10),
             'slug' => Str::slug('hadzik mochamad sofyan')
@@ -34,7 +34,7 @@ class UserSeeder extends Seeder
             'degree' => null,
             'email' => 'muflihafif@gmail.com', 
             'password' => bcrypt('rahasiaafif'),
-            'role' => 'admin',
+            'role' => 'administrator',
             'score' => 0,
             'remember_token' => Str::random(10),
             'slug' => Str::slug('muflih afif mukhtalif')
@@ -47,7 +47,7 @@ class UserSeeder extends Seeder
             'degree' => ', S.T., M.T., SFPC',
             'email' => 'm.nurkamal.f@ulbi.ac.id', 
             'password' => bcrypt('rahasiapakkamal'),
-            'role' => 'dosen',
+            'role' => 'lecturer',
             'score' => 0,
             'remember_token' => Str::random(10),
             'slug' => Str::slug('mohamad nurkamal fauzan')
@@ -60,7 +60,7 @@ class UserSeeder extends Seeder
             'degree' => ', ST. MTI,EBDP.CDSP,SFPC',
             'email' => ' syafrial.fachri@ulbi.ac.id', 
             'password' => bcrypt('rahasiapakfachrie'),
-            'role' => 'dosen',
+            'role' => 'lecturer',
             'score' => 0,
             'remember_token' => Str::random(10),
             'slug' => Str::slug('syafrial fachri pane')
@@ -73,7 +73,7 @@ class UserSeeder extends Seeder
             'degree' => ', S.S., M.Hum., SFPC',
             'email' => ' nurainisf@ulbi.ac.id', 
             'password' => bcrypt('rahasiamissnur'),
-            'role' => 'dosen',
+            'role' => 'lecturer',
             'score' => 0,
             'remember_token' => Str::random(10),
             'slug' => Str::slug('rd nuraini siti fathonah')

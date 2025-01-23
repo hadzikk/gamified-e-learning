@@ -40,17 +40,17 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-        'admin' => [
+        'administrator' => [
             'driver' => 'session',
-            'provider' => 'admin',
+            'provider' => 'administrator',
         ],
-        'mahasiswa' => [
+        'student' => [
             'driver' => 'session',
-            'provider' => 'mahasiswa',
+            'provider' => 'student',
         ],
-        'dosen' => [
+        'lecturer' => [
             'driver' => 'session',
-            'provider' => 'dosen',
+            'provider' => 'lecturer',
         ],
     ],
 
@@ -77,17 +77,17 @@ return [
             'model' => env('AUTH_MODEL', App\Models\User::class),
             
         ],
-        'admin' => [
+        'administrator' => [
             'driver' => 'eloquent',
             'model' =>  App\Models\User::class,
             
         ],
-        'mahasiswa' => [
+        'student' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
             
         ],
-        'dosen' => [
+        'lecturer' => [
             'driver' => 'eloquent',
             'model' => App\Models\User::class,
             
