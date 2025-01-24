@@ -16,10 +16,8 @@ class QuizSeeder extends Seeder
         Quiz::create(
             [
                 'post_id' => 1,
-                'title' => 'Bubble Sort Algorithm',
-                'level' => 'proficient',
                 'deadline' => '2025-01-13 17:29:44',
-                'penalty' => 40
+                'penalty' => 10
             ]
         );
     }

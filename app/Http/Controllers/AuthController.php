@@ -25,7 +25,7 @@ class AuthController extends Controller
             $user = Auth::user();
             switch ($user->role) {
                 case 'administrator':
-                    return redirect()->intended('/administrator/' . $user->id . '/data');
+                    return redirect()->intended('/administrator/dashboard');
                 case 'lecturer':
                     return redirect()->intended('/lecturer/dashboard');
                 case 'student':

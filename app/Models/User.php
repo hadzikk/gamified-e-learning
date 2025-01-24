@@ -94,4 +94,9 @@ class User extends Authenticatable
         return $this->belongsToMany(Quiz::class, 'quiz_user')
                     ->withPivot('enrolled_at', 'completed_at', 'score');
     }
+
+    public function quiz()
+    {
+        return $this->belongsToMany(Quiz::class)->withTimestamps();
+    }
 }

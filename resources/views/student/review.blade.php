@@ -50,27 +50,31 @@
     <div class="quiz {{ true ? '--unlocked' : '--locked' }}">
         @if (true) <!-- Gantilah dengan kondisi sesuai kebutuhan, misal apakah pengguna sudah mendaftar kuis -->
             @foreach ($quiz as $quizItem)
-                @foreach ($quizItem->questions as $question)
-                    <div class="quiz-questions-container">
-                        <p class="quiz-question">{{ $question->question_text }}</p>
-                    </div>
-    
-                    @if (true) <!-- Gantilah dengan kondisi apakah opsi ditampilkan -->
-                        <div class="quiz-options-container">
-                            @foreach ($question->options as $option)
-                                <div class="quiz-options-wrapper">
-                                    <input class="quiz-option" type="radio" name="question_{{ $question->id }}" id="option_{{ $option->id }}">
-                                    <label class="quiz-option-label" for="option_{{ $option->id }}">{{ $option->option_text }}</label>
-                                </div>
-                            @endforeach
+                <form action="{{ route('quizzes.submit', $quizItem->id) }}" method="POST">
+                    @csrf
+                    @foreach ($quizItem->questions as $question)
+                        <div class="quiz-questions-container">
+                            <p class="quiz-question">{{ $question->question_text }}</p>
                         </div>
-                    @endif
-                @endforeach
+    
+                        @if (true) <!-- Gantilah dengan kondisi apakah opsi ditampilkan -->
+                            <div class="quiz-options-container">
+                                @foreach ($question->options as $option)
+                                    <div class="quiz-options-wrapper">
+                                        <input class="quiz-option" type="radio" name="question_{{ $question->id }}" value="{{ $option->id }}" id="option_{{ $option->id }}">
+                                        <label class="quiz-option-label" for="option_{{ $option->id }}">{{ $option->option_text }}</label>
+                                    </div>
+                                @endforeach
+                            </div>
+                        @endif
+                    @endforeach
+                    <button type="submit" class="quiz-submit">Submit Jawaban</button>
+                </form>
             @endforeach
         @else
             <p class="quiz-question">Soal kuiz akan muncul disini ketika telah mendaftar kuis.</p>
         @endif
-    </div>        
+    </div>
 
     <div class="popup --hide" id="popupEnrollment">
         <div class="popup-content-container">
@@ -85,15 +89,12 @@
                     <p style="text-transform: capitalize; color: gray;" class="popup-content-lecturer">{{ $post->user->first_name }} {{ $post->user->last_name }} <span style="text-transform: capitalize;">{{ $post->user->degree }}</p>
                     <div class="popup-content-info">
                         <div class="popup-content-level-container">
-                            {{-- <span class="popup-content-level">{{ $post['level'] }}</span>
-                            @if ($post['level'] == 'basic')
-                            <i class="fa-regular fa-chess-pawn"></i>
-                            @elseif ($post['level'] == 'advance')
-                            <i class="fa-regular fa-chess-knight"></i>
-                            @else
-                            <i class="fa-regular fa-chess-queen"></i>
-                            @endif --}}
-                            <a class="popup-content-link" href="">enroll kuis</a>
+                            @foreach ($quiz as $quizItem)
+    <form action="{{ route('quizzes.enroll', $quizItem->id) }}" method="POST">
+        @csrf
+        <button type="submit" class="popup-content-link">Enroll kuis</button>
+    </form>                             
+                    @endforeach          
                         </div>
                     </div>
                     <div class="popup-questions">

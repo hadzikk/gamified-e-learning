@@ -58,7 +58,7 @@ class PostController extends Controller
 
         // Simpan post
         $post = Post::create([
-            'user_id' => auth()->id(), // Ambil user_id dari pengguna yang sedang login
+            'user_id' => $request->user_id, // Ambil user_id dari pengguna yang sedang login
             'subject' => $request->subject,
             'title' => $request->title,
             'description' => $request->description,
@@ -66,10 +66,9 @@ class PostController extends Controller
             'level' => $request->level,
         ]);
 
-        // Simpan kuis terkait post
+        // Simpan kuis terkait post tanpa title
         $quiz = Quiz::create([
             'post_id' => $post->id, // Relasi ke post yang sudah ada
-            'title' => $request->title, // Judul kuis sama dengan judul post
             'level' => $request->level,
             'penalty' => $penalty, // Set penalty sesuai level
             'deadline' => $request->deadline,
@@ -95,7 +94,4 @@ class PostController extends Controller
 
         return redirect()->back()->with('success', 'Postingan kuis berhasil dibuat!');
     }
-
-
-
 }

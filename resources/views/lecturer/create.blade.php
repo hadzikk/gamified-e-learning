@@ -55,6 +55,7 @@
             </div>
 
             <div class="post-input-items">
+                <input name="user_id" type="hidden" value="{{ Auth::user()->id }}">
                 <button class="button-submit" type="submit">selesai dan posting</button>
             </div>
 

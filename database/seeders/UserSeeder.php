@@ -52,31 +52,5 @@ class UserSeeder extends Seeder
             'remember_token' => Str::random(10),
             'slug' => Str::slug('mohamad nurkamal fauzan')
         ]);
-
-        User::create([
-            'username' => 'syafrialpane',
-            'first_name' => 'syafrial fachri',
-            'last_name' => 'pane',
-            'degree' => ', ST. MTI,EBDP.CDSP,SFPC',
-            'email' => ' syafrial.fachri@ulbi.ac.id', 
-            'password' => bcrypt('rahasiapakfachrie'),
-            'role' => 'lecturer',
-            'score' => 0,
-            'remember_token' => Str::random(10),
-            'slug' => Str::slug('syafrial fachri pane')
-        ]);
-
-        User::create([
-            'username' => 'nurainisf',
-            'first_name' => 'rd. nuraini',
-            'last_name' => 'siti fathonah',
-            'degree' => ', S.S., M.Hum., SFPC',
-            'email' => ' nurainisf@ulbi.ac.id', 
-            'password' => bcrypt('rahasiamissnur'),
-            'role' => 'lecturer',
-            'score' => 0,
-            'remember_token' => Str::random(10),
-            'slug' => Str::slug('rd nuraini siti fathonah')
-        ]);
     }
 }
