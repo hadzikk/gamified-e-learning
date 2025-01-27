@@ -10,7 +10,7 @@
 </head>
 <body>
     <div class="review">
-        <a class="link-back" href="{{ url()->previous() }}"><i class="fa-solid fa-arrow-left-long"></i></a>
+        <a class="link-back" href="/student/post"><i class="fa-solid fa-arrow-left-long"></i></a>
         <p class="review-title">{{ $post['title'] }}</p>
         <div class="review-info">
             <div class="review-details-container">
@@ -35,29 +35,23 @@
                 </div>
             </div>
             <div class="review-cover">
-                <div class="review-cover-overlay">
-                    <div class="review-overlay-content">
-                        {{-- <p class="review-overlay-logo">gamified elearning</p>
-                        <p class="review-overlay-brandname">Gamified Elearning</p>
-                        <p class="review-developers">&copy; Copyright Hadzik Mochamad Sofyan & Muflih Afif Mukhtalif All Rights</p> --}}
-                    </div>
-                </div>
                 <img class="review-picture" src="{{ asset('images/vintage colorful phone wallpaper.jpg') }}" alt="">
             </div>
         </div>
     </div>
 
-    <div class="quiz {{ true ? '--unlocked' : '--locked' }}">
-        @if (true) <!-- Gantilah dengan kondisi sesuai kebutuhan, misal apakah pengguna sudah mendaftar kuis -->
-            @foreach ($quiz as $quizItem)
-                <form action="{{ route('quizzes.submit', $quizItem->id) }}" method="POST">
-                    @csrf
-                    @foreach ($quizItem->questions as $question)
-                        <div class="quiz-questions-container">
-                            <p class="quiz-question">{{ $question->question_text }}</p>
-                        </div>
+    <div class="quiz-container">
+        @foreach ($quiz as $quizItem)
+            <div class="quiz {{ in_array($quizItem->id, $enrolledQuizIds) ? '--unlocked' : '--locked' }}">
+                @if (in_array($quizItem->id, $enrolledQuizIds))
+                    <p class="quiz-title">{{ $quizItem->title }}</p>
+                    <form action="{{ route('quizzes.submit', $quizItem->id) }}" method="POST">
+                        @csrf
+                        @foreach ($quizItem->questions as $question)
+                            <div class="quiz-questions-container">
+                                <p class="quiz-question">{{ $question->question_text }}</p>
+                            </div>
     
-                        @if (true) <!-- Gantilah dengan kondisi apakah opsi ditampilkan -->
                             <div class="quiz-options-container">
                                 @foreach ($question->options as $option)
                                     <div class="quiz-options-wrapper">
@@ -66,36 +60,39 @@
                                     </div>
                                 @endforeach
                             </div>
-                        @endif
-                    @endforeach
-                    <button type="submit" class="quiz-submit">Submit Jawaban</button>
-                </form>
-            @endforeach
-        @else
-            <p class="quiz-question">Soal kuiz akan muncul disini ketika telah mendaftar kuis.</p>
-        @endif
-    </div>
+                        @endforeach
+                        <button type="submit" class="quiz-submit">Submit Jawaban</button>
+                    </form>
+                @else
+                    <p class="quiz-message">Anda belum mendaftar ke kuis ini.</p>
+                    <form action="{{ route('quizzes.enroll', $quizItem->id) }}" method="POST">
+                        @csrf
+                        <button type="submit" class="quiz-enroll-button">Daftar Kuis</button>
+                    </form>
+                @endif
+            </div>
+        @endforeach
+    </div>    
 
     <div class="popup --hide" id="popupEnrollment">
         <div class="popup-content-container">
             <div class="popup-content">
                 <div class="popup-content-navigation">
                     <p></p>
-                    {{-- <span class="popup-content-status">kuis belum diambil</span> --}}
                     <i class="fa-solid fa-xmark" id="closePopupEnrollment"></i>
                 </div>
                 <div class="popup-content-details">
                     <p class="popup-content-title">{{ $post['title'] }}</p>
                     <p style="text-transform: capitalize; color: gray;" class="popup-content-lecturer">{{ $post->user->first_name }} {{ $post->user->last_name }} <span style="text-transform: capitalize;">{{ $post->user->degree }}</p>
                     <div class="popup-content-info">
-                        <div class="popup-content-level-container">
+                        <div class="popup-enrollment-container">
                             @foreach ($quiz as $quizItem)
-    <form action="{{ route('quizzes.enroll', $quizItem->id) }}" method="POST">
-        @csrf
-        <button type="submit" class="popup-content-link">Enroll kuis</button>
-    </form>                             
-                    @endforeach          
-                        </div>
+                                <form class="form-enroll" action="{{ route('quizzes.enroll', $quizItem->id) }}" method="POST">
+                                    @csrf
+                                    <button type="submit" class="button-enroll">Enroll kuis</button>
+                                </form>
+                            @endforeach
+                        </div>                        
                     </div>
                     <div class="popup-questions">
                         <div class="popup-quizzes-container">

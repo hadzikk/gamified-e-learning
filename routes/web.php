@@ -16,7 +16,7 @@ Route::post('/oa/account-security/logout', [AuthController::class, 'logout']);
 
 // Controller Administartor
 Route::prefix('administrator')->group(function () {
-    Route::get('/dashboard/home', [AdministratorController::class, 'index'])->name('admistrator.home');
+    Route::get('/dashboard/home', [AdministratorController::class, 'index'])->name('administrator.home');
     Route::get('/dashboard/registrating/student', [AdministratorController::class, 'studentIndex']);
     Route::post('dashboard/registrating/student', [AdministratorController::class, 'store']);
     Route::get('/dashboard/registrating/lecturer', [AdministratorController::class, 'lecturerIndex']);

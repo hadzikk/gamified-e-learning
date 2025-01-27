@@ -13,12 +13,12 @@ class QuizSeeder extends Seeder
      */
     public function run(): void
     {
-        Quiz::create(
-            [
-                'post_id' => 1,
-                'deadline' => '2025-01-13 17:29:44',
-                'penalty' => 10
-            ]
-        );
+        // Quiz::create(
+        //     [
+        //         'post_id' => 1,
+        //         'deadline' => '2025-01-13 17:29:44',
+        //         'penalty' => 10
+        //     ]
+        // );
     }
 }

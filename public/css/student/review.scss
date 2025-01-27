@@ -264,13 +264,25 @@ body {
                     gap: 10px;
                     align-items: center;
 
-                    .popup-content-level-container {
+                    .popup-enrollment-container {
                         width: fit-content;
                         padding: 8px;
                         border-radius: 4px;
                         background: #000;
                         color: #fff;
                         text-transform: capitalize;
+
+                        .form-enroll {
+
+                            .button-enroll {
+                                padding: 5px;
+                                border: none;
+                                background: #000;
+                                color: #fff;
+                                outline: none;
+                                cursor: pointer;
+                            }
+                        }
 
                         .popup-content-link {
                             color: #fff;

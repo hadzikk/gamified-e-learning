@@ -23,8 +23,7 @@ class UserSeeder extends Seeder
             'password' => bcrypt('rahasiahadzik'),
             'role' => 'student',
             'score' => 70,
-            'remember_token' => Str::random(10),
-            'slug' => Str::slug('hadzik mochamad sofyan')
+            'remember_token' => Str::random(10)
         ]);
 
         User::create([
@@ -36,8 +35,7 @@ class UserSeeder extends Seeder
             'password' => bcrypt('rahasiaafif'),
             'role' => 'administrator',
             'score' => 0,
-            'remember_token' => Str::random(10),
-            'slug' => Str::slug('muflih afif mukhtalif')
+            'remember_token' => Str::random(10)
         ]);
 
         User::create([
@@ -49,8 +47,7 @@ class UserSeeder extends Seeder
             'password' => bcrypt('rahasiapakkamal'),
             'role' => 'lecturer',
             'score' => 0,
-            'remember_token' => Str::random(10),
-            'slug' => Str::slug('mohamad nurkamal fauzan')
+            'remember_token' => Str::random(10)
         ]);
     }
 }

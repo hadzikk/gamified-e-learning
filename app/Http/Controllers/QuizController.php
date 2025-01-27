@@ -6,29 +6,37 @@ use App\Models\Quiz;
 use App\Models\QuizResult;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class QuizController extends Controller
 {
     // Fungsi untuk mendaftar ke kuis
-    public function enroll($quizId)
-    {
+    public function enroll($quizId) {
         $user = Auth::user(); // Ambil user yang sedang login
         $quiz = Quiz::findOrFail($quizId); // Cari kuis berdasarkan ID
 
         // Cek apakah user sudah enroll sebelumnya
-        $isEnrolled = $user->quizzes->contains('quiz_id', $quizId);
+        $isEnrolled = DB::table('quiz_user')
+            ->where('quiz_id', $quizId)
+            ->where('user_id', $user->id)
+            ->exists();
+
         if ($isEnrolled) {
             return redirect()->back()->with('error', 'You are already enrolled in this quiz.');
         }
 
-        // Tambahkan data ke tabel pivot (quiz_user)
-        $user->quizzes->attach($quizId, [
+        // Tambahkan data ke tabel pivot
+        DB::table('quiz_user')->insert([
+            'quiz_id' => $quizId,
+            'user_id' => $user->id,
             'enrolled_at' => now(),
         ]);
 
         return redirect()->back()->with('success', 'You have successfully enrolled in the quiz!');
     }
+
+
 
     // Fungsi untuk submit kuis dan menghitung skor
     public function submitQuiz(Request $request, Quiz $quiz)

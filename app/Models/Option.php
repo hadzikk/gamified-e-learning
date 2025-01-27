@@ -10,11 +10,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Option extends Model
 {
     use HasFactory;
+    protected $fillable = ['question_id', 'option_text', 'is_correct'];
 
     public function question(): BelongsTo
     {
         return $this->belongsTo(Question::class);
     }
-
-    // Remove the quiz() method if it's not needed
 }

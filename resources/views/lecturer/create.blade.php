@@ -9,7 +9,7 @@
         <link rel="stylesheet" href="{{ asset('css/components/global/footer.scss') }}">
     </head>
     <body>
-        <a class="link-back" href="{{ url()->previous() }}"><i class="fa-solid fa-arrow-left-long"></i></a>
+        <a class="link-back" href="/lecturer/dashboard"><i class="fa-solid fa-arrow-left-long"></i></a>
         <form action="/lecturer/dashboard/create" method="post">
         @csrf
         <p class="title">membuat postingan kuis</p>
@@ -18,21 +18,21 @@
                 <div class="post-input-items">
                 <p class="post-input-title">topik</p>
                 <div class="post-input-textbox">
-                    <input class="post-input" type="text" name="subject" placeholder="Masukkan topik, subjek atau mata kuliah...">
+                    <input class="post-input" type="text" name="subject" placeholder="Masukkan topik, subjek atau mata kuliah..." required>
                 </div>
             </div>
 
             <div class="post-input-items">
                 <p class="post-input-title">judul</p>
                 <div class="post-input-textbox">
-                    <input class="post-input" type="text" name="title" placeholder="Masukkan judul...">
+                    <input class="post-input" type="text" name="title" placeholder="Masukkan judul..." required>
                 </div>
             </div>
             
             <div class="post-input-items">
                 <p class="post-input-title">level</p>
                 <div class="post-input-textbox --border-none">
-                    <select class="post-select" name="level" id="">
+                    <select class="post-select" name="level" id="" required>
                         <option class="post-option" value="basic">basic</option>
                         <option class="post-option" value="advance">advance</option>
                         <option class="post-option" value="proficient">proficient</option>
@@ -51,7 +51,7 @@
             </div>
             <div class="post-input-items">
                 <p class="post-input-title">tenggat waktu</p>
-                <input class="post-datetime-local" name="deadline" type="datetime-local">
+                <input class="post-datetime-local" name="deadline" type="datetime-local" required>
             </div>
 
             <div class="post-input-items">

@@ -177,7 +177,7 @@
                             display: none;
                         }
                     }
-                    
+
                     .quiz-question:hover {
 
                         .remove-question {
@@ -199,6 +199,17 @@
                             border: none;
                             outline: none;
                             font-size: 14px;
+                        }
+
+                        .remove-option {
+                            display: none;
+                        }
+                    }
+
+                    .quiz-option:hover {
+
+                        .remove-option {
+                            display: inline;
                         }
                     }
                 }

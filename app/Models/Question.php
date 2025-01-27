@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Question extends Model
 {
     use HasFactory;
+    
+    protected $fillable = ['quiz_id', 'question_text'];
 
     public function options(): HasMany
     {

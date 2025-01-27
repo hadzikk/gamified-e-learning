@@ -13,7 +13,7 @@ class Quiz extends Model
     use HasFactory;
 
     protected $table = 'quizzes';
-    protected $fillable = ['post_id'];
+    protected $fillable = ['post_id', 'penalty', 'deadline'];
 
     public function users(): BelongsToMany
     {

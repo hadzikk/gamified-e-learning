@@ -9,6 +9,8 @@ use App\Models\Option;
 use App\Models\Question;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -20,20 +22,32 @@ class PostController extends Controller
     }
 
     // Menampilkan pratinjau post di halaman mahasiswa
-    public function review(Post $post) 
-    {
+    public function review(Post $post) {
         $post = $post->load('user');
+
+        // Ambil data kuis terkait dengan post
         $quiz = Quiz::with(['questions.options'])->where('post_id', $post->id)->get();
+
+        // Ambil user yang sedang login
+        $user = Auth::user();
+
+        // Buat array untuk menandai kuis yang sudah di-enroll
+        $enrolledQuizIds = $user->quizzes->pluck('id')->toArray();
 
         return view('student.review', [
             'post' => $post,
-            'quiz' => $quiz
+            'quiz' => $quiz,
+            'enrolledQuizIds' => $enrolledQuizIds, // Kirim ID kuis yang sudah di-enroll
         ]);
     }
 
+
     // Menyimpan postingan kuis
     public function store(Request $request)
-    {
+{
+    DB::beginTransaction(); // Mulai transaksi
+
+    try {
         // Validasi input
         $request->validate([
             'subject' => 'required|string|max:255',
@@ -43,18 +57,16 @@ class PostController extends Controller
             'deadline' => 'nullable|date',
             'questions.*.question_text' => 'required|string',
             'questions.*.options.*.option_text' => 'required|string',
-            'questions.*.options.*.is_correct' => 'required|boolean',
+            'questions.*.options.*.is_correct' => 'boolean',
         ]);
 
         // Tentukan penalty berdasarkan level
-        $penalty = 0;
-        if ($request->level === 'basic') {
-            $penalty = 30;
-        } elseif ($request->level === 'advance') {
-            $penalty = 20;
-        } elseif ($request->level === 'proficient') {
-            $penalty = 10;
-        }
+        $penalty = match ($request->level) {
+            'basic' => 30,
+            'advance' => 20,
+            'proficient' => 10,
+            default => 0,
+        };
 
         // Simpan post
         $post = Post::create([
@@ -66,11 +78,10 @@ class PostController extends Controller
             'level' => $request->level,
         ]);
 
-        // Simpan kuis terkait post tanpa title
+        // Simpan kuis terkait post
         $quiz = Quiz::create([
-            'post_id' => $post->id, // Relasi ke post yang sudah ada
-            'level' => $request->level,
-            'penalty' => $penalty, // Set penalty sesuai level
+            'post_id' => $post->id,
+            'penalty' => $penalty,
             'deadline' => $request->deadline,
         ]);
 
@@ -86,12 +97,17 @@ class PostController extends Controller
                     Option::create([
                         'question_id' => $question->id,
                         'option_text' => $optionData['option_text'],
-                        'is_correct' => $optionData['is_correct'],
+                        'is_correct' => $optionData['is_correct'] ?? false,
                     ]);
                 }
             }
         }
 
+        DB::commit(); // Simpan transaksi
         return redirect()->back()->with('success', 'Postingan kuis berhasil dibuat!');
+    } catch (\Exception $e) {
+        DB::rollBack(); // Batalkan transaksi jika ada error
+        return redirect()->back()->withErrors(['error' => $e->getMessage()]);
     }
+}
 }

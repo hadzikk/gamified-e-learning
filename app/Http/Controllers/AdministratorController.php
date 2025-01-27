@@ -22,8 +22,8 @@ class AdministratorController extends Controller
         return view('administrator.lecturer');
     }
     
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
+        // Validasi data yang diterima dari form
         $validatedData = $request->validate([
             'username' => 'required|string|max:255|unique:users',
             'first_name' => 'required|string|max:255',
@@ -31,22 +31,33 @@ class AdministratorController extends Controller
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8',
             'degree' => 'nullable|string|max:255',
-            'score' => 'nullable|integer|min:0',
+            'profile_picture' => 'nullable|image|mimes:jpg,png,jpeg|max:2048', // Validasi untuk gambar (opsional)
+            'role' => 'required|in:administrator,lecturer,student', // Validasi role agar hanya menerima nilai yang sesuai
+            'score' => 'nullable|integer|min:0', // Validasi score (opsional)
         ]);
 
-        User::create([
-            'username' => $validatedData['username'],
-            'first_name' => $validatedData['first_name'],
-            'last_name' => $validatedData['last_name'],
-            'degree' => $validatedData['degree'],
-            'email' => $validatedData['email'],
-            'password' => bcrypt($validatedData['password']),  // Menggunakan bcrypt untuk hashing password
-            'role' => 'student',
-            'score' => $validatedData['score'] ?? 0,
-            'remember_token' => Str::random(10),
-            'slug' => Str::slug($validatedData['first_name'] . ' ' . $validatedData['last_name']),
-        ]);
+        // Proses penyimpanan data ke database
+        $user = new User();
+        $user->username = $validatedData['username'];
+        $user->first_name = $validatedData['first_name'];
+        $user->last_name = $validatedData['last_name'];
+        $user->degree = $validatedData['degree'];
+        $user->email = $validatedData['email'];
+        $user->password = bcrypt($validatedData['password']); // Hashing password
+        $user->role = $validatedData['role'];
+        $user->score = $validatedData['score'] ?? 0;
 
-        return redirect()->route('admistrator.home')->with('success', 'Student registered successfully!');
+        // Jika ada profile_picture, simpan filenya
+        if ($request->hasFile('profile_picture')) {
+            $file = $request->file('profile_picture');
+            $filePath = $file->store('profile_pictures', 'public'); // Simpan file ke folder public/profile_pictures
+            $user->profile_picture = $filePath;
+        }
+
+        $user->remember_token = Str::random(10); // Token remember me
+        $user->save(); // Simpan data ke database
+
+        // Redirect ke halaman tertentu dengan pesan sukses
+        return redirect()->route('administrator.home')->with('success', 'User registered successfully!');
     }
 }

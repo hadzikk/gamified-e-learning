@@ -26,6 +26,7 @@
                 </div>
                 <form class="form" action="/administrator/dashboard/registrating/student" method="post">
                     @csrf
+                    <input type="hidden" name="role" value="lecturer">
                     <p class="input-title">nama pengguna</p>
                     <div class="input-textbox">
                         <input name="username" class="input-value" type="text" placeholder="Masukkan nama pengguna...">

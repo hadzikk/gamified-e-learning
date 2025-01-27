@@ -13,15 +13,15 @@ class PostSeeder extends Seeder
      */
     public function run(): void
     {
-        Post::create(
-            [
-                'user_id' => 3,
-                'subject' => 'java',
-                'title' => 'bubble sort algorithm',
-                'description' => 'lorem ipsum dolor sit amet adispiscing elit.',
-                'slug' => 'bubble-sort-algorithm',
-                'level' => 'proficient'
-            ]
-        );
+        // Post::create(
+        //     [
+        //         'user_id' => 3,
+        //         'subject' => 'java',
+        //         'title' => 'bubble sort algorithm',
+        //         'description' => 'lorem ipsum dolor sit amet adispiscing elit.',
+        //         'slug' => 'bubble-sort-algorithm',
+        //         'level' => 'proficient'
+        //     ]
+        // );
     }
 }
