@@ -25,8 +25,7 @@ class User extends Authenticatable
         'last_name',
         'role',
         'email',
-        'password',
-        'slug', // Include 'slug' in mass assignable attributes
+        'password', 
         'degree', // Include 'degree' for the professor (dosen) role
     ];
 

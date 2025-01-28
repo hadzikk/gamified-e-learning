@@ -14,50 +14,77 @@ class AdministratorController extends Controller
         return view('administrator.home');
     }
 
-    public function studentIndex() {
-        return view('administrator.student');
+    public function regisIndex() {
+        return view('administrator.regis');
     }
 
-    public function lecturerIndex() {
-        return view('administrator.lecturer');
+    public function dataIndex() {
+        $users = User::all();
+        return view('administrator.data', compact('users'));
     }
-    
+
+    public function edit($id)
+    {
+        $user = User::findOrFail($id); // Ambil data user berdasarkan ID
+        return view('administrator.edit', compact('user')); // Kirim data ke view
+    }
+
     public function store(Request $request) {
         // Validasi data yang diterima dari form
-        $validatedData = $request->validate([
-            'username' => 'required|string|max:255|unique:users',
+         // Proses penyimpanan data ke database tanpa validasi
+        $user = new User();
+        $user->username = $request->input('username');
+        $user->first_name = $request->input('first_name');
+        $user->last_name = $request->input('last_name');
+        $user->degree = $request->input('degree');
+        $user->email = $request->input('email');
+        $user->password = bcrypt($request->input('password')); // Hashing password
+        $user->role = $request->input('role');
+ 
+         // Simpan data ke database
+        $user->remember_token = Str::random(10); // Token remember me
+        $user->save();
+ 
+         // Redirect ke halaman admin home dengan pesan sukses
+        return redirect()->route('Regisaccount')->with('success', 'User registered successfully!');
+    }
+
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'username' => 'required|string|max:255',
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8',
-            'degree' => 'nullable|string|max:255',
-            'profile_picture' => 'nullable|image|mimes:jpg,png,jpeg|max:2048', // Validasi untuk gambar (opsional)
-            'role' => 'required|in:administrator,lecturer,student', // Validasi role agar hanya menerima nilai yang sesuai
-            'score' => 'nullable|integer|min:0', // Validasi score (opsional)
+            'email' => 'required|email|max:255',
+            'password' => 'nullable|min:8', // Password opsional
+            'role' => 'required|in:student,lecturer',
+            'degree' => 'nullable|string|max:255', // Degree hanya untuk dosen
         ]);
 
-        // Proses penyimpanan data ke database
-        $user = new User();
-        $user->username = $validatedData['username'];
-        $user->first_name = $validatedData['first_name'];
-        $user->last_name = $validatedData['last_name'];
-        $user->degree = $validatedData['degree'];
-        $user->email = $validatedData['email'];
-        $user->password = bcrypt($validatedData['password']); // Hashing password
-        $user->role = $validatedData['role'];
-        $user->score = $validatedData['score'] ?? 0;
+        $user = User::findOrFail($id);
 
-        // Jika ada profile_picture, simpan filenya
-        if ($request->hasFile('profile_picture')) {
-            $file = $request->file('profile_picture');
-            $filePath = $file->store('profile_pictures', 'public'); // Simpan file ke folder public/profile_pictures
-            $user->profile_picture = $filePath;
+        // Update data user
+        $user->username = $request->username;
+        $user->first_name = $request->first_name;
+        $user->last_name = $request->last_name;
+        $user->email = $request->email;
+
+        if ($request->filled('password')) {
+            $user->password = bcrypt($request->password); // Enkripsi password jika diisi
         }
 
-        $user->remember_token = Str::random(10); // Token remember me
-        $user->save(); // Simpan data ke database
+        $user->role = $request->role;
+        $user->degree = $request->role === 'lecturer' ? $request->degree : null; // Hanya simpan degree jika role adalah dosen
+        $user->save();
 
-        // Redirect ke halaman tertentu dengan pesan sukses
-        return redirect()->route('administrator.home')->with('success', 'User registered successfully!');
+        return redirect()->route('Dataview')->with('success', 'Data berhasil diperbarui!');
+    }
+
+    public function destroy($id)
+    {
+    $user = User::findOrFail($id); // Cari user berdasarkan ID
+    $user->delete(); // Hapus user
+
+    return redirect()->route('Dataview')->with('success', 'Pengguna berhasil dihapus!');
     }
 }

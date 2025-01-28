@@ -3,44 +3,121 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Beranda</title>
-    <link rel="stylesheet" href="{{ asset('css/administrator/data.scss') }}">
+    <title>Lihat Data</title>
+    <link rel="stylesheet" href="{{ asset('css/administrator/student.scss') }}">
     <link rel="stylesheet" href="{{ asset('css/components/global/footer.scss') }}">
+
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        .popup-success {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            font-size: 14px;
+            display: none;
+        }
+    </style>
 </head>
 <body>
     <div class="administrator-dashboard-container">
         <div class="administrator-dashboard-wrapper">
             <div class="administrator-dashboard-sidebar">
-                <p class="administrator-sidebar-title">navigasi</p>
+                <p class="administrator-sidebar-title">Navigasi</p>
                 <ul class="administrator-sidebar-lists">
-                    <li class="administrator-sidebar-list"><a class="administrator-sidebar-link" href="/administrator/dashboard/home">beranda</a></li>
-                    <li class="administrator-sidebar-list"><a class="administrator-sidebar-link" href="/administrator/dashboard/registrating/student">registrasi mahasiswa</a></li>
-                    <li class="administrator-sidebar-list"><a class="administrator-sidebar-link" href="/administrator/dashboard/registrating/lecturer">registrasi dosen</a></li>
-                    <li class="administrator-sidebar-list"><a class="administrator-sidebar-link" href="/administrator/dashboard/data">lihat data</a></li>
-                    <li class="administrator-sidebar-list"><a class="administrator-sidebar-link" href="" id="logout">keluar</a></li>
+                    <li class="administrator-sidebar-list"><a class="administrator-sidebar-link" href="{{ route('DashAdmin') }}">Beranda</a></li>
+                    <li class="administrator-sidebar-list"><a class="administrator-sidebar-link" href="{{ route('Regisaccount') }}">Registrasi Akun</a></li>
+                    <li class="administrator-sidebar-list"><a class="administrator-sidebar-link" href="{{ route('Dataview') }}">Lihat Data</a></li>
+                    <li class="administrator-sidebar-list"><a class="administrator-sidebar-link" href="" id="logout">Keluar</a></li>
                 </ul>
             </div>
             <div class="administrator-dashboard-content">
                 <div class="dashboard-name-wrapper">
-                    <p class="dashboard-name">dashboard utama</p>
+                    <p class="dashboard-name">Data Pengguna</p>
                 </div>
-                <div class="administrator-greetings-wrapper">
-                    <p class="administrator-greetings-word">selamat datang, bapak / ibu</p>
-                    <p class="administrator-fullname">{{ Auth::user()->first_name." ".Auth::user()->last_name}}</p>
-                    <p class="administrator-degree">{{ Auth::user()->degree }}</p>
+
+                @if (session('success'))
+                <div id="popup-message" class="popup-success">
+                    {{ session('success') }}
                 </div>
-                <div class="logout-wrapper">
-                    <form action="/oa/account-security/logout" method="post">
-                            @csrf
-                        <button type="submit"></button>
-                    </form>
-                </div>
+                @endif
+
+                <!-- Tabel Data -->
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Username</th>
+                            <th>Nama Depan</th>
+                            <th>Nama Belakang</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                            <th>Gelar</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @forelse ($users as $user)
+                            <tr>
+                                <td>{{ $user->username }}</td>
+                                <td>{{ $user->first_name }}</td>
+                                <td>{{ $user->last_name }}</td>
+                                <td>{{ $user->email }}</td>
+                                <td>{{ $user->role }}</td>
+                                <td>{{ $user->degree }}</td>
+                                <td>
+                                    <a href="{{ route('editUser', $user->id) }}" class="edit-button">Edit</a>
+                                    <form action="{{ route('deleteUser', $user->id) }}" method="POST" style="display: inline-block;">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="delete-button" onclick="return confirm('Apakah Anda yakin ingin menghapus pengguna ini?')">Hapus</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="7">Tidak ada data pengguna.</td>
+                            </tr>
+                        @endforelse
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
 
     <x-global.footer></x-global.footer>
-
-    <script src="{{ asset('js/event.js') }}"></script>
 </body>
+<script>
+    // Tampilkan popup pesan sukses
+    document.addEventListener('DOMContentLoaded', function () {
+        const popup = document.getElementById('popup-message');
+        if (popup) {
+            popup.style.display = 'block';
+
+            // Hilangkan popup setelah 3 detik
+            setTimeout(() => {
+                popup.style.display = 'none';
+            }, 3000);
+        }
+    });
+</script>
 </html>

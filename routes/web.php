@@ -16,11 +16,14 @@ Route::post('/oa/account-security/logout', [AuthController::class, 'logout']);
 
 // Controller Administartor
 Route::prefix('administrator')->group(function () {
-    Route::get('/dashboard/home', [AdministratorController::class, 'index'])->name('administrator.home');
-    Route::get('/dashboard/registrating/student', [AdministratorController::class, 'studentIndex']);
-    Route::post('dashboard/registrating/student', [AdministratorController::class, 'store']);
-    Route::get('/dashboard/registrating/lecturer', [AdministratorController::class, 'lecturerIndex']);
-    Route::post('dashboard/registrating/lecturer', [AdministratorController::class, 'store']);
+    Route::get('/dashboard/home', [AdministratorController::class, 'index'])->name('DashAdmin');
+    Route::get('/dashboard/registrating/account', [AdministratorController::class, 'regisIndex'])->name('Regisaccount');
+    Route::post('dashboard/registrating/student', [AdministratorController::class, 'store'])->name('submitaccount');
+    Route::get('/dashboard/Data/account', [AdministratorController::class, 'dataIndex'])->name('Dataview');
+    Route::get('/edit-user/{id}', [AdministratorController::class, 'edit'])->name('editUser');
+    Route::put('/update-user/{id}', [AdministratorController::class, 'update'])->name('updateaccount');
+    Route::delete('/delete-user/{id}', [AdministratorController::class, 'destroy'])->name('deleteUser');
+
 });
 
 // Controller Lecturer
