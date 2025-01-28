@@ -86,22 +86,41 @@ class PostController extends Controller
         ]);
 
         // Simpan pertanyaan dan opsi
-        if ($request->has('questions')) {
-            foreach ($request->questions as $questionData) {
-                $question = Question::create([
-                    'quiz_id' => $quiz->id,
-                    'question_text' => $questionData['question_text'],
-                ]);
+        // if ($request->has('questions')) {
+        //     foreach ($request->questions as $questionData) {
+        //         $question = Question::create([
+        //             'quiz_id' => $quiz->id,
+        //             'question_text' => $questionData['question_text'],
+        //         ]);
+        //     }
+        // }
 
-                foreach ($questionData['options'] as $optionData) {
+        // Iterate through questions
+        foreach ($request->questions as $index => $questionData) {
+            // Save question
+            $question = Question::create([
+                'quiz_id' => $quiz->id, // Associate question with the quiz
+                'question_text' => $questionData['question_text'],
+            ]);
+
+            // Get options for the current question
+            if (isset($request->options[$index + 1])) { // Adjust index to match options array
+                $questionOptions = $request->options[$index + 1];
+
+                // Iterate through options and save
+                foreach ($questionOptions['option_text'] as $optionIndex => $optionText) {
+                    // Determine if the option is correct
+                    $isCorrect = ($optionIndex == $questionOptions['is_correct']) ? 1 : 0;
+
+                    // Save option
                     Option::create([
-                        'question_id' => $question->id,
-                        'option_text' => $optionData['option_text'],
-                        'is_correct' => $optionData['is_correct'] ?? false,
+                        'question_id' => $question->id, // Associate option with the question
+                        'option_text' => $optionText,
+                        'is_correct' => $isCorrect, // 1 if correct, 0 if incorrect
                     ]);
                 }
             }
-        }
+        }        
 
         DB::commit(); // Simpan transaksi
         return redirect()->back()->with('success', 'Postingan kuis berhasil dibuat!');

@@ -115,7 +115,7 @@ document.addEventListener('DOMContentLoaded', () => {
         newQuestionContainer.innerHTML = `
             <div class="quiz-content">
                 <div class="quiz-question">
-                    <input class="quiz-input" name="question[${questionIndex}][question_text]" type="text" placeholder="Masukkan pertanyaan" required>&nbsp;
+                    <input class="quiz-input" name="questions[${questionIndex}][question_text]" type="text" placeholder="Masukkan pertanyaan" required>&nbsp;
                     <i class="fa-solid fa-xmark remove-question"></i>
                 </div>
                 <div class="button-add-option">
@@ -154,8 +154,8 @@ function addOptionField(questionElement, questionIndex) {
         newOptionItem.classList.add('quiz-option');
 
         newOptionItem.innerHTML = `
-            <input class="quiz-radio" type="radio" name="option[${questionIndex}][is_correct]" value="${optionIndex}" required>&nbsp;
-            <input class="quiz-radio-label" name="option[${questionIndex}][option_text][]" type="text" placeholder="Masukkan Opsi" required>
+            <input class="quiz-radio" type="radio" name="options[${questionIndex}][is_correct]" value="${optionIndex}" required>&nbsp;
+            <input class="quiz-radio-label" name="options[${questionIndex}][option_text][]" type="text" placeholder="Masukkan Opsi" required>
             <i class="fa-solid fa-xmark remove-option"></i>
         `;
 

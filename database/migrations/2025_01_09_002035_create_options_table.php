@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('question_id')->constrained('questions')->onDelete('cascade'); // Relasi ke question
             $table->text('option_text'); // Teks opsi
-            $table->boolean('is_correct')->default(false); // Apakah opsi ini benar
+            $table->boolean('is_correct')->default(false);
             $table->timestamps();
         });        
     }
