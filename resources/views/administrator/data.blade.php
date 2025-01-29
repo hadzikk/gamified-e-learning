@@ -45,10 +45,10 @@
             <div class="administrator-dashboard-sidebar">
                 <p class="administrator-sidebar-title">Navigasi</p>
                 <ul class="administrator-sidebar-lists">
-                    <li class="administrator-sidebar-list"><a class="administrator-sidebar-link" href="{{ route('DashAdmin') }}">Beranda</a></li>
-                    <li class="administrator-sidebar-list"><a class="administrator-sidebar-link" href="{{ route('Regisaccount') }}">Registrasi Akun</a></li>
-                    <li class="administrator-sidebar-list"><a class="administrator-sidebar-link" href="{{ route('Dataview') }}">Lihat Data</a></li>
-                    <li class="administrator-sidebar-list"><a class="administrator-sidebar-link" href="" id="logout">Keluar</a></li>
+                    <li class="administrator-sidebar-list"><a class="administrator-sidebar-link" href="{{ route ('DashAdmin') }}">beranda</a></li>
+                    <li class="administrator-sidebar-list"><a class="administrator-sidebar-link" href="{{ route('Regisaccount') }}">registrasi account</a></li>
+                    <li class="administrator-sidebar-list"><a class="administrator-sidebar-link" href="{{ route('Dataview') }}">lihat data</a></li>
+                    <li class="administrator-sidebar-list"><a class="administrator-sidebar-link" href="" id="logout">keluar</a></li>
                 </ul>
             </div>
             <div class="administrator-dashboard-content">

@@ -11,6 +11,8 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -20,6 +22,57 @@ class PostController extends Controller
         $posts = Post::with('user')->latest()->paginate(10);
         
         return view('student.post', ['posts' => $posts]);
+    }
+
+    public function profile()
+    {
+        $student = Auth::user();
+        return view('student.profile', compact('student'));
+    }
+
+    public function edit($id)
+    {
+        $student = User::findOrFail($id);
+        return view('student.eprofile', compact('student'));
+    }
+
+    public function updateprofile(Request $request)
+    {
+        // Mengambil user yang sedang login
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+    
+        // Update username
+        $user->username = $request->username;
+    
+        // Periksa jika user ingin mengubah password
+        if ($request->filled('current_password') && $request->filled('new_password')) {
+            // Periksa apakah password lama yang dimasukkan benar
+            if (!Hash::check($request->current_password, $user->password)) {
+                return redirect()->back()->withErrors(['current_password' => 'Password lama tidak cocok!']);
+            }
+        
+            // Update password baru
+            $user->password = Hash::make($request->new_password);
+        }
+    
+        // Upload gambar profil jika ada
+        if ($request->hasFile('profile_picture')) {
+            // Hapus gambar lama jika ada
+            if ($user->profile_picture) {
+                Storage::delete('public/' . $user->profile_picture);
+            }
+    
+            // Simpan gambar baru
+            $path = $request->file('profile_picture')->store('profile_pictures', 'public');
+            $user->profile_picture = $path;
+        }
+    
+        // Simpan perubahan
+        $user->save();
+    
+        // Redirect dengan pesan sukses
+        return redirect()->route('student.profile')->with('success', 'Profil berhasil diperbarui!');
     }
 
     // Menampilkan pratinjau post di halaman mahasiswa
