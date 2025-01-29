@@ -13,32 +13,39 @@ class QuestionSeeder extends Seeder
      */
     public function run(): void
     {
-        // Question::create(
-        //     [
-        //         'quiz_id' => 1,
-        //         'question_text' => 'Apa itu bubble sort algorithm'
-        //     ]
-        // );
+        Question::create(
+            [
+                'quiz_id' => 1,
+                'question_text' => 'Apa output dari System.out.println(5 + 3 * 2);'
+            ]
+        );
         
-        // Question::create(
-        //     [
-        //         'quiz_id' => 1,
-        //         'question_text' => 'Berapakah kompleksitas waktu algoritma bubble sort dalam kasus terburuk?'
-        //     ]
-        // );
-
-        // Question::create(
-        //     [
-        //         'quiz_id' => 1,
-        //         'question_text' => 'Mana dari pernyataan berikut yang merupakan optimisasi umum untuk algoritma bubble sort?'
-        //     ]
-        // );
-
-        // Question::create(
-        //     [
-        //         'quiz_id' => 1,
-        //         'question_text' => 'Salah satu kelebihan bubble sort dibandingkan dengan algoritma sorting lainnya adalah'
-        //     ]
-        // );
+        Question::create(
+            [
+                'quiz_id' => 1,
+                'question_text' => 'Apa yang akan dicetak oleh System.out.println("Hello" + " World");'
+            ]
+        );
+        
+        Question::create(
+            [
+                'quiz_id' => 1,
+                'question_text' => 'Apa hasil dari kode int x = 10; System.out.println(x > 5 ? "Yes" : "No");'
+            ]
+        );
+        
+        Question::create(
+            [
+                'quiz_id' => 1,
+                'question_text' => 'Apa output dari System.out.println(10 % 3);'
+            ]
+        );
+        
+        Question::create(
+            [
+                'quiz_id' => 1,
+                'question_text' => 'Apa yang terjadi dengan kode int[] arr = new int[5]; System.out.println(arr[0]);'
+            ]
+        );        
     }
 }

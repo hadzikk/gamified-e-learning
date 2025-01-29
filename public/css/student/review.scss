@@ -82,6 +82,14 @@ body {
                     text-transform: capitalize;
                     color: gray;
                 }
+
+                .review-row-penalty {
+                    text-transform: capitalize;
+                }
+
+                .review-row-duration {
+
+                }
             }
 
             .review-detail-row:nth-child(5) {
@@ -164,7 +172,7 @@ body {
 
 .quiz {
     // padding: 25px;
-    margin: 60px 0 0 0;
+    margin: 60px 0 30px 0;
     width: 100%;
     font-size: 20px;
     // background: #fefefe;
@@ -193,6 +201,17 @@ body {
                 font-family: 'Times New Roman', Times, serif;
                 color: #2b2e4a;
             }
+        }
+    }
+
+    .form-quiz {
+        
+        .quiz-submit {
+            border: none;
+            outline: none;
+            padding: 10px;
+            background: #000;
+            color: #fff;
         }
     }
 }
@@ -255,8 +274,22 @@ body {
                     text-transform: uppercase;
                 }
 
-                .popup-content-lecturer {
+                .popup-content-author {
                     padding: 10px 0;
+
+                    .popup-content-lecturer {
+                        text-transform: capitalize;
+                        color: gray;
+                    }
+
+                    .popup-content-degree {
+                        text-transform: capitalize;
+                        color: gray;
+                    }
+                }
+
+                .popup-content-deadline {
+                    margin: 0 0 20px 0;
                 }
 
                 .popup-content-info {

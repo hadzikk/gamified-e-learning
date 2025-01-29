@@ -24,15 +24,55 @@
                 </div>
                 <div class="review-detail-row">
                     <p class="review-row-title">dosen</p>
-                    <p style="text-transform: capitalize" class="review-row-value">{{ $post->user->first_name }} {{ $post->user->last_name }} <span style="text-transform: capitalize;">{{ $post->user->degree }}</p>
+                    <p class="review-row-value">{{ $post->user->first_name }} {{ $post->user->last_name }} <span style="text-transform: capitalize;">{{ $post->user->degree }}</p>
                 </div>
                 <div class="review-detail-row">
                     <p class="review-row-title">deskripsi</p>
                     <p class="review-row-value --transform-none">{{ $post->description }}</p>
                 </div>
-                <div class="review-detail-row">
-                    <a class="review-row-title" id="enrollment" href="#enrollment">kerjakan kuis&nbsp;<sup class="review-title-icon"><i class="fa-solid fa-arrow-up-right-from-square"></i></sup></a>
-                </div>
+                @foreach ($quiz as $quizItem)
+    @php
+        // Cek apakah user sudah terdaftar dan status kuis
+        $quizUser = $quizItem->users->where('id', Auth::id())->first();
+    @endphp
+
+    @if ($quizUser && $quizUser->pivot->status == 'completed')
+        <!-- Jika kuis sudah selesai, tampilkan "Kuis sudah dikerjakan" dengan ikon centang -->
+        <div class="review-detail-row --appear">
+            <p class="review-row-title quiz">
+                Kuis ini sudah dikerjakan&nbsp;<sup class="review-title-icon"><i class="fa-solid fa-check"></i></sup>
+            </p>
+        </div>
+    @else
+        <!-- Jika kuis belum selesai, tampilkan "Kerjakan kuis" -->
+        <div class="review-detail-row {{ in_array($quizItem->id, $enrolledQuizIds) ? '--hide' : '--appear' }}">
+            <a class="review-row-title quiz" id="enrollment" href="#enrollment">
+                Kerjakan kuis&nbsp;<sup class="review-title-icon"><i class="fa-solid fa-arrow-up-right-from-square"></i></sup>
+            </a>
+        </div>
+    @endif
+@endforeach
+
+                @foreach ($quiz as $quizItem)
+                @php
+                    // Cek apakah user sudah terdaftar dan status kuis
+                    $quizUser = $quizItem->users->where('id', Auth::id())->first();
+                @endphp
+
+                <span class="review-row-penalty {{ 
+                        in_array($quizItem->id, $enrolledQuizIds) && (!$quizUser || $quizUser->pivot->status != 'completed') 
+                        ? '--appear' : '--hide' 
+                    }}">penalty akan diterapkan dalam</span>&nbsp;
+
+                <span class="review-row-duration 
+                    {{ 
+                        in_array($quizItem->id, $enrolledQuizIds) && (!$quizUser || $quizUser->pivot->status != 'completed') 
+                        ? '--appear' : '--hide' 
+                    }}">
+                    <!-- Durasi akan muncul jika kuis belum selesai -->
+                </span>
+            @endforeach
+
             </div>
             <div class="review-cover">
                 <img class="review-picture" src="{{ asset('images/vintage colorful phone wallpaper.jpg') }}" alt="">
@@ -42,11 +82,23 @@
 
     <div class="quiz-container">
         @foreach ($quiz as $quizItem)
-            <div class="quiz {{ in_array($quizItem->id, $enrolledQuizIds) ? '--unlocked' : '--locked' }}">
+            @php
+                // Cek apakah user sudah terdaftar dan mendapatkan status untuk kuis ini
+                $quizUser = $quizItem->users->where('pivot.user_id', Auth::id())->first();
+            @endphp
+    
+            <div class="quiz {{ $quizUser && $quizUser->pivot->status == 'completed' ? '--hide' : (in_array($quizItem->id, $enrolledQuizIds) ? '--unlocked' : '--locked') }}">
+                @if ($quizUser && $quizUser->pivot->status == 'completed')
+                    <!-- Kuis telah selesai, beri class --hide supaya tersembunyi -->
+                    @continue
+                @endif
+    
                 @if (in_array($quizItem->id, $enrolledQuizIds))
                     <p class="quiz-title">{{ $quizItem->title }}</p>
-                    <form action="{{ route('quizzes.submit', $quizItem->id) }}" method="POST">
+                    <form class="form-quiz" action="{{ route('quizzes.submit', $quizItem->id) }}" method="POST">
                         @csrf
+                        <input type="hidden" name="slug" value="{{ $post->slug }}">
+                        <input type="hidden" name="level" value="{{ $post->level }}">
                         @foreach ($quizItem->questions as $question)
                             <div class="quiz-questions-container">
                                 <p class="quiz-question">{{ $question->question_text }}</p>
@@ -65,14 +117,11 @@
                     </form>
                 @else
                     <p class="quiz-message">Anda belum mendaftar ke kuis ini.</p>
-                    <form action="{{ route('quizzes.enroll', $quizItem->id) }}" method="POST">
-                        @csrf
-                        <button type="submit" class="quiz-enroll-button">Daftar Kuis</button>
-                    </form>
                 @endif
             </div>
         @endforeach
-    </div>    
+    </div>
+            
 
     <div class="popup --hide" id="popupEnrollment">
         <div class="popup-content-container">
@@ -83,12 +132,19 @@
                 </div>
                 <div class="popup-content-details">
                     <p class="popup-content-title">{{ $post['title'] }}</p>
-                    <p style="text-transform: capitalize; color: gray;" class="popup-content-lecturer">{{ $post->user->first_name }} {{ $post->user->last_name }} <span style="text-transform: capitalize;">{{ $post->user->degree }}</p>
+                    <div class="popup-content-author">
+                        <span class="popup-content-lecturer">{{ $post->user->first_name." ".$post->user->last_name }}</span>&nbsp;
+                        <span class="popup-content-degree">{{ $post->user->degree }}</span>
+                    </div>
+                    @foreach ($quiz as $quizItem)
+                    {{-- <p class="popup-content-deadline">waktu pengerjaan {{ $quizItem->duration }}</p> --}}
+                    @endforeach
                     <div class="popup-content-info">
                         <div class="popup-enrollment-container">
                             @foreach ($quiz as $quizItem)
                                 <form class="form-enroll" action="{{ route('quizzes.enroll', $quizItem->id) }}" method="POST">
                                     @csrf
+                                    <input type="hidden" name="time_given" value="{{ $quizItem->duration }}">
                                     <button type="submit" class="button-enroll">Enroll kuis</button>
                                 </form>
                             @endforeach
@@ -113,7 +169,66 @@
         </div>
     </div>
     <x-global.footer></x-global.footer>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+    const enrollForms = document.querySelectorAll(".form-enroll");
 
+    enrollForms.forEach(form => {
+        form.addEventListener("submit", function (event) {
+            // Tidak ada preventDefault di sini agar form bisa disubmit
+
+            const timeGiven = parseInt(this.querySelector("input[name='time_given']").value); // waktu yang diberikan dalam menit
+            const startTime = Date.now();
+            const endTime = startTime + timeGiven * 60 * 1000; // Mengonversi menit ke milidetik
+
+            // Simpan waktu di localStorage
+            localStorage.setItem("quizStartTime", startTime);
+            localStorage.setItem("quizEndTime", endTime);
+            localStorage.setItem("quizDuration", timeGiven * 60); // Menyimpan durasi dalam detik (bukan menit)
+
+            // Set timer untuk form submission
+            startTimer(form);
+        });
+    });
+
+    function startTimer(form) {
+        const durationElement = document.querySelector(".review-row-duration");
+        if (!durationElement) return;
+
+        const endTime = parseInt(localStorage.getItem("quizEndTime"));
+        const interval = setInterval(() => {
+            const now = Date.now();
+            const timeRemaining = Math.max(0, Math.floor((endTime - now) / 1000)); // Menghitung waktu tersisa dalam detik
+
+            durationElement.textContent = formatTime(timeRemaining);
+
+            // Update nilai time_remaining pada form
+            const timeRemainingInput = form.querySelector("input[name='time_remaining']");
+            timeRemainingInput.value = timeRemaining;
+
+            if (timeRemaining <= 0) {
+                clearInterval(interval);
+                durationElement.textContent = "Waktu habis!";
+            }
+        }, 1000);
+    }
+
+    function formatTime(seconds) {
+        const hours = Math.floor(seconds / 3600); // Menghitung jam
+        const minutes = Math.floor((seconds % 3600) / 60); // Menghitung menit
+        const secs = seconds % 60; // Menghitung detik
+
+        // Format jam:menit:detik, dengan menambahkan 0 di depan menit dan detik yang kurang dari 10
+        return `${hours}:${minutes < 10 ? '0' : ''}${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+    }
+
+    // Cek apakah ada timer aktif saat halaman dimuat
+    if (localStorage.getItem("quizEndTime")) {
+        startTimer();
+    }
+});
+
+</script>        
     <script src="{{ asset('js/event.js') }}"></script>
 </body>
 </html>

@@ -41,7 +41,7 @@
             </div>
             
             <div class="post-input-items">
-                <p class="post-input-title">Deskripsi</p>
+                <p class="post-input-title">deskripsi</p>
                 <div class="post-input-textbox">
                     <textarea class="post-textarea" name="description" id="" cols="30" rows="10" maxlength="230" placeholder="Masukkan deskripsi..."></textarea>
                     <div class="letters-counter">
@@ -49,9 +49,12 @@
                     </div>
                 </div>
             </div>
+
             <div class="post-input-items">
-                <p class="post-input-title">tenggat waktu</p>
-                <input class="post-datetime-local" name="deadline" type="datetime-local" required>
+                <p class="post-input-title">durasi</p>
+                <div class="post-input-textbox">
+                    <input class="post-input" name="duration" type="number" placeholder="Masukkan durasi pengerjaan..." required>
+                </div>
             </div>
 
             <div class="post-input-items">
@@ -73,7 +76,7 @@
     <x-global.footer></x-global.footer>
 
     <script>
-        function addQuestionField() {
+    function addQuestionField() {
     const addQuestionButton = document.querySelector('.button-add-question');
     const quizContainer = document.querySelector('.quiz-items-container');
     let questionIndex = 0; // Mulai dari 0 untuk indeks pertanyaan

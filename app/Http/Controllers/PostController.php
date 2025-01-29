@@ -18,6 +18,7 @@ class PostController extends Controller
     public function show() 
     {    
         $posts = Post::with('user')->latest()->paginate(10);
+        
         return view('student.post', ['posts' => $posts]);
     }
 
@@ -27,6 +28,7 @@ class PostController extends Controller
 
         // Ambil data kuis terkait dengan post
         $quiz = Quiz::with(['questions.options'])->where('post_id', $post->id)->get();
+        $quizduration = Quiz::where('post_id', $post->id)->first();
 
         // Ambil user yang sedang login
         $user = Auth::user();
@@ -37,96 +39,87 @@ class PostController extends Controller
         return view('student.review', [
             'post' => $post,
             'quiz' => $quiz,
-            'enrolledQuizIds' => $enrolledQuizIds, // Kirim ID kuis yang sudah di-enroll
+            'quizduration' => $quizduration,
+            'enrolledQuizIds' => $enrolledQuizIds
         ]);
     }
-
 
     // Menyimpan postingan kuis
     public function store(Request $request)
-{
-    DB::beginTransaction(); // Mulai transaksi
+    {
+        DB::beginTransaction(); // Mulai transaksi
 
-    try {
-        // Validasi input
-        $request->validate([
-            'subject' => 'required|string|max:255',
-            'title' => 'required|string|max:255',
-            'level' => 'required|in:basic,advance,proficient',
-            'description' => 'nullable|string|max:230',
-            'deadline' => 'nullable|date',
-            'questions.*.question_text' => 'required|string',
-            'questions.*.options.*.option_text' => 'required|string',
-            'questions.*.options.*.is_correct' => 'boolean',
-        ]);
-
-        // Tentukan penalty berdasarkan level
-        $penalty = match ($request->level) {
-            'basic' => 30,
-            'advance' => 20,
-            'proficient' => 10,
-            default => 0,
-        };
-
-        // Simpan post
-        $post = Post::create([
-            'user_id' => $request->user_id, // Ambil user_id dari pengguna yang sedang login
-            'subject' => $request->subject,
-            'title' => $request->title,
-            'description' => $request->description,
-            'slug' => Str::slug($request->title, '-'),
-            'level' => $request->level,
-        ]);
-
-        // Simpan kuis terkait post
-        $quiz = Quiz::create([
-            'post_id' => $post->id,
-            'penalty' => $penalty,
-            'deadline' => $request->deadline,
-        ]);
-
-        // Simpan pertanyaan dan opsi
-        // if ($request->has('questions')) {
-        //     foreach ($request->questions as $questionData) {
-        //         $question = Question::create([
-        //             'quiz_id' => $quiz->id,
-        //             'question_text' => $questionData['question_text'],
-        //         ]);
-        //     }
-        // }
-
-        // Iterate through questions
-        foreach ($request->questions as $index => $questionData) {
-            // Save question
-            $question = Question::create([
-                'quiz_id' => $quiz->id, // Associate question with the quiz
-                'question_text' => $questionData['question_text'],
+        try {
+            // Validasi input
+            $request->validate([
+                'subject' => 'required|string|max:255',
+                'title' => 'required|string|max:255',
+                'level' => 'required|in:basic,advance,proficient',
+                'description' => 'nullable|string|max:230',
+                'duration' => 'nullable|integer|min:0',
+                'questions.*.question_text' => 'required|string',
+                'questions.*.options.*.option_text' => 'required|string',
+                'questions.*.options.*.is_correct' => 'boolean',
             ]);
 
-            // Get options for the current question
-            if (isset($request->options[$index + 1])) { // Adjust index to match options array
-                $questionOptions = $request->options[$index + 1];
+            // Tentukan penalty berdasarkan level
+            $penalty = match ($request->level) {
+                'basic' => 30,
+                'advance' => 20,
+                'proficient' => 10,
+                default => 0,
+            };
 
-                // Iterate through options and save
-                foreach ($questionOptions['option_text'] as $optionIndex => $optionText) {
-                    // Determine if the option is correct
-                    $isCorrect = ($optionIndex == $questionOptions['is_correct']) ? 1 : 0;
+            // Simpan post
+            $post = Post::create([
+                'user_id' => $request->user_id, // Ambil user_id dari pengguna yang sedang login
+                'subject' => $request->subject,
+                'title' => $request->title,
+                'description' => $request->description,
+                'slug' => Str::slug($request->title, '-'),
+                'level' => $request->level,
+            ]);
 
-                    // Save option
-                    Option::create([
-                        'question_id' => $question->id, // Associate option with the question
-                        'option_text' => $optionText,
-                        'is_correct' => $isCorrect, // 1 if correct, 0 if incorrect
-                    ]);
+            // Simpan kuis terkait post
+            $quiz = Quiz::create([
+                'post_id' => $post->id,
+                'penalty' => $penalty,
+                'duration' => $request->duration,
+            ]);
+
+            // Iterate through questions
+            foreach ($request->questions as $index => $questionData) {
+                // Save question
+                $question = Question::create([
+                    'quiz_id' => $quiz->id, // Associate question with the quiz
+                    'question_text' => $questionData['question_text'],
+                ]);
+
+                // Get options for the current question
+                if (isset($request->options[$index + 1])) { // Adjust index to match options array
+                    $questionOptions = $request->options[$index + 1];
+
+                    // Iterate through options and save
+                    foreach ($questionOptions['option_text'] as $optionIndex => $optionText) {
+                        // Determine if the option is correct
+                        $isCorrect = ($optionIndex == $questionOptions['is_correct']) ? 1 : 0;
+
+                        // Save option
+                        Option::create([
+                            'question_id' => $question->id, // Associate option with the question
+                            'option_text' => $optionText,
+                            'is_correct' => $isCorrect, // 1 if correct, 0 if incorrect
+                        ]);
+                    }
                 }
-            }
-        }        
+            }        
 
-        DB::commit(); // Simpan transaksi
-        return redirect()->back()->with('success', 'Postingan kuis berhasil dibuat!');
-    } catch (\Exception $e) {
-        DB::rollBack(); // Batalkan transaksi jika ada error
-        return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+            DB::commit(); // Simpan transaksi
+            return redirect()->back()->with('success', 'Postingan kuis berhasil dibuat!');
+
+        } catch (\Exception $e) {
+            DB::rollBack(); // Batalkan transaksi jika ada error
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
     }
-}
 }

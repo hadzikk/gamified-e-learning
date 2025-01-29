@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('quizzes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('post_id')->constrained('posts')->onDelete('cascade'); // Relasi ke post
-            $table->timestamp('deadline')->nullable(); // Deadline kuis
+            $table->integer('duration')->nullable();
             $table->integer('penalty')->nullable(); // Pengurangan skor jika melewati deadline
             $table->timestamps();
         });        

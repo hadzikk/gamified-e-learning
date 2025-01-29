@@ -11,7 +11,7 @@ class Post extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id', 'subject', 'title', 'slug', 'level'];
+    protected $fillable = ['user_id', 'subject', 'title', 'slug', 'level', 'description'];
     protected $with = ['user'];
 
     // Menambahkan relasi ke tabel users

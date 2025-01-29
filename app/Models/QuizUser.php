@@ -12,13 +12,11 @@ class QuizUser  extends Model
 
     protected $table = 'quiz_user';
 
-    public function user(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
-    }
+    protected $fillable = ['quiz_id', 'user_id', 'enrolled_at', 'completed_at', 'time_given', 'time_taken', 'score'];
+    protected $with = ['user'];
 
-    public function quiz(): BelongsTo
+    public function user()
     {
-        return $this->belongsTo(Quiz::class);
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

@@ -13,12 +13,12 @@ class Quiz extends Model
     use HasFactory;
 
     protected $table = 'quizzes';
-    protected $fillable = ['post_id', 'penalty', 'deadline'];
+    protected $fillable = ['post_id', 'penalty', 'duration'];
 
     public function users(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'quiz_user')
-                    ->withPivot('enrolled_at', 'completed_at', 'score')
+                    ->withPivot('enrolled_at', 'completed_at', 'score', 'status')
                     ->withTimestamps();
     }
 

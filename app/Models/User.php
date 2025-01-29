@@ -1,23 +1,20 @@
 <?php
-
 namespace App\Models;
 
-use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany; // Added for many-to-many relation
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
      *
-     * @var list<string>
+     * @var array<string>
      */
     protected $fillable = [
         'username',
@@ -26,13 +23,14 @@ class User extends Authenticatable
         'role',
         'email',
         'password', 
-        'degree', // Include 'degree' for the professor (dosen) role
+        'degree',
+        'score'
     ];
 
     /**
      * The attributes that should be hidden for serialization.
      *
-     * @var list<string>
+     * @var array<string>
      */
     protected $hidden = [
         'password',
@@ -40,7 +38,7 @@ class User extends Authenticatable
     ];
 
     /**
-     * Get the attributes that should be cast.
+     * The attributes that should be cast.
      *
      * @return array<string, string>
      */
@@ -49,53 +47,24 @@ class User extends Authenticatable
     ];
 
     /**
-     * A User has many Posts.
+     * A User has many QuizUser relationships (pivot table `quiz_user`).
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
-    public function posts(): HasMany
-    {
-        return $this->hasMany(Post::class);
-    }
-
-    /**
-     * A User has many QuizUser relationships (through quiz_user pivot).
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function quiz_user(): HasMany
+    public function quizUsers(): HasMany
     {
         return $this->hasMany(QuizUser::class);
     }
 
     /**
-     * A User has many QuizResults.
+     * A User belongs to many Quizzes through `quiz_user` pivot table.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function quizUsers(): HasMany
-    {
-        return $this->hasMany(QuizUser ::class);
-    }
-
-    public function quiz_result(): HasMany
-    {
-        return $this->hasMany(QuizResult::class);
-    }
-
-    /**
-     * A User belongs to many Quizzes (via quiz_user pivot table).
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return BelongsToMany
      */
     public function quizzes(): BelongsToMany
     {
         return $this->belongsToMany(Quiz::class, 'quiz_user')
-                    ->withPivot('enrolled_at', 'completed_at', 'score');
-    }
-
-    public function quiz()
-    {
-        return $this->belongsToMany(Quiz::class)->withTimestamps();
+                    ->withPivot('enrolled_at', 'completed_at', 'score', 'status')
+                    ->withTimestamps();
     }
 }

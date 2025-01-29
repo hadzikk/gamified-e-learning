@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Post;
 use App\Models\Quiz;
+use App\Models\User;
+use App\Models\QuizUser;
 use App\Models\QuizResult;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -11,99 +14,110 @@ use Illuminate\Support\Facades\Auth;
 
 class QuizController extends Controller
 {
-    // Fungsi untuk mendaftar ke kuis
-    public function enroll($quizId) {
-        $user = Auth::user(); // Ambil user yang sedang login
-        $quiz = Quiz::findOrFail($quizId); // Cari kuis berdasarkan ID
+    public function enroll(Request $request, $quizId)
+{
+    $quiz = Quiz::findOrFail($quizId);
+    $user = Auth::user();
 
-        // Cek apakah user sudah enroll sebelumnya
-        $isEnrolled = DB::table('quiz_user')
-            ->where('quiz_id', $quizId)
-            ->where('user_id', $user->id)
-            ->exists();
-
-        if ($isEnrolled) {
-            return redirect()->back()->with('error', 'You are already enrolled in this quiz.');
-        }
-
-        // Tambahkan data ke tabel pivot
-        DB::table('quiz_user')->insert([
-            'quiz_id' => $quizId,
-            'user_id' => $user->id,
-            'enrolled_at' => now(),
-        ]);
-
-        return redirect()->back()->with('success', 'You have successfully enrolled in the quiz!');
+    // Cek apakah pengguna sudah terdaftar
+    if ($user->quizzes->contains($quiz)) {
+        return back()->with('error', 'Anda sudah terdaftar untuk kuis ini.');
     }
 
+    // Menghitung time_remaining berdasarkan quiz duration (dalam detik)
+    $timeRemaining = $quiz->duration * 60; // Mengonversi durasi kuis dari menit ke detik
+
+    // Simpan ke database
+    $quizUser = new QuizUser();
+    $quizUser->user_id = $user->id;
+    $quizUser->quiz_id = $quiz->id;
+    $quizUser->enrolled_at = now();
+    $quizUser->time_given = $timeRemaining;
+    $quizUser->time_remaining = $timeRemaining;
+    $quizUser->status = "ongoing";
+    $quizUser->save();
+
+    // Simpan timer di session agar tersedia setelah refresh
+    session(['time_remaining' => $timeRemaining]);
+
+    // Ambil slug berdasarkan post terkait quiz
+    $post = Post::find($quiz->post_id); // Pastikan ada post terkait
+    if (!$post) {
+        return back()->with('error', 'Post terkait kuis tidak ditemukan.');
+    }
+
+    return redirect()->route('review', ['post' => $post->slug])
+        ->with('success', 'Anda berhasil mendaftar untuk kuis ini!');
+}
 
 
-    // Fungsi untuk submit kuis dan menghitung skor
-    public function submitQuiz(Request $request, Quiz $quiz)
+    public function submitQuiz(Request $request, $quizId)
     {
-        // Validasi jawaban dari request
-        $validated = $request->validate([
-            'question_*' => 'required|exists:options,id', // Pastikan semua soal terjawab dengan benar
-        ]);
-        
+        $quiz = Quiz::with('questions.options')->findOrFail($quizId);
+        $user = Auth::user();
+        $questions = $quiz->questions;
+
+        // Ambil objek post terkait dengan kuis
+        if (!$quiz->post_id) {
+            return redirect()->back()->with('error', 'Kuis tidak memiliki post terkait.');
+        }
+        $post = Post::findOrFail($quiz->post_id);
+        $postSlug = $post->slug; // Ambil slug dari post
+
+        // Mengambil level kuis dan menentukan penalti
+        $level = $request->level;
+        $penaltyRates = [
+            'basic' => 0.30,
+            'advance' => 0.20,
+            'proficient' => 0.10,
+        ];
+        $penalty = $penaltyRates[$level] ?? 0;
+
+        $totalQuestions = $questions->count();
+        if ($totalQuestions === 0) {
+            return redirect()->back()->with('error', 'Kuis tidak memiliki pertanyaan.');
+        }
+
+        $scorePerQuestion = 100 / $totalQuestions;
         $correctAnswers = 0;
-        $totalQuestions = $quiz->questions->count();
-        $pointsPerQuestion = 100 / $totalQuestions; // Nilai tiap soal
+        $startTime = Carbon::now();
 
-        // Proses cek jawaban
-        foreach ($quiz->questions as $question) {
+        // Periksa jawaban
+        foreach ($questions as $question) {
             $selectedOptionId = $request->input('question_' . $question->id);
-            $correctOption = $question->options()->where('is_correct', true)->first();
+            $correctOption = $question->options->where('is_correct', true)->first();
 
-            if ($correctOption && $correctOption->id == $selectedOptionId) {
+            if ($correctOption && $selectedOptionId == $correctOption->id) {
                 $correctAnswers++;
             }
         }
 
-        // Hitung skor berdasarkan jumlah jawaban benar
-        $score = $correctAnswers * $pointsPerQuestion;
+        // Hitung skor akhir dengan penalti
+        $rawScore = $correctAnswers * $scorePerQuestion;
+        $score = $rawScore * (1 - $penalty);
 
-        // Cek deadline untuk penilaian
-        $deadline = Carbon::parse($quiz->deadline); // Ganti sesuai model dan field deadline
-        $penalty = 0;
+        // Hitung durasi pengerjaan
+        $endTime = Carbon::now();
+        $timeTaken = $endTime->diffInSeconds($startTime);
 
-        // Jika melewati deadline, berikan penalty berdasarkan level
-        if (Carbon::now()->isAfter($deadline)) {
-            $timeDifference = Carbon::now()->diffInMinutes($deadline);
-            $levelPenalty = $this->applyPenaltyBasedOnLevel($quiz->post->level, $score);
+        // Update status kuis di `quiz_user`
+        $quizUser = QuizUser::where('quiz_id', $quizId)
+            ->where('user_id', $user->id)
+            ->firstOrFail();
 
-            // Terapkan penalty
-            $score = $score - $levelPenalty;
-        }
+        $quizUser->completed_at = $endTime;
+        $quizUser->time_taken = $timeTaken;
+        $quizUser->score = round($score);
+        $quizUser->status = 'completed';
+        $quizUser->save();
+            
 
-        // Simpan hasil ke database menggunakan QuizResult
-        $quizResult = QuizResult::create([
-            'user_id' => auth::user()->id,
-            'quiz_id' => $quiz->id,
-            'score' => $score,
-        ]);
+        // Update skor user di tabel users
+        DB::table('users')->where('id', $user->id)->increment('score', round($score));
 
-        return redirect()->route('quizzes.show', $quiz->id)
-                         ->with('success', 'Jawaban Anda berhasil disubmit. Skor Anda: ' . $score);
+        // Redirect ke halaman review dengan slug post terkait
+        return redirect()->route('review', ['post' => $postSlug])
+         ->with('success', 'Kuis telah diselesaikan!');
     }
 
-    // Fungsi untuk menghitung penalti berdasarkan level
-    private function applyPenaltyBasedOnLevel($level, $score)
-    {
-        $penalty = 0;
-
-        switch ($level) {
-            case 'basic':
-                $penalty = $score * 0.30; // 30% penalty untuk basic
-                break;
-            case 'advance':
-                $penalty = $score * 0.20; // 20% penalty untuk advance
-                break;
-            case 'proficient':
-                $penalty = $score * 0.10; // 10% penalty untuk proficient
-                break;
-        }
-
-        return $penalty;
-    }
 }
