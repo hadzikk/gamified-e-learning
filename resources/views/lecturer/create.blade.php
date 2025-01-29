@@ -72,6 +72,79 @@
     </form>
     <x-global.footer></x-global.footer>
 
-    <script src="{{ asset('js/event.js') }}"></script>
+    <script>
+        function addQuestionField() {
+    const addQuestionButton = document.querySelector('.button-add-question');
+    const quizContainer = document.querySelector('.quiz-items-container');
+    let questionIndex = 0; // Mulai dari 0 untuk indeks pertanyaan
+
+    addQuestionButton.addEventListener('click', () => {
+        // Buat elemen pertanyaan baru
+        const newQuestionContainer = document.createElement('div');
+        newQuestionContainer.classList.add('question-content-container');
+
+        newQuestionContainer.innerHTML = `
+            <div class="quiz-content">
+                <div class="quiz-question">
+                    <input class="quiz-input" name="questions[${questionIndex}][question_text]" type="text" placeholder="Masukkan pertanyaan" required>&nbsp;
+                    <i class="fa-solid fa-xmark remove-question"></i>
+                </div>
+                <div class="button-add-option">
+                    <p class="add-option-title"><i class="fa-solid fa-plus"></i>&nbsp;tambah opsi</p>
+                </div>
+            </div>
+        `;
+
+        // Tambahkan elemen pertanyaan ke dalam kontainer kuis
+        quizContainer.insertBefore(newQuestionContainer, addQuestionButton);
+
+        // Event listener untuk menghapus pertanyaan
+        const removeQuestionButton = newQuestionContainer.querySelector('.remove-question');
+        removeQuestionButton.addEventListener('click', () => {
+            newQuestionContainer.remove();
+        });
+
+        // Tambahkan event listener untuk tombol tambah opsi
+        const addOptionButton = newQuestionContainer.querySelector('.button-add-option');
+        addOptionButton.addEventListener('click', () => {
+            addOptionField(newQuestionContainer, questionIndex);
+        });
+
+        // Increment index untuk pertanyaan berikutnya
+        questionIndex++;
+    });
+}
+
+// Fungsi untuk menambahkan opsi ke pertanyaan tertentu
+function addOptionField(questionElement, questionIndex) {
+    const quizContentContainer = questionElement.querySelector('.quiz-content');
+    let optionIndex = quizContentContainer.querySelectorAll('.quiz-option').length;
+
+    if (optionIndex < 5) { // Maksimal 5 opsi per pertanyaan
+        const newOptionItem = document.createElement('div');
+        newOptionItem.classList.add('quiz-option');
+
+        newOptionItem.innerHTML = `
+            <input class="quiz-radio" type="radio" name="options[${questionIndex}][is_correct]" value="${optionIndex}" required>&nbsp;
+            <input class="quiz-radio-label" name="options[${questionIndex}][option_text][]" type="text" placeholder="Masukkan Opsi" required>
+            <i class="fa-solid fa-xmark remove-option"></i>
+        `;
+
+        // Tambahkan elemen opsi ke dalam kontainer
+        quizContentContainer.insertBefore(newOptionItem, quizContentContainer.querySelector('.button-add-option'));
+
+        // Event listener untuk menghapus opsi
+        const removeButton = newOptionItem.querySelector('.remove-option');
+        removeButton.addEventListener('click', () => {
+            newOptionItem.remove();
+        });
+    } else {
+        alert('Maksimal 5 opsi per pertanyaan.');
+    }
+}
+addQuestionField();
+    </script>
+
+    {{-- <script src="{{ asset('js/event.js') }}"></script> --}}
 </body>
 </html>
