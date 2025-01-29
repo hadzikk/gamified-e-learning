@@ -65,7 +65,7 @@
                     <div class="input-textbox">
                         <input id="email" name="email" class="input-value" type="text" value="{{ $user->email }}" placeholder="Masukkan email...">
                     </div>
-
+                    
                     <!-- Dropdown untuk memilih Role -->
                     <p class="input-title">role</p>
                     <div class="input-textbox">
@@ -80,6 +80,33 @@
                     <div class="input-textbox">
                         <input id="degree" name="degree" class="input-value" type="text" value="{{ $user->degree }}" placeholder="Masukkan gelar jika dosen...">
                     </div>
+
+                    <h3 class="text-lg font-medium text-gray-900 mb-4">Ubah Password (Opsional)</h3>
+
+                    <div class="mb-4">
+                        <label for="current_password" class="block text-gray-700 font-medium">Password Lama</label>
+                        <input type="password" name="current_password" id="current_password" 
+                            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200">
+                        @error('current_password')
+                        <span class="text-red-600 text-sm">{{ $message }}</span>
+                        @enderror
+                    </div>
+                
+                    <div class="mb-4">
+                        <label for="new_password" class="block text-gray-700 font-medium">Password Baru</label>
+                        <input type="password" name="new_password" id="new_password" 
+                            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200">
+                        @error('new_password')
+                        <span class="text-red-600 text-sm">{{ $message }}</span>
+                        @enderror
+                    </div>
+                
+                    <div class="mb-4">
+                        <label for="new_password_confirmation" class="block text-gray-700 font-medium">Konfirmasi Password Baru</label>
+                        <input type="password" name="new_password_confirmation" id="new_password_confirmation" 
+                            class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-200">
+                    </div>
+                
 
                     <button class="button-submit" type="submit">perbarui</button>
                 </form>

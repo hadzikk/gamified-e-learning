@@ -36,7 +36,10 @@ Route::prefix('lecturer')->group(function () {
 // Controller Student
 Route::prefix('student')->group(function () {
     Route::get('/post', [PostController::class, 'show']); // Postingan Kuis
-    Route::get('/review/{post:slug}', [PostController::class, 'review']); // Review Kuis
+    Route::get('/review/{post:slug}', [PostController::class, 'review']);
+    Route::get('/profile/account', [PostController::class,'profile'])-> name('student.profile');
+    Route::get('/profile/account/edit/{id}', [PostController::class,'edit'])-> name('profile.edit');
+    Route::put('/student/update-profile/{id}', [PostController::class, 'updateprofile'])->name('updateprofile'); // Review Kuis
 });
 
 

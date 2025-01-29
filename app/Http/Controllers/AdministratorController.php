@@ -19,7 +19,7 @@ class AdministratorController extends Controller
     }
 
     public function dataIndex() {
-        $users = User::all();
+        $users = User::where('role', '!=', 'Administrator')->get();
         return view('administrator.data', compact('users'));
     }
 
@@ -61,18 +61,22 @@ class AdministratorController extends Controller
             'degree' => 'nullable|string|max:255', // Degree hanya untuk dosen
         ]);
 
+        
         $user = User::findOrFail($id);
+
+        if ($request->filled('current_password') && $request->filled('new_password')) {
+            if (!Hash::check($request->current_password, $user->password)) {
+                return redirect()->back()->withErrors(['current_password' => 'Password lama tidak cocok!']);
+            }
+
+            $user->password = Hash::make($request->new_password);
+        }
 
         // Update data user
         $user->username = $request->username;
         $user->first_name = $request->first_name;
         $user->last_name = $request->last_name;
         $user->email = $request->email;
-
-        if ($request->filled('password')) {
-            $user->password = bcrypt($request->password); // Enkripsi password jika diisi
-        }
-
         $user->role = $request->role;
         $user->degree = $request->role === 'lecturer' ? $request->degree : null; // Hanya simpan degree jika role adalah dosen
         $user->save();
