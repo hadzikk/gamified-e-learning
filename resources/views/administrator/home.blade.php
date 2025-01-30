@@ -13,10 +13,24 @@
             <div class="administrator-dashboard-sidebar">
                 <p class="administrator-sidebar-title">navigasi</p>
                 <ul class="administrator-sidebar-lists">
+<<<<<<< HEAD
                     <li class="administrator-sidebar-list"><a class="administrator-sidebar-link" href="/administrator/dashboard/home">beranda</a></li>
                     <li class="administrator-sidebar-list"><a class="administrator-sidebar-link" href="{{ route('admin.regis') }}">registrasi account</a></li>
                     <li class="administrator-sidebar-list"><a class="administrator-sidebar-link" href="{{ route('admin.data') }}">lihat data</a></li>
                     <li class="administrator-sidebar-list"><a class="administrator-sidebar-link" href="" id="logout">keluar</a></li>
+=======
+                    <li class="administrator-sidebar-list"><a class="administrator-sidebar-link" href="{{ route('admin.index') }}">beranda</a></li>
+                    <li class="administrator-sidebar-list"><a class="administrator-sidebar-link" href="{{ route('admin.regis') }}">registrasi account</a></li>
+                    <li class="administrator-sidebar-list"><a class="administrator-sidebar-link" href="{{ route('admin.data') }}">lihat data</a></li>
+                    <li class="administrator-sidebar-list">
+                        <form action="/oa/account-security/logout" method="POST">
+                            @csrf
+                            <button type="submit" class="administrator-sidebar-link" style="background: none; border: none; color: inherit; cursor: pointer;">
+                                Keluar
+                            </button>
+                        </form>
+                    </li>
+>>>>>>> 3a6c2dab5890726d42679d98b6ec76be4d8419ea
                 </ul>
             </div>
             <div class="administrator-dashboard-content">

@@ -103,7 +103,6 @@
     </style>
 </head>
 <body>
-    <x-student.navbar></x-student.navbar>
     <div class="profile-container">
         <h1>Edit Profil Siswa</h1>
 
@@ -141,17 +140,17 @@
                     <div id="password-change-form" class="password-change-form">
                         <div class="form-group">
                             <label for="current_password">Password Lama</label>
-                            <input type="password" id="current_password" name="current_password" placeholder="Masukkan password lama" required>
+                            <input type="password" id="current_password" name="current_password" placeholder="Masukkan password lama">
                         </div>
                     
                         <div class="form-group">
                             <label for="new_password">Password Baru</label>
-                            <input type="password" id="new_password" name="new_password" placeholder="Masukkan password baru" required>
+                            <input type="password" id="new_password" name="new_password" placeholder="Masukkan password baru">
                         </div>
                     
                         <div class="form-group">
                             <label for="confirm_new_password">Konfirmasi Password Baru</label>
-                            <input type="password" id="confirm_new_password" name="new_password_confirmation" placeholder="Konfirmasi password baru" required>
+                            <input type="password" id="confirm_new_password" name="new_password_confirmation" placeholder="Konfirmasi password baru">
                         </div>
                     </div>
 
@@ -161,7 +160,6 @@
             </div>
         </form>
     </div>
-    <x-global.footer></x-global.footer>
 
     <!-- Script JavaScript untuk menampilkan dan menyembunyikan form password -->
     <script>

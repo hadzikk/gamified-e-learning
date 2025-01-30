@@ -32,7 +32,18 @@
                     <li class="administrator-sidebar-list"><a class="administrator-sidebar-link" href="{{ route ('admin.index') }}">beranda</a></li>
                     <li class="administrator-sidebar-list"><a class="administrator-sidebar-link" href="{{ route ('admin.regis') }}">registrasi akun</a></li>
                     <li class="administrator-sidebar-list"><a class="administrator-sidebar-link" href="{{ route('admin.data') }}">lihat data</a></li>
+<<<<<<< HEAD
                     <li class="administrator-sidebar-list"><a class="administrator-sidebar-link" href="" id="logout">keluar</a></li>
+=======
+                    <li class="administrator-sidebar-list">
+                        <form action="/oa/account-security/logout" method="POST">
+                            @csrf
+                            <button type="submit" class="administrator-sidebar-link" style="background: none; border: none; color: inherit; cursor: pointer;">
+                                Keluar
+                            </button>
+                        </form>
+                    </li>
+>>>>>>> 3a6c2dab5890726d42679d98b6ec76be4d8419ea
                 </ul>
             </div>
             <div class="administrator-dashboard-content">
@@ -46,7 +57,11 @@
                 </div>
                 @endif
 
+<<<<<<< HEAD
                 <form class="form" action="{{ route('admin.store') }}" method="POST">
+=======
+                <form class="form" action="{{ route('admin.submit') }}" method="POST">
+>>>>>>> 3a6c2dab5890726d42679d98b6ec76be4d8419ea
                     @csrf
                     <p class="input-title">nama pengguna</p>
                     <div class="input-textbox">
