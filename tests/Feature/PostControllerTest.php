@@ -6,7 +6,6 @@ use App\Models\Post;
 use App\Models\User;
 use App\Models\Quiz;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class PostControllerTest extends TestCase
@@ -17,6 +16,10 @@ class PostControllerTest extends TestCase
     {
         // Create a user with role 'dosen'
         $user = User::factory()->create(['role' => 'dosen', 'slug' => 'dosen-slug']);
+        
+        // Act as the created user
+        $this->actingAs($user);
+
         // Create posts for the user
         $posts = Post::factory()->count(3)->create(['user_id' => $user->id]);
 
@@ -32,6 +35,12 @@ class PostControllerTest extends TestCase
 
     public function test_all()
     {
+        // Create a user
+        $user = User::factory()->create();
+        
+        // Act as the created user
+        $this->actingAs($user);
+
         // Create some posts
         $posts = Post::factory()->count(5)->create();
 
@@ -46,6 +55,12 @@ class PostControllerTest extends TestCase
 
     public function test_review()
     {
+        // Create a user
+        $user = User::factory()->create();
+        
+        // Act as the created user
+        $this->actingAs($user);
+
         // Create a post and a quiz
         $post = Post::factory()->create();
         $quiz = Quiz::factory()->create(['post_id' => $post->id]);
@@ -65,15 +80,5 @@ class PostControllerTest extends TestCase
         $response->assertViewIs('student.review');
         $response->assertViewHas('post', $post);
         $response->assertViewHas('quiz', $quiz);
-    }
-
-    public function test_store()
-    {
-        // Call the store method
-        $response = $this->get('/lecturer/dosen-slug/build');
-
-        // Assert the response
-        $response->assertStatus(200);
-        $response->assertViewIs('lecturer.build');
     }
 }

@@ -16,14 +16,13 @@ Route::post('/oa/account-security/logout', [AuthController::class, 'logout']);
 
 // Controller Administartor
 Route::prefix('administrator')->group(function () {
-    Route::get('/dashboard/home', [AdministratorController::class, 'index'])->name('DashAdmin');
-    Route::get('/dashboard/registrating/account', [AdministratorController::class, 'regisIndex'])->name('Regisaccount');
-    Route::post('dashboard/registrating/student', [AdministratorController::class, 'store'])->name('submitaccount');
-    Route::get('/dashboard/Data/account', [AdministratorController::class, 'dataIndex'])->name('Dataview');
-    Route::get('/edit-user/{id}', [AdministratorController::class, 'edit'])->name('editUser');
-    Route::put('/update-user/{id}', [AdministratorController::class, 'update'])->name('updateaccount');
-    Route::delete('/delete-user/{id}', [AdministratorController::class, 'destroy'])->name('deleteUser');
-
+    Route::get('/dashboard/home', [AdministratorController::class, 'index'])->name('admin.index');
+    Route::get('/dashboard/registrating/account', [AdministratorController::class, 'regisIndex'])->name('admin.regis');
+    Route::post('dashboard/registrating/student', [AdministratorController::class, 'store'])->name('admin.store');
+    Route::get('/dashboard/Data/account', [AdministratorController::class, 'dataIndex'])->name('admin.data');
+    Route::get('/edit-user/{id}', [AdministratorController::class, 'edit'])->name('admin.edit');
+    Route::put('/update-user/{id}', [AdministratorController::class, 'update'])->name('admin.update');
+    Route::delete('/delete-user/{id}', [AdministratorController::class, 'destroy'])->name('admin.destroy');
 });
 
 // Controller Lecturer
@@ -36,7 +35,7 @@ Route::prefix('lecturer')->group(function () {
 // Controller Student
 Route::prefix('student')->group(function () {
     Route::get('/post', [PostController::class, 'show']); // Postingan Kuis
-    Route::get('/review/{post:slug}', [PostController::class, 'review']);
+    Route::get('/review/{post:slug}', [PostController::class, 'review'])->name('review');
     Route::get('/profile/account', [PostController::class,'profile'])-> name('student.profile');
     Route::get('/profile/account/edit/{id}', [PostController::class,'edit'])-> name('profile.edit');
     Route::put('/student/update-profile/{id}', [PostController::class, 'updateprofile'])->name('updateprofile'); // Review Kuis

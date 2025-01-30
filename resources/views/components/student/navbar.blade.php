@@ -27,7 +27,7 @@
                             {{ Auth::user()->first_name . " " . Auth::user()->last_name }}
                         </p>                        
                         <p class="profile-personalization-level">
-                            @if (Auth::user() && Auth::user()->score > 450)
+                            @if (Auth::user() && Auth::user()->score > 500)
                             Proficient
                             @elseif (Auth::user() && Auth::user()->score > 300)
                                 Advance
@@ -37,7 +37,7 @@
                                 Belum memiliki skor
                             @endif
                         </p>
-                        <p class="profile-personalization-score">{{ Auth::user()->score }} / 450</p>
+                        <p class="profile-personalization-score">{{ Auth::user()->score }}</p>
                     </div>
                 </div>
                 <ul class="profile-navigation-list-container">

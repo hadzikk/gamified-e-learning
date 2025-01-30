@@ -18,10 +18,9 @@ class QuizFactory extends Factory
     public function definition(): array
     {
         return [
-            'post_id' => Post::factory(),
-            'level' => $this->faker->randomElement(['basic', 'intermediate', 'proficient']),
-            'deadline' => $this->faker->dateTimeBetween('now', '+1 month'),
-            'penalty' => $this->faker->numberBetween(0, 10),
+            'post_id' => Post::factory(), // Create a post for the quiz
+            'duration' => $this->faker->numberBetween(30, 120), // Example duration in minutes
+            'penalty' => $this->faker->numberBetween(0, 10), // Penalty for exceeding deadline
         ];
     }
 }

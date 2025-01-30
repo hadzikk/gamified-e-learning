@@ -37,43 +37,53 @@ class PostController extends Controller
     }
 
     public function updateprofile(Request $request)
-    {
-        // Mengambil user yang sedang login
-        /** @var \App\Models\User $user */
-        $user = Auth::user();
-    
-        // Update username
-        $user->username = $request->username;
-    
-        // Periksa jika user ingin mengubah password
-        if ($request->filled('current_password') && $request->filled('new_password')) {
-            // Periksa apakah password lama yang dimasukkan benar
-            if (!Hash::check($request->current_password, $user->password)) {
-                return redirect()->back()->withErrors(['current_password' => 'Password lama tidak cocok!']);
-            }
-        
-            // Update password baru
-            $user->password = Hash::make($request->new_password);
-        }
-    
-        // Upload gambar profil jika ada
-        if ($request->hasFile('profile_picture')) {
-            // Hapus gambar lama jika ada
-            if ($user->profile_picture) {
-                Storage::delete('public/' . $user->profile_picture);
-            }
-    
-            // Simpan gambar baru
-            $path = $request->file('profile_picture')->store('profile_pictures', 'public');
-            $user->profile_picture = $path;
-        }
-    
-        // Simpan perubahan
-        $user->save();
-    
-        // Redirect dengan pesan sukses
-        return redirect()->route('student.profile')->with('success', 'Profil berhasil diperbarui!');
+{
+    // Ensure the user is authenticated
+    $user = Auth::user();
+    if (!$user) {
+        return redirect()->route('login')->withErrors(['message' => 'You must be logged in to update your profile.']);
     }
+
+    // Validate the incoming request
+    $request->validate([
+        'username' => 'required|string|max:255',
+        'current_password' => 'nullable|string',
+        'new_password' => 'nullable|string|min:8|confirmed', // Ensure new password is confirmed
+        'profile_picture' => 'nullable|image|max:2048', // Validate profile picture
+    ]);
+
+    // Update username
+    $user->username = $request->username;
+
+    // Check if the user wants to change the password
+    if ($request->filled('current_password') && $request->filled('new_password')) {
+        // Check if the current password is correct
+        if (!Hash::check($request->current_password, $user->password)) {
+            return redirect()->back()->withErrors(['current_password' => 'Current password is incorrect!']);
+        }
+
+        // Update the new password
+        $user->password = Hash::make($request->new_password);
+    }
+
+    // Upload profile picture if provided
+    if ($request->hasFile('profile_picture')) {
+        // Delete old picture if it exists
+        if ($user->profile_picture) {
+            Storage::delete('public/' . $user->profile_picture);
+        }
+
+        // Save the new picture
+        $path = $request->file('profile_picture')->store('profile_pictures', 'public');
+        $user->profile_picture = $path;
+    }
+
+    // Save changes
+    $user->save();
+
+    // Redirect with success message
+    return redirect()->route('student.profile')->with('success', 'Profile updated successfully!');
+}
 
     // Menampilkan pratinjau post di halaman mahasiswa
     public function review(Post $post) {

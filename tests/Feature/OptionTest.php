@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Option;
 use App\Models\Question;
+use App\Models\Quiz; // Ensure Quiz model is imported
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 

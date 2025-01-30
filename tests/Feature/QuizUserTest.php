@@ -28,6 +28,7 @@ class QuizUserTest extends TestCase
         $this->assertEquals($user->id, $quizUser ->user->id);
     }
 
+    /** @test */
     public function it_belongs_to_a_quiz()
     {
         // Create a quiz
@@ -51,7 +52,8 @@ class QuizUserTest extends TestCase
         $user = User::factory()->create();
 
         // Create multiple QuizUsers for the same user
-        $quizUser1 = QuizUser ::factory()->create(['user_id' => $user->id]);
+        QuizUser ::factory()->create(['user_id' => $user->id]);
+        QuizUser ::factory()->create(['user_id' => $user->id]);
 
         // Assert that the user has multiple QuizUsers
         $this->assertCount(2, $user->quizUsers);

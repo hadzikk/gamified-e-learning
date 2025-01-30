@@ -11,30 +11,21 @@ use Illuminate\Support\Str;
  */
 class UserFactory extends Factory
 {
-    /**
-     * The current password being used by the factory.
-     */
-    protected static ?string $password;
+    protected $model = \App\Models\User::class;
 
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
-    public function definition(): array
+    public function definition()
     {
         return [
-            'profile_picture' => $this->faker->imageUrl(),
-            'username' => $this->faker->unique()->userName,
-            'first_name' => $this->faker->firstName,
-            'last_name' => $this->faker->lastName,
-            'slug' => $this->faker->unique()->slug,
-            'degree' => $this->faker->randomElement(['Dr.', 'Prof.', 'M.Sc.']),
-            'email' => $this->faker->unique()->safeEmail,
-            'password' => bcrypt('password'), // default password
-            'role' => $this->faker->randomElement(['admin', 'mahasiswa', 'dosen']),
-            'score' => $this->faker->numberBetween(0, 100),
-            'remember_token' => Str::random(10),
+            'profile_picture' => $this->faker->imageUrl(), // Nullable
+            'username' => $this->faker->unique()->userName, // Unique username
+            'first_name' => $this->faker->firstName, // First name
+            'last_name' => $this->faker->lastName, // Last name
+            'degree' => $this->faker->randomElement(['Dr.', 'Prof.', 'M.Sc.', null]), // Nullable degree
+            'email' => $this->faker->unique()->safeEmail, // Unique email
+            'password' => Hash::make('password'), // Default password
+            'role' => $this->faker->randomElement(['administrator', 'lecturer', 'student']), // Role with specified options
+            'score' => $this->faker->numberBetween(0, 100), // Score, can be nullable
+            'remember_token' => Str::random(10), // Remember token
         ];
     }
 
