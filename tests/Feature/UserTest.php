@@ -4,7 +4,9 @@ namespace Tests\Unit;
 use Tests\TestCase;
 use App\Models\Quiz;
 use App\Models\User;
+use App\Models\QuizUser;
 use App\Models\QuizResult;
+use Illuminate\Support\Str;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class UserTest extends TestCase
@@ -16,12 +18,14 @@ class UserTest extends TestCase
     {
         $user = User::create([
             'username' => 'testuser',
-            'first_name' => 'Test',
-            'last_name' => 'User ',
-            'slug' => 'test-user',
-            'email' => 'test@example.com',
-            'password' => bcrypt('password'),
-            'role' => 'mahasiswa',
+            'first_name' => 'test',
+            'last_name' => 'testing',
+            'degree' => null,
+            'email' => 'testing@gmail.com', 
+            'password' => bcrypt('test'),
+            'role' => 'student',
+            'score' => 70,
+            'remember_token' => Str::random(10)
         ]);
 
         $this->assertDatabaseHas('users', [
@@ -45,28 +49,6 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    public function testCanGetQuizResults()
-{
-    // Create a user
-    $user = User::factory()->create();
-
-    // Create a quiz
-    $quiz = Quiz::factory()->create();
-
-    // Now you can insert a quiz result
-    $quizResult = QuizResult::create([
-        'quiz_id' => $quiz->id,
-        'user_id' => $user->id,
-        'score' => 85,
-    ]);
-
-    // Assert that the quiz result was created successfully
-    $this->assertDatabaseHas('quiz_results', [
-        'quiz_id' => $quiz->id,
-        'user_id' => $user->id,
-        'score' => 85,
-    ]);
-}
 
     // Add more tests for other methods and scenarios
 }

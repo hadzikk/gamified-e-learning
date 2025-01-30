@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1738216969">
-  <project timestamp="1738216969">
+<coverage generated="1738238493">
+  <project timestamp="1738238493">
     <package name="App\Http\Controllers">
       <file name="D:\Arsip Tugas Kuliah\Semester 3\Proyek II\clone\gamified-e-learning\app\Http\Controllers\AdministratorController.php">
         <class name="App\Http\Controllers\AdministratorController" namespace="App\Http\Controllers">
-          <metrics complexity="11" methods="7" coveredmethods="5" conditionals="0" coveredconditionals="0" statements="42" coveredstatements="30" elements="49" coveredelements="35"/>
+          <metrics complexity="11" methods="7" coveredmethods="6" conditionals="0" coveredconditionals="0" statements="42" coveredstatements="33" elements="49" coveredelements="39"/>
         </class>
         <line num="13" type="method" name="index" visibility="public" complexity="1" crap="1" count="1"/>
         <line num="14" type="stmt" count="1"/>
@@ -51,11 +51,11 @@
         <line num="81" type="stmt" count="0"/>
         <line num="82" type="stmt" count="0"/>
         <line num="84" type="stmt" count="0"/>
-        <line num="87" type="method" name="destroy" visibility="public" complexity="1" crap="2" count="0"/>
-        <line num="89" type="stmt" count="0"/>
-        <line num="90" type="stmt" count="0"/>
-        <line num="92" type="stmt" count="0"/>
-        <metrics loc="95" ncloc="82" classes="1" methods="7" coveredmethods="5" conditionals="0" coveredconditionals="0" statements="42" coveredstatements="30" elements="49" coveredelements="35"/>
+        <line num="87" type="method" name="destroy" visibility="public" complexity="1" crap="1" count="1"/>
+        <line num="89" type="stmt" count="1"/>
+        <line num="90" type="stmt" count="1"/>
+        <line num="92" type="stmt" count="1"/>
+        <metrics loc="95" ncloc="82" classes="1" methods="7" coveredmethods="6" conditionals="0" coveredconditionals="0" statements="42" coveredstatements="33" elements="49" coveredelements="39"/>
       </file>
       <file name="D:\Arsip Tugas Kuliah\Semester 3\Proyek II\clone\gamified-e-learning\app\Http\Controllers\AuthController.php">
         <class name="App\Http\Controllers\AuthController" namespace="App\Http\Controllers">
@@ -110,14 +110,14 @@
       </file>
       <file name="D:\Arsip Tugas Kuliah\Semester 3\Proyek II\clone\gamified-e-learning\app\Http\Controllers\PostController.php">
         <class name="App\Http\Controllers\PostController" namespace="App\Http\Controllers">
-          <metrics complexity="21" methods="6" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="87" coveredstatements="13" elements="93" coveredelements="15"/>
+          <metrics complexity="21" methods="6" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="87" coveredstatements="2" elements="93" coveredelements="3"/>
         </class>
-        <line num="20" type="method" name="show" visibility="public" complexity="1" crap="1" count="1"/>
-        <line num="22" type="stmt" count="1"/>
-        <line num="24" type="stmt" count="1"/>
-        <line num="27" type="method" name="profile" visibility="public" complexity="1" crap="2" count="0"/>
-        <line num="29" type="stmt" count="0"/>
-        <line num="30" type="stmt" count="0"/>
+        <line num="20" type="method" name="show" visibility="public" complexity="1" crap="2" count="0"/>
+        <line num="22" type="stmt" count="0"/>
+        <line num="24" type="stmt" count="0"/>
+        <line num="27" type="method" name="profile" visibility="public" complexity="1" crap="1" count="1"/>
+        <line num="29" type="stmt" count="1"/>
+        <line num="30" type="stmt" count="1"/>
         <line num="33" type="method" name="edit" visibility="public" complexity="1" crap="2" count="0"/>
         <line num="35" type="stmt" count="0"/>
         <line num="36" type="stmt" count="0"/>
@@ -143,18 +143,18 @@
         <line num="78" type="stmt" count="0"/>
         <line num="82" type="stmt" count="0"/>
         <line num="85" type="stmt" count="0"/>
-        <line num="89" type="method" name="review" visibility="public" complexity="1" crap="1" count="1"/>
-        <line num="90" type="stmt" count="1"/>
-        <line num="93" type="stmt" count="1"/>
-        <line num="94" type="stmt" count="1"/>
-        <line num="97" type="stmt" count="1"/>
-        <line num="100" type="stmt" count="1"/>
-        <line num="102" type="stmt" count="1"/>
-        <line num="103" type="stmt" count="1"/>
-        <line num="104" type="stmt" count="1"/>
-        <line num="105" type="stmt" count="1"/>
-        <line num="106" type="stmt" count="1"/>
-        <line num="107" type="stmt" count="1"/>
+        <line num="89" type="method" name="review" visibility="public" complexity="1" crap="2" count="0"/>
+        <line num="90" type="stmt" count="0"/>
+        <line num="93" type="stmt" count="0"/>
+        <line num="94" type="stmt" count="0"/>
+        <line num="97" type="stmt" count="0"/>
+        <line num="100" type="stmt" count="0"/>
+        <line num="102" type="stmt" count="0"/>
+        <line num="103" type="stmt" count="0"/>
+        <line num="104" type="stmt" count="0"/>
+        <line num="105" type="stmt" count="0"/>
+        <line num="106" type="stmt" count="0"/>
+        <line num="107" type="stmt" count="0"/>
         <line num="111" type="method" name="store" visibility="public" complexity="10" crap="110" count="0"/>
         <line num="113" type="stmt" count="0"/>
         <line num="117" type="stmt" count="0"/>
@@ -205,7 +205,7 @@
         <line num="183" type="stmt" count="0"/>
         <line num="184" type="stmt" count="0"/>
         <line num="185" type="stmt" count="0"/>
-        <metrics loc="189" ncloc="154" classes="1" methods="6" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="87" coveredstatements="13" elements="93" coveredelements="15"/>
+        <metrics loc="189" ncloc="154" classes="1" methods="6" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="87" coveredstatements="2" elements="93" coveredelements="3"/>
       </file>
       <file name="D:\Arsip Tugas Kuliah\Semester 3\Proyek II\clone\gamified-e-learning\app\Http\Controllers\QuizController.php">
         <class name="App\Http\Controllers\QuizController" namespace="App\Http\Controllers">
@@ -318,55 +318,65 @@
         <class name="App\Models\Post" namespace="App\Models">
           <metrics complexity="2" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="4" coveredstatements="4" elements="6" coveredelements="6"/>
         </class>
-        <line num="18" type="method" name="user" visibility="public" complexity="1" crap="1" count="3"/>
-        <line num="20" type="stmt" count="3"/>
-        <line num="24" type="method" name="booted" visibility="protected" complexity="1" crap="1" count="11"/>
-        <line num="26" type="stmt" count="11"/>
-        <line num="28" type="stmt" count="11"/>
-        <line num="29" type="stmt" count="11"/>
+        <line num="18" type="method" name="user" visibility="public" complexity="1" crap="1" count="1"/>
+        <line num="20" type="stmt" count="1"/>
+        <line num="24" type="method" name="booted" visibility="protected" complexity="1" crap="1" count="6"/>
+        <line num="26" type="stmt" count="6"/>
+        <line num="28" type="stmt" count="6"/>
+        <line num="29" type="stmt" count="6"/>
         <metrics loc="32" ncloc="29" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="4" coveredstatements="4" elements="6" coveredelements="6"/>
       </file>
       <file name="D:\Arsip Tugas Kuliah\Semester 3\Proyek II\clone\gamified-e-learning\app\Models\Question.php">
         <class name="App\Models\Question" namespace="App\Models">
           <metrics complexity="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
         </class>
-        <line num="15" type="method" name="options" visibility="public" complexity="1" crap="1" count="2"/>
-        <line num="17" type="stmt" count="2"/>
+        <line num="15" type="method" name="options" visibility="public" complexity="1" crap="1" count="1"/>
+        <line num="17" type="stmt" count="1"/>
         <metrics loc="19" ncloc="19" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
       </file>
       <file name="D:\Arsip Tugas Kuliah\Semester 3\Proyek II\clone\gamified-e-learning\app\Models\Quiz.php">
         <class name="App\Models\Quiz" namespace="App\Models">
           <metrics complexity="3" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="5" elements="8" coveredelements="8"/>
         </class>
-        <line num="18" type="method" name="users" visibility="public" complexity="1" crap="1" count="2"/>
-        <line num="20" type="stmt" count="2"/>
-        <line num="21" type="stmt" count="2"/>
-        <line num="22" type="stmt" count="2"/>
+        <line num="18" type="method" name="users" visibility="public" complexity="1" crap="1" count="1"/>
+        <line num="20" type="stmt" count="1"/>
+        <line num="21" type="stmt" count="1"/>
+        <line num="22" type="stmt" count="1"/>
         <line num="25" type="method" name="post" visibility="public" complexity="1" crap="1" count="1"/>
         <line num="27" type="stmt" count="1"/>
-        <line num="30" type="method" name="questions" visibility="public" complexity="1" crap="1" count="2"/>
-        <line num="32" type="stmt" count="2"/>
+        <line num="30" type="method" name="questions" visibility="public" complexity="1" crap="1" count="1"/>
+        <line num="32" type="stmt" count="1"/>
         <metrics loc="34" ncloc="34" classes="1" methods="3" coveredmethods="3" conditionals="0" coveredconditionals="0" statements="5" coveredstatements="5" elements="8" coveredelements="8"/>
+      </file>
+      <file name="D:\Arsip Tugas Kuliah\Semester 3\Proyek II\clone\gamified-e-learning\app\Models\QuizResult.php">
+        <class name="App\Models\QuizResult" namespace="App\Models">
+          <metrics complexity="2" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="0" elements="4" coveredelements="0"/>
+        </class>
+        <line num="14" type="method" name="user" visibility="public" complexity="1" crap="2" count="0"/>
+        <line num="16" type="stmt" count="0"/>
+        <line num="19" type="method" name="quiz" visibility="public" complexity="1" crap="2" count="0"/>
+        <line num="21" type="stmt" count="0"/>
+        <metrics loc="23" ncloc="23" classes="1" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="0" elements="4" coveredelements="0"/>
       </file>
       <file name="D:\Arsip Tugas Kuliah\Semester 3\Proyek II\clone\gamified-e-learning\app\Models\QuizUser.php">
         <class name="App\Models\QuizUser" namespace="App\Models">
           <metrics complexity="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
         </class>
-        <line num="18" type="method" name="user" visibility="public" complexity="1" crap="1" count="2"/>
-        <line num="20" type="stmt" count="2"/>
+        <line num="18" type="method" name="user" visibility="public" complexity="1" crap="1" count="1"/>
+        <line num="20" type="stmt" count="1"/>
         <metrics loc="22" ncloc="22" classes="1" methods="1" coveredmethods="1" conditionals="0" coveredconditionals="0" statements="1" coveredstatements="1" elements="2" coveredelements="2"/>
       </file>
       <file name="D:\Arsip Tugas Kuliah\Semester 3\Proyek II\clone\gamified-e-learning\app\Models\User.php">
         <class name="App\Models\User" namespace="App\Models">
-          <metrics complexity="2" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="4" coveredstatements="4" elements="6" coveredelements="6"/>
+          <metrics complexity="2" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="4" coveredstatements="0" elements="6" coveredelements="0"/>
         </class>
-        <line num="54" type="method" name="quizUsers" visibility="public" complexity="1" crap="1" count="1"/>
-        <line num="56" type="stmt" count="1"/>
-        <line num="64" type="method" name="quizzes" visibility="public" complexity="1" crap="1" count="1"/>
-        <line num="66" type="stmt" count="1"/>
-        <line num="67" type="stmt" count="1"/>
-        <line num="68" type="stmt" count="1"/>
-        <metrics loc="71" ncloc="46" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="4" coveredstatements="4" elements="6" coveredelements="6"/>
+        <line num="54" type="method" name="quizUsers" visibility="public" complexity="1" crap="2" count="0"/>
+        <line num="56" type="stmt" count="0"/>
+        <line num="64" type="method" name="quizzes" visibility="public" complexity="1" crap="2" count="0"/>
+        <line num="66" type="stmt" count="0"/>
+        <line num="67" type="stmt" count="0"/>
+        <line num="68" type="stmt" count="0"/>
+        <metrics loc="71" ncloc="46" classes="1" methods="2" coveredmethods="0" conditionals="0" coveredconditionals="0" statements="4" coveredstatements="0" elements="6" coveredelements="0"/>
       </file>
     </package>
     <package name="App\Providers">
@@ -374,10 +384,10 @@
         <class name="App\Providers\AppServiceProvider" namespace="App\Providers">
           <metrics complexity="2" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="4" coveredelements="4"/>
         </class>
-        <line num="13" type="method" name="register" visibility="public" complexity="1" crap="1" count="21"/>
-        <line num="16" type="stmt" count="21"/>
-        <line num="21" type="method" name="boot" visibility="public" complexity="1" crap="1" count="21"/>
-        <line num="23" type="stmt" count="21"/>
+        <line num="13" type="method" name="register" visibility="public" complexity="1" crap="1" count="19"/>
+        <line num="16" type="stmt" count="19"/>
+        <line num="21" type="method" name="boot" visibility="public" complexity="1" crap="1" count="19"/>
+        <line num="23" type="stmt" count="19"/>
         <metrics loc="26" ncloc="19" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="4" coveredelements="4"/>
       </file>
     </package>
@@ -393,6 +403,6 @@
         <metrics loc="29" ncloc="21" classes="1" methods="2" coveredmethods="2" conditionals="0" coveredconditionals="0" statements="2" coveredstatements="2" elements="4" coveredelements="4"/>
       </file>
     </package>
-    <metrics files="17" loc="810" ncloc="691" classes="16" methods="37" coveredmethods="22" conditionals="0" coveredconditionals="0" statements="243" coveredstatements="64" elements="280" coveredelements="86"/>
+    <metrics files="18" loc="833" ncloc="714" classes="17" methods="39" coveredmethods="20" conditionals="0" coveredconditionals="0" statements="245" coveredstatements="52" elements="284" coveredelements="72"/>
   </project>
 </coverage>

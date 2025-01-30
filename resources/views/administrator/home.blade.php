@@ -14,8 +14,8 @@
                 <p class="administrator-sidebar-title">navigasi</p>
                 <ul class="administrator-sidebar-lists">
                     <li class="administrator-sidebar-list"><a class="administrator-sidebar-link" href="/administrator/dashboard/home">beranda</a></li>
-                    <li class="administrator-sidebar-list"><a class="administrator-sidebar-link" href="{{ route('Regisaccount') }}">registrasi account</a></li>
-                    <li class="administrator-sidebar-list"><a class="administrator-sidebar-link" href="{{ route('Dataview') }}">lihat data</a></li>
+                    <li class="administrator-sidebar-list"><a class="administrator-sidebar-link" href="{{ route('admin.regis') }}">registrasi account</a></li>
+                    <li class="administrator-sidebar-list"><a class="administrator-sidebar-link" href="{{ route('admin.data') }}">lihat data</a></li>
                     <li class="administrator-sidebar-list"><a class="administrator-sidebar-link" href="" id="logout">keluar</a></li>
                 </ul>
             </div>

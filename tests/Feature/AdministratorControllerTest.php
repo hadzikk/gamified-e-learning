@@ -102,7 +102,7 @@ class AdministratorControllerTest extends TestCase
     ];
 
     // Call the update profile method
-    $response = $this->post(route('student.updateProfile'), $data);
+    $response = $this->post(route('student.update'), $data);
 
     // Assert the response
     $response->assertRedirect(route('student.profile'));
@@ -117,7 +117,7 @@ class AdministratorControllerTest extends TestCase
         $user = User::factory()->create();
 
         $response = $this->delete(route('admin.destroy', $user->id));
-        $response->assertRedirect(route('Dataview'));
+        $response->assertRedirect(route('admin.data'));
 
         // Check that the user no longer exists in the database
         $this->assertDatabaseMissing('users', [
