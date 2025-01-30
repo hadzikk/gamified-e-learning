@@ -46,7 +46,7 @@ class AdministratorController extends Controller
         $user->save();
  
          // Redirect ke halaman admin home dengan pesan sukses
-        return redirect()->route('Regisaccount')->with('success', 'User registered successfully!');
+        return redirect()->route('admin.regis')->with('success', 'User registered successfully!');
     }
 
     public function update(Request $request, $id)
@@ -81,7 +81,7 @@ class AdministratorController extends Controller
         $user->degree = $request->role === 'lecturer' ? $request->degree : null; // Hanya simpan degree jika role adalah dosen
         $user->save();
 
-        return redirect()->route('Dataview')->with('success', 'Data berhasil diperbarui!');
+        return redirect()->route('admin.data')->with('success', 'Data berhasil diperbarui!');
     }
 
     public function destroy($id)
@@ -89,6 +89,6 @@ class AdministratorController extends Controller
     $user = User::findOrFail($id); // Cari user berdasarkan ID
     $user->delete(); // Hapus user
 
-    return redirect()->route('Dataview')->with('success', 'Pengguna berhasil dihapus!');
+    return redirect()->route('admin.data')->with('success', 'Pengguna berhasil dihapus!');
     }
 }

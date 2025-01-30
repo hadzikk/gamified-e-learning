@@ -18,11 +18,11 @@ Route::post('/oa/account-security/logout', [AuthController::class, 'logout']);
 Route::prefix('administrator')->group(function () {
     Route::get('/dashboard/home', [AdministratorController::class, 'index'])->name('admin.index');
     Route::get('/dashboard/registrating/account', [AdministratorController::class, 'regisIndex'])->name('admin.regis');
-    Route::post('dashboard/registrating/student', [AdministratorController::class, 'store'])->name('admin.store');
+    Route::post('dashboard/registrating/student', [AdministratorController::class, 'store'])->name('admin.submit');
     Route::get('/dashboard/Data/account', [AdministratorController::class, 'dataIndex'])->name('admin.data');
     Route::get('/edit-user/{id}', [AdministratorController::class, 'edit'])->name('admin.edit');
     Route::put('/update-user/{id}', [AdministratorController::class, 'update'])->name('admin.update');
-    Route::delete('/delete-user/{id}', [AdministratorController::class, 'destroy'])->name('admin.destroy');
+    Route::delete('/delete-user/{id}', [AdministratorController::class, 'destroy'])->name('admin.delete');
 });
 
 // Controller Lecturer

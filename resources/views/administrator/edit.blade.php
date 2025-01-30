@@ -29,9 +29,16 @@
                 <p class="administrator-sidebar-title">navigasi</p>
                 <ul class="administrator-sidebar-lists">
                     <li class="administrator-sidebar-list"><a class="administrator-sidebar-link" href="{{ route ('admin.index') }}">beranda</a></li>
-                    <li class="administrator-sidebar-list"><a class="administrator-sidebar-link" href="{{ route ('admin.regis') }}">registrasi akun</a></li>
-                    <li class="administrator-sidebar-list"><a class="administrator-sidebar-link" href="{{ route('admin.update') }}">lihat data</a></li>
-                    <li class="administrator-sidebar-list"><a class="administrator-sidebar-link" href="" id="logout">keluar</a></li>
+                    <li class="administrator-sidebar-list"><a class="administrator-sidebar-link" href="{{ route('admin.regis') }}">registrasi account</a></li>
+                    <li class="administrator-sidebar-list"><a class="administrator-sidebar-link" href="{{ route('admin.data') }}">lihat data</a></li>
+                    <li class="administrator-sidebar-list">
+                        <form action="/oa/account-security/logout" method="POST">
+                            @csrf
+                            <button type="submit" class="administrator-sidebar-link" style="background: none; border: none; color: inherit; cursor: pointer;">
+                                Keluar
+                            </button>
+                        </form>
+                    </li>
                 </ul>
             </div>
             <div class="administrator-dashboard-content">
@@ -46,7 +53,7 @@
                 @endif
 
                 <!-- Form Edit -->
-                <form class="form" action="{{ route('updateaccount', $user->id) }}" method="POST">
+                <form class="form" action="{{ route('admin.update', $user->id) }}" method="POST">
                     @csrf
                     @method('PUT')
                     <p class="input-title">nama pengguna</p>

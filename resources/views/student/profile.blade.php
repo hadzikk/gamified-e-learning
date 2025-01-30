@@ -44,24 +44,30 @@
         .profile-info p strong {
             font-size: 18px;
         }
-        .btn-edit {
+        .btn-edit, .btn-back {
             display: inline-block;
             margin-top: 15px;
             padding: 10px 20px;
-            background: #007bff;
             color: white;
             text-decoration: none;
             border-radius: 5px;
             font-size: 16px;
         }
+        .btn-edit {
+            background: #007bff;
+        }
         .btn-edit:hover {
             background: #0056b3;
+        }
+        .btn-back {
+            background: #28a745;
+        }
+        .btn-back:hover {
+            background: #218838;
         }
     </style>
 </head>
 <body>
-    <x-student.navbar></x-student.navbar>
-    
     <div class="profile-container">
         <h1>Profil Siswa</h1>
 
@@ -70,8 +76,9 @@
             <!-- Foto Profil -->
             <div class="profile-picture">
                 <!-- Memeriksa apakah gambar profil ada, jika tidak tampilkan gambar default -->
-                <img class="profile-personalization-picture" src="{{ Auth::user()->profile_picture ? asset('storage/' . Auth::user()->profile_picture) : asset('images/ec9b92f3-6100-471d-8d8c-42e2ccd004e0.jpg') }}" 
-                alt="Profile Picture">
+                <img class="profile-personalization-picture" 
+                     src="{{ Auth::user()->profile_picture ? asset('storage/' . Auth::user()->profile_picture) : asset('images/ec9b92f3-6100-471d-8d8c-42e2ccd004e0.jpg') }}" 
+                     alt="Profile Picture">
                 <p style="text-align: center; font-weight: bold; margin-top: 10px;">{{ $student->username }}</p>
             </div>
 
@@ -81,11 +88,15 @@
                 <p><strong>Nama Depan:</strong> {{ $student->first_name }}</p>
                 <p><strong>Nama Belakang:</strong> {{ $student->last_name }}</p>
                 <p><strong>Email:</strong> {{ $student->email }}</p>
-                <a href="{{ route('profile.edit',$student->id) }}" class="btn-edit">Edit Profil</a>
+                
+                <!-- Tombol Edit Profil -->
+                <a href="{{ route('profile.edit', $student->id) }}" class="btn-edit">Edit Profil</a>
+                
+                <!-- Tombol Kembali ke Halaman Postingan -->
+                <a href="/student/post" class="btn-back">Kembali ke Postingan</a>
             </div>
         </div>
     </div>
-    <x-global.footer></x-global.footer>
 
 <script src="{{ asset('js/event.js') }}"></script>
 

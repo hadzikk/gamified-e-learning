@@ -44,14 +44,6 @@ class PostController extends Controller
         return redirect()->route('login')->withErrors(['message' => 'You must be logged in to update your profile.']);
     }
 
-    // Validate the incoming request
-    $request->validate([
-        'username' => 'required|string|max:255',
-        'current_password' => 'nullable|string',
-        'new_password' => 'nullable|string|min:8|confirmed', // Ensure new password is confirmed
-        'profile_picture' => 'nullable|image|max:2048', // Validate profile picture
-    ]);
-
     // Update username
     $user->username = $request->username;
 

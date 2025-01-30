@@ -45,10 +45,17 @@
             <div class="administrator-dashboard-sidebar">
                 <p class="administrator-sidebar-title">Navigasi</p>
                 <ul class="administrator-sidebar-lists">
-                    <li class="administrator-sidebar-list"><a class="administrator-sidebar-link" href="{{ route ('DashAdmin') }}">beranda</a></li>
-                    <li class="administrator-sidebar-list"><a class="administrator-sidebar-link" href="{{ route('Regisaccount') }}">registrasi account</a></li>
-                    <li class="administrator-sidebar-list"><a class="administrator-sidebar-link" href="{{ route('Dataview') }}">lihat data</a></li>
-                    <li class="administrator-sidebar-list"><a class="administrator-sidebar-link" href="" id="logout">keluar</a></li>
+                    <li class="administrator-sidebar-list"><a class="administrator-sidebar-link" href="{{ route ('admin.index') }}">beranda</a></li>
+                    <li class="administrator-sidebar-list"><a class="administrator-sidebar-link" href="{{ route('admin.regis') }}">registrasi account</a></li>
+                    <li class="administrator-sidebar-list"><a class="administrator-sidebar-link" href="{{ route('admin.data') }}">lihat data</a></li>
+                    <li class="administrator-sidebar-list">
+                        <form action="/oa/account-security/logout" method="POST">
+                            @csrf
+                            <button type="submit" class="administrator-sidebar-link" style="background: none; border: none; color: inherit; cursor: pointer;">
+                                Keluar
+                            </button>
+                        </form>
+                    </li>
                 </ul>
             </div>
             <div class="administrator-dashboard-content">
@@ -85,8 +92,8 @@
                                 <td>{{ $user->role }}</td>
                                 <td>{{ $user->degree }}</td>
                                 <td>
-                                    <a href="{{ route('editUser', $user->id) }}" class="edit-button">Edit</a>
-                                    <form action="{{ route('deleteUser', $user->id) }}" method="POST" style="display: inline-block;">
+                                    <a href="{{ route('admin.edit', $user->id) }}" class="edit-button">Edit</a>
+                                    <form action="{{ route('admin.delete', $user->id) }}" method="POST" style="display: inline-block;">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="delete-button" onclick="return confirm('Apakah Anda yakin ingin menghapus pengguna ini?')">Hapus</button>
