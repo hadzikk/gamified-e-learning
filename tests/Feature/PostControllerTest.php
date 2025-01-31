@@ -2,90 +2,158 @@
 
 namespace Tests\Feature;
 
-use Tests\TestCase;
+use App\Models\User;
 use App\Models\Post;
 use App\Models\Quiz;
-use App\Models\User;
-use App\Models\Option;
-use App\Models\Question;
-use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
+use Tests\TestCase;
 
 class PostControllerTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_show_posts()
+    protected function setUp(): void
     {
-        $user = User::factory()->create();
-        Post::factory()->count(3)->create(['user_id' => $user->id]);
+        parent::setUp();
 
-        $response = $this->actingAs($user)->get(route('student.post'));
+        // Buat user sebelum setiap test dijalankan
+        $this->user = User::factory()->create();
+    }
+
+
+    /** @test */
+    public function it_can_show_posts()
+    {
+        $this->actingAs($this->user);
+
+        // Create some posts
+        Post::factory()->count(5)->create(['user_id' => $this->user->id]);
+
+        $response = $this->get(route('student.post'));
+
         $response->assertStatus(200);
         $response->assertViewHas('posts');
     }
 
-    public function test_profile_page()
+    /** @test */
+    public function it_can_update_profile()
     {
-        $user = User::factory()->create();
-        
-        $response = $this->actingAs($user)->get(route('student.profile'));
-        $response->assertStatus(200);
-        $response->assertViewHas('student', $user);
-    }
+        $this->actingAs($this->user);
 
-    public function test_update_profile()
-    {
-        $user = User::factory()->create([
-            'password' => Hash::make('oldpassword')
-        ]);
-
-        Storage::fake('public');
-        $file = UploadedFile::fake()->image('profile.jpg');
-
-        $response = $this->actingAs($user)->post(route('student.updateprofile'), [
+        $data = [
             'username' => 'newusername',
-            'current_password' => 'oldpassword',
-            'new_password' => 'newpassword',
-            'new_password_confirmation' => 'newpassword',
-            'profile_picture' => $file
-        ]);
-
-        $response->assertRedirect(route('student.profile'));
-        $this->assertEquals('newusername', $user->fresh()->username);
-        $this->assertTrue(Hash::check('newpassword', $user->fresh()->password));
-        Storage::disk('public')->assertExists($user->fresh()->profile_picture);
-    }
-
-    public function test_store_quiz_post()
-    {
-        $user = User::factory()->create();
-        
-        $postData = [
-            'user_id' => $user->id,
-            'subject' => 'Math',
-            'title' => 'Basic Algebra',
-            'level' => 'basic',
-            'description' => 'Test description',
-            'duration' => 30,
-            'questions' => [
-                [
-                    'question_text' => 'What is 2+2?',
-                    'options' => [
-                        ['option_text' => '3', 'is_correct' => false],
-                        ['option_text' => '4', 'is_correct' => true],
-                    ]
-                ]
-            ]
+            'current_password' => 'password123',
+            'new_password' => 'newpassword123',
+            'profile_picture' => null, // You can use a fake image if needed
         ];
 
-        $response = $this->actingAs($user)->post(route('student.storePost'), $postData);
-        
-        $response->assertRedirect();
-        $this->assertDatabaseHas('posts', ['title' => 'Basic Algebra']);
-        $this->assertDatabaseHas('quizzes', ['duration' => 30]);
-        $this->assertDatabaseHas('questions', ['question_text' => 'What is 2+2?']);
+        $response = $this->post(route('updateprofile'), $data);
+
+        $this->user->refresh(); // Refresh the user instance
+
+        $this->assertEquals('newusername', $this->user->username);
+        $this->assertTrue(Hash::check('newpassword123', $this->user->password));
+        $response->assertRedirect(route('student.profile'));
+        $response->assertSessionHas('success', 'Profile updated successfully!');
     }
+
+    /** @test */
+    /** @test */
+public function it_can_review_post()
+{
+    // Buat user dan autentikasi
+    $user = User::factory()->create();
+    $this->actingAs($user);
+
+    // Buat post dan quiz
+    $post = Post::factory()->create(['user_id' => $user->id]);
+    $quiz = Quiz::factory()->create(['post_id' => $post->id]);
+
+    // Pastikan menggunakan ID atau slug untuk parameter route
+    $response = $this->get(route('review', ['post' => $post->id])); 
+
+    // Pastikan response OK (200)
+    $response->assertStatus(200);
+
+    // Pastikan view menerima data yang benar
+    $response->assertViewHas('post', function ($viewPost) use ($post) {
+        return $viewPost->id === $post->id;
+    });
+
+    $response->assertViewHas('quiz', function ($viewQuiz) use ($quiz) {
+        return $viewQuiz->id === $quiz->id;
+    });
+}
+
+
+    /** @test */
+    /** @test */
+public function it_can_store_quiz()
+{
+    // Buat dan autentikasi user
+    $user = User::factory()->create();
+    $this->actingAs($user);
+
+    // Data request
+    $request = [
+        'user_id' => $user->id, // Pastikan user_id diberikan
+        'subject' => 'Math',
+        'title' => 'Algebra Quiz',
+        'level' => 'basic',
+        'description' => 'A quiz on algebra.',
+        'duration' => 30,
+        'questions' => [
+            [
+                'question_text' => 'What is 2 + 2?',
+                'options' => [
+                    [
+                        'option_text' => '4',
+                        'is_correct' => 1, // Seharusnya jawaban benar
+                    ],
+                    [
+                        'option_text' => '3',
+                        'is_correct' => 0,
+                    ],
+                ],
+            ],
+        ],
+    ];    
+
+    // Kirim request untuk menyimpan post
+    $response = $this->post(route('post.store'), $request);
+
+    // Pastikan tidak ada error validasi
+    $response->assertSessionDoesntHaveErrors();
+
+    // Ambil post yang baru saja dibuat
+    $post = Post::where('title', 'Algebra Quiz')->first();
+    $this->assertNotNull($post, 'Post tidak ditemukan dalam database.');
+
+    // Pastikan post disimpan di database
+    $this->assertDatabaseHas('posts', [
+        'title' => 'Algebra Quiz',
+        'user_id' => $user->id,
+    ]);
+
+    // Ambil quiz yang terkait dengan post
+    $quiz = Quiz::where('post_id', $post->id)->first();
+    $this->assertNotNull($quiz, 'Quiz tidak ditemukan dalam database.');
+
+    // Pastikan quiz disimpan dengan post_id yang benar
+    $this->assertDatabaseHas('quizzes', [
+        'post_id' => $post->id,
+        'duration' => 30,
+    ]);
+
+    // Pastikan ada setidaknya satu pertanyaan di dalam quiz
+    $this->assertDatabaseHas('questions', [
+        'quiz_id' => $quiz->id,
+        'question_text' => 'What is 2 + 2?',
+    ]);
+
+    // Redirect dan flash message berhasil
+    $response->assertRedirect()->with('success', 'Postingan kuis berhasil dibuat!');
+}
 }

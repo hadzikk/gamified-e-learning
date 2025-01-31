@@ -29,12 +29,12 @@ Route::prefix('administrator')->group(function () {
 Route::prefix('lecturer')->group(function () {
     Route::get('/dashboard', [LecturerController::class, 'index']);
     Route::get('/dashboard/create', [LecturerController::class, 'create']);
-    Route::post('/dashboard/create', [PostController::class, 'store']); // Automatically maps CRUD
+    Route::post('/dashboard/create', [PostController::class, 'store'])->name('post.store'); // Automatically maps CRUD
 });
 
 // Controller Student
 Route::prefix('student')->group(function () {
-    Route::get('/post', [PostController::class, 'show']); // Postingan Kuis
+    Route::get('/post', [PostController::class, 'show'])->name('student.post'); // Postingan Kuis
     Route::get('/review/{post:slug}', [PostController::class, 'review'])->name('review');
     Route::get('/profile/account', [PostController::class,'profile'])-> name('student.profile');
     Route::get('/profile/account/edit/{id}', [PostController::class,'edit'])-> name('profile.edit');

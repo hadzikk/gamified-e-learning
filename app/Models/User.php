@@ -67,4 +67,9 @@ class User extends Authenticatable
                     ->withPivot('enrolled_at', 'completed_at', 'score', 'status')
                     ->withTimestamps();
     }
+
+    public function posts(): HasMany
+    {
+    return $this->hasMany(Post::class);
+    }
 }

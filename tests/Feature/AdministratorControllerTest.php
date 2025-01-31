@@ -20,27 +20,27 @@ class AdministratorControllerTest extends TestCase
     }
 
     public function test_regisIndex()
-{
-    // Create a user with role 'administrator'
-    $user = User::factory()->create([
-        'role' => 'administrator', // Set the role to 'administrator'
-        'username' => 'adminuser', // Ensure username is set
-        'first_name' => 'Admin', // Ensure first name is set
-        'last_name' => 'User ', // Ensure last name is set
-        'email' => 'admin@example.com', // Ensure email is set
-        'password' => Hash::make('password'), // Ensure password is set
-    ]);
-    
-    // Act as the created user
-    $this->actingAs($user);
+    {
+        // Create a user with role 'administrator'
+        $user = User::factory()->create([
+            'role' => 'administrator', // Set the role to 'administrator'
+            'username' => 'adminuser', // Ensure username is set
+            'first_name' => 'Admin', // Ensure first name is set
+            'last_name' => 'User ', // Ensure last name is set
+            'email' => 'admin@example.com', // Ensure email is set
+            'password' => Hash::make('password'), // Ensure password is set
+        ]);
+        
+        // Act as the created user
+        $this->actingAs($user);
 
-    // Call the regisIndex method
-    $response = $this->get(route('admin.regis'));
+        // Call the regisIndex method
+        $response = $this->get(route('admin.regis'));
 
-    // Assert the response
-    $response->assertStatus(200);
-    $response->assertViewIs('administrator.regis');
-}
+        // Assert the response
+        $response->assertStatus(200);
+        $response->assertViewIs('administrator.regis');
+    }
 
     public function test_dataIndex()
     {
@@ -76,7 +76,7 @@ class AdministratorControllerTest extends TestCase
             'role' => 'student',
         ];
 
-        $response = $this->post(route('admin.store'), $data);
+        $response = $this->post(route('admin.submit'), $data);
         $response->assertRedirect(route('admin.regis'));
         $this->assertDatabaseHas('users', [
             'username' => 'testuser',
@@ -85,38 +85,38 @@ class AdministratorControllerTest extends TestCase
     }
 
     public function test_update_profile()
-{
-    // Create a user and act as that user
-    $user = User::factory()->create([
-        'password' => Hash::make('oldpassword'), // Set the initial password
-    ]);
+    {
+        // Create a user and act as that user
+        $user = User::factory()->create([
+            'password' => Hash::make('oldpassword'), // Set the initial password
+        ]);
 
-    $this->actingAs($user);
+        $this->actingAs($user);
 
-    // Prepare the data for the update
-    $data = [
-        'username' => 'newusername',
-        'current_password' => 'oldpassword', // Provide the current password
-        'new_password' => 'newpassword', // New password
-        'profile_picture' => null, // Or provide a file if testing file upload
-    ];
+        // Prepare the data for the update
+        $data = [
+            'username' => 'newusername',
+            'current_password' => 'oldpassword', // Provide the current password
+            'new_password' => 'newpassword', // New password
+            'profile_picture' => null, // Or provide a file if testing file upload
+        ];
 
-    // Call the update profile method
-    $response = $this->post(route('student.update'), $data);
+        // Call the update profile method
+        $response = $this->post(route('updateprofile'), $data);
 
-    // Assert the response
-    $response->assertRedirect(route('student.profile'));
-    $this->assertDatabaseHas('users', [
-        'username' => 'newusername',
-        // Check if the password is updated (you may need to hash it)
-    ]);
-}
+        // Assert the response
+        $response->assertRedirect(route('student.profile'));
+        $this->assertDatabaseHas('users', [
+            'username' => 'newusername',
+            // Check if the password is updated (you may need to hash it)
+        ]);
+    }
 
     public function test_destroy()
     {
         $user = User::factory()->create();
 
-        $response = $this->delete(route('admin.destroy', $user->id));
+        $response = $this->delete(route('admin.delete', $user->id));
         $response->assertRedirect(route('admin.data'));
 
         // Check that the user no longer exists in the database
@@ -126,45 +126,45 @@ class AdministratorControllerTest extends TestCase
     }
 
     public function test_update_user()
-{
+    {
     // Create a user and act as that user
-    $user = User::factory()->create([
-        'password' => Hash::make('oldpassword'), // Set the initial password
-        'role' => 'student', // Set initial role
-    ]);
+        $user = User::factory()->create([
+            'password' => Hash::make('oldpassword'), // Set the initial password
+            'role' => 'student', // Set initial role
+        ]);
 
-    $this->actingAs($user);
+        $this->actingAs($user);
 
-    // Prepare the data for the update
-    $data = [
-        'username' => 'newusername',
-        'first_name' => 'NewFirstName',
-        'last_name' => 'NewLastName',
-        'email' => 'newemail@example.com',
-        'current_password' => 'oldpassword', // Provide the current password
-        'new_password' => 'newpassword', // New password
-        'role' => 'lecturer', // Change role to lecturer
-        'degree' => 'MSc', // Provide degree since role is lecturer
-    ];
+        // Prepare the data for the update
+        $data = [
+            'username' => 'newusername',
+            'first_name' => 'NewFirstName',
+            'last_name' => 'NewLastName',
+            'email' => 'newemail@example.com',
+            'current_password' => 'oldpassword', // Provide the current password
+            'new_password' => 'newpassword', // New password
+            'role' => 'lecturer', // Change role to lecturer
+            'degree' => 'MSc', // Provide degree since role is lecturer
+        ];
 
-    // Call the update method
-    $response = $this->put(route('admin.update', $user->id), $data);
+        // Call the update method
+        $response = $this->put(route('admin.update', $user->id), $data);
 
-    // Assert the response
-    $response->assertRedirect(route('Dataview'));
-    $response->assertSessionHas('success', 'Data berhasil diperbarui!');
+        // Assert the response
+        $response->assertRedirect(route('admin.data'));
+        $response->assertSessionHas('success', 'Data berhasil diperbarui!');
 
-    // Assert the user data has been updated in the database
-    $this->assertDatabaseHas('users', [
-        'id' => $user->id,
-        'username' => 'newusername',
-        'first_name' => 'NewFirstName',
-        'last_name' => 'NewLastName',
-        'email' => 'newemail@example.com',
-        'role' => 'lecturer',
-        'degree' => 'MSc',
-    ]);
-}
+        // Assert the user data has been updated in the database
+        $this->assertDatabaseHas('users', [
+            'id' => $user->id,
+            'username' => 'newusername',
+            'first_name' => 'NewFirstName',
+            'last_name' => 'NewLastName',
+            'email' => 'newemail@example.com',
+            'role' => 'lecturer',
+            'degree' => 'MSc',
+        ]);
+    }
 
 public function test_update_user_with_invalid_current_password()
 {
