@@ -2,7 +2,9 @@
     <div class="navigation-bar">
         <div class="bar-wrapper-items">
             <ul class="bar-list-container">
-                <li class="bar-list --active"><a class="bar-link --active" href="/student/post">post</a></li>
+                <li class="bar-list --active"><a class="bar-link --active" href="">Home</a></li>
+                <li class="bar-list "><a class="bar-link" href="/student/post">post</a></li>
+                <li class="bar-list"><a class="bar-link" href="">Profile</a></li>
                 <li class="bar-list"><a class="bar-link" href="">tentang</a></li>
             </ul>
         </div>
@@ -43,7 +45,7 @@
                 <ul class="profile-navigation-list-container">
                     <li class="profile-navigation-list">
                         <a class="profile-navigation-link" href="{{ route('student.profile') }}">
-                            <i class="fa-solid fa-user"></i>&nbsp; Profil
+                            <i class="fa-solid fa-user"></i>&nbsp; settings
                         </a>
                     </li>
                     <li class="profile-navigation-list"><a class="profile-navigation-link" href="#" id="logout"><i class="fa-solid fa-power-off"></i>&nbsp; keluar</a></li>
