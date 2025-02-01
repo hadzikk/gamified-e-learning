@@ -22,7 +22,7 @@ class UserSeeder extends Seeder
             'email' => 'hadzikmochammad@gmail.com', 
             'password' => bcrypt('rahasiahadzik'),
             'role' => 'student',
-            'score' => 70,
+            'score' => 0,
             'remember_token' => Str::random(10)
         ]);
 
@@ -44,6 +44,18 @@ class UserSeeder extends Seeder
             'last_name' => 'nurkamal fauzan',
             'degree' => ', S.T., M.T., SFPC',
             'email' => 'm.nurkamal.f@ulbi.ac.id', 
+            'password' => bcrypt('rahasiapakkamal'),
+            'role' => 'lecturer',
+            'score' => 0,
+            'remember_token' => Str::random(10)
+        ]);
+
+        User::create([
+            'username' => 'yusrilhelmi',
+            'first_name' => 'M. Yusril',
+            'last_name' => 'Helmi Setyawan',
+            'degree' => ', S.Kom., M.Kom.,SFPC.',
+            'email' => ' yusrilhelmi@ulbi.ac.id', 
             'password' => bcrypt('rahasiapakkamal'),
             'role' => 'lecturer',
             'score' => 0,

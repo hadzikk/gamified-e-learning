@@ -16,24 +16,29 @@ use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
+    public function home()
+    {
+        return view('student.home', ['title' => 'home']);
+    }
+
     // Menampilkan semua post di halaman mahasiswa
     public function show() 
     {    
         $posts = Post::with('user')->latest()->paginate(10);
         
-        return view('student.post', ['posts' => $posts]);
+        return view('student.post', ['posts' => $posts, 'title' => 'post']);
     }
 
     public function profile()
     {
         $student = Auth::user();
-        return view('student.profile', compact('student'));
+        return view('student.profil', compact('student'));
     }
 
     public function edit($id)
     {
         $student = User::findOrFail($id);
-        return view('student.eprofile', compact('student'));
+        return view('student.profiles', compact('student'));
     }
 
     public function updateprofile(Request $request)
@@ -161,6 +166,7 @@ class PostController extends Controller
 
                         // Save option
                         Option::create([
+                            'quiz_id' => $quiz->id,
                             'question_id' => $question->id, // Associate option with the question
                             'option_text' => $optionText,
                             'is_correct' => $isCorrect, // 1 if correct, 0 if incorrect

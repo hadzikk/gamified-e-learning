@@ -34,10 +34,7 @@
         </ul>
 
         <ul class="socials-author-list">
-            <li class="authot-list"><p class="author-list-name">&copy;</p></li>
-            <li class="authot-list"><p class="author-list-name">Hadzik Mochamad Sofyan</p></li>
-            <li class="authot-list"><p class="author-list-name">Muflih Afif Mukhtalif</p></li>
-            <li class="authot-list"><p class="author-list-name">2025</p></li>
+            <p class="author-list-name">&copy; Hadzik Mochamad Sofyan & Muflih Afif Mukhtalif 2025</p>
         </ul>
     </div>
 </footer>

@@ -62,13 +62,13 @@
                 <span class="review-row-penalty {{ 
                         in_array($quizItem->id, $enrolledQuizIds) && (!$quizUser || $quizUser->pivot->status != 'completed') 
                         ? '--appear' : '--hide' 
-                    }}">penalty akan diterapkan dalam</span>&nbsp;
+                    }}"></span>&nbsp;
 
                 <span class="review-row-duration 
                     {{ 
                         in_array($quizItem->id, $enrolledQuizIds) && (!$quizUser || $quizUser->pivot->status != 'completed') 
                         ? '--appear' : '--hide' 
-                    }}">
+                    }}" data-duration="{{ $quizItem->duration }}">
                     <!-- Durasi akan muncul jika kuis belum selesai -->
                 </span>
             @endforeach
@@ -99,6 +99,7 @@
                         @csrf
                         <input type="hidden" name="slug" value="{{ $post->slug }}">
                         <input type="hidden" name="level" value="{{ $post->level }}">
+                        <input class="time-remaining" type="hidden" name="time_remaining">
                         @foreach ($quizItem->questions as $question)
                             <div class="quiz-questions-container">
                                 <p class="quiz-question">{{ $question->question_text }}</p>
@@ -137,14 +138,13 @@
                         <span class="popup-content-degree">{{ $post->user->degree }}</span>
                     </div>
                     @foreach ($quiz as $quizItem)
-                    {{-- <p class="popup-content-deadline">waktu pengerjaan {{ $quizItem->duration }}</p> --}}
                     @endforeach
                     <div class="popup-content-info">
                         <div class="popup-enrollment-container">
                             @foreach ($quiz as $quizItem)
                                 <form class="form-enroll" action="{{ route('quizzes.enroll', $quizItem->id) }}" method="POST">
                                     @csrf
-                                    <input type="hidden" name="time_given" value="{{ $quizItem->duration }}">
+                                    <input class="quiz-duration" type="hidden" name="duration" value="{{ $quizItem->duration }}">
                                     <button type="submit" class="button-enroll">Enroll kuis</button>
                                 </form>
                             @endforeach
@@ -169,25 +169,27 @@
         </div>
     </div>
     <x-global.footer></x-global.footer>
+
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-    const enrollForms = document.querySelectorAll(".form-enroll");
+document.addEventListener("DOMContentLoaded", function () {
+    const enrollForms = document.querySelectorAll(".form-quiz");
 
     enrollForms.forEach(form => {
         form.addEventListener("submit", function (event) {
-            // Tidak ada preventDefault di sini agar form bisa disubmit
+            // Mengambil waktu yang tersisa dalam milidetik
+            const timeRemainingMillis = parseInt(localStorage.getItem("quizEndTime")) - Date.now();
 
-            const timeGiven = parseInt(this.querySelector("input[name='time_given']").value); // waktu yang diberikan dalam menit
-            const startTime = Date.now();
-            const endTime = startTime + timeGiven * 60 * 1000; // Mengonversi menit ke milidetik
+            // Menghentikan timer saat tombol submit diklik
+            clearInterval(window.timerInterval);
 
-            // Simpan waktu di localStorage
-            localStorage.setItem("quizStartTime", startTime);
-            localStorage.setItem("quizEndTime", endTime);
-            localStorage.setItem("quizDuration", timeGiven * 60); // Menyimpan durasi dalam detik (bukan menit)
+            // Mengonversi milidetik menjadi detik
+            const timeRemainingSeconds = Math.floor(timeRemainingMillis / 1000); // Mengonversi ke detik
 
-            // Set timer untuk form submission
-            startTimer(form);
+            // Menambahkan nilai time_remaining ke dalam input sebelum form disubmit
+            const timeRemainingInput = form.querySelector('.time-remaining');
+            if (timeRemainingInput) {
+                timeRemainingInput.value = timeRemainingSeconds; // Mengirimkan waktu tersisa dalam detik
+            }
         });
     });
 
@@ -198,37 +200,42 @@
         const endTime = parseInt(localStorage.getItem("quizEndTime"));
         const interval = setInterval(() => {
             const now = Date.now();
-            const timeRemaining = Math.max(0, Math.floor((endTime - now) / 1000)); // Menghitung waktu tersisa dalam detik
+            const timeRemainingMillis = endTime - now; // Waktu dalam milidetik
+            const timeRemaining = Math.max(0, Math.floor(timeRemainingMillis / 1000)); // Waktu dalam detik
 
             durationElement.textContent = formatTime(timeRemaining);
 
             // Update nilai time_remaining pada form
             const timeRemainingInput = form.querySelector("input[name='time_remaining']");
-            timeRemainingInput.value = timeRemaining;
+            if (timeRemainingInput) {
+                timeRemainingInput.value = timeRemaining; // Update input setiap detik
+            }
 
             if (timeRemaining <= 0) {
                 clearInterval(interval);
                 durationElement.textContent = "Waktu habis!";
             }
         }, 1000);
+
+        // Menyimpan interval untuk penghentian saat submit
+        window.timerInterval = interval;
     }
 
     function formatTime(seconds) {
-        const hours = Math.floor(seconds / 3600); // Menghitung jam
-        const minutes = Math.floor((seconds % 3600) / 60); // Menghitung menit
-        const secs = seconds % 60; // Menghitung detik
+        const hours = Math.floor(seconds / 3600);
+        const minutes = Math.floor((seconds % 3600) / 60);
+        const secs = seconds % 60;
 
-        // Format jam:menit:detik, dengan menambahkan 0 di depan menit dan detik yang kurang dari 10
         return `${hours}:${minutes < 10 ? '0' : ''}${minutes}:${secs < 10 ? '0' : ''}${secs}`;
     }
 
-    // Cek apakah ada timer aktif saat halaman dimuat
     if (localStorage.getItem("quizEndTime")) {
         startTimer();
     }
 });
 
-</script>        
+</script>
+
     <script src="{{ asset('js/event.js') }}"></script>
 </body>
 </html>

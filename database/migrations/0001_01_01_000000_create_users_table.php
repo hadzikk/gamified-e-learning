@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('email')->unique(); // Kolom email tetap ada
             $table->string('password'); // Kolom password tetap ada
             $table->enum('role',['administrator','lecturer','student']); // Menambahkan kolom role dengan nilai default 'siswa'
+            $table->enum('level', ['basic', 'advance', 'proficient'])->default('basic');
             $table->integer('score')->default(0)->nullable();
             $table->rememberToken();
             $table->timestamps();

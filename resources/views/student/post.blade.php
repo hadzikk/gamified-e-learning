@@ -10,7 +10,9 @@
     <link rel="stylesheet" href="{{ asset('css/student/post.scss') }}">
 </head>
 <body>
-    <x-student.navbar></x-student.navbar>
+    <x-student.navbar>
+        <x-slot:title>{{ $title }}</x-slot:title>
+    </x-student.navbar>
     <div class="task-container">
         @foreach ($posts as $post)
         <div class="task-post">
@@ -38,33 +40,34 @@
             </div>
         </div>
         @endforeach
+
         <!-- Pagination -->
-    <div class="pagination">
-    @if ($posts->onFirstPage())
-        <span>Previous</span>
-    @else
-        <a href="{{ $posts->previousPageUrl() }}">Previous</a>
-    @endif
-
-    @foreach ($posts->getUrlRange(1, $posts->lastPage()) as $page => $url)
-        @if ($page == $posts->currentPage())
-            <span>{{ $page }}</span>
-        @else
-            <a href="{{ $url }}">{{ $page }}</a>
-        @endif
-    @endforeach
-
-    @if ($posts->hasMorePages())
-        <a href="{{ $posts->nextPageUrl() }}">Next</a>
-    @else
-        <span>Next</span>
-    @endif
-</div>
-
-<!-- Showing Results -->
-<div class="showing-results">
-    <p>Showing {{ $posts->firstItem() }} to {{ $posts->lastItem() }} of {{ $posts->total() }} results</p>
-</div>
+        <div class="pagination-container">
+            <div class="pagination">
+                @if ($posts->onFirstPage())
+                    <span class="page-navigation">Previous</span>
+                @else
+                    <a href="{{ $posts->previousPageUrl() }}">Previous</a>
+                @endif
+    
+                @foreach ($posts->getUrlRange(1, $posts->lastPage()) as $page => $url)
+                    @if ($page == $posts->currentPage())
+                        <span>{{ $page }}</span>
+                    @else
+                        <a href="{{ $url }}">{{ $page }}</a>
+                    @endif
+                @endforeach
+    
+                @if ($posts->hasMorePages())
+                    <a href="{{ $posts->nextPageUrl() }}">Next</a>
+                @else
+                    <span class="page-navigation">Next</span>
+                @endif
+            </div>
+            <div class="showing-results">
+                <p>Showing {{ $posts->firstItem() }} to {{ $posts->lastItem() }} of {{ $posts->total() }} results</p>
+            </div>
+        </div>
     </div>
 
 <x-global.footer></x-global.footer>

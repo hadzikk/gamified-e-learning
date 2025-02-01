@@ -20,5 +20,13 @@ class QuizSeeder extends Seeder
                 'penalty' => 30
             ]
         );
+
+        Quiz::create(
+            [
+                'post_id' => 2,
+                'duration' => 20,
+                'penalty' => 30
+            ]
+        );
     }
 }

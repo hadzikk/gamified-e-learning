@@ -26,7 +26,7 @@ body {
 
 .task-container {
     width: 100%;
-    padding: 15% 40px 40px 40px;
+    padding: 10% 40px 40px 40px;
 
     .task-post {
         width: 100%;
@@ -124,5 +124,14 @@ body {
                 cursor: pointer;
             }
         }
+    }
+}
+
+.pagination-container {
+    margin: 20px 0;
+
+    .page-navigation:hover {
+        text-decoration: underline;
+        cursor: pointer;
     }
 }

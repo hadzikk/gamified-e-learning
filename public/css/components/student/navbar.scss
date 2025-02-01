@@ -42,17 +42,99 @@
             display: flex;
             justify-content: end;
             align-items: center;
+            gap: 15px;
+
+            .notification-container {
+
+                .icon-notification {
+                    font-size: 1.3rem;
+                }
+            }
 
             .profile-picture-wrapper {
                 width: 40px;
                 height: 40px;
                 border-radius: 50%;
+                border: 1px solid #eee;
 
                 .profile-picture {
                     width: 100%;
                     height: 100%;
                     border-radius: 50%;
                     cursor: pointer;
+                    object-fit: cover !important;
+                }
+            }
+
+            .notification-bar-wrapper {
+                position: absolute;
+                background: #fff;
+                border: 1px solid #eee;
+                width: 250px;
+                height: 300px;
+                bottom: -470%;
+                right: 7%;
+                border-radius: 8px;
+                padding: 20px;
+                overflow-y: scroll;
+                color: #2b2e4a;
+
+                .notification-bar-title {
+                    font-size: 1.1rem;
+                    text-transform: capitalize;
+                    color: #172126;
+                    font-family: 'WorkSans-Regular';;
+                    
+                    font-family: 'WorkSans-Regular';
+                }
+
+                .notification-row {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    gap: 5px;
+                    padding: 5px 5px 0 5px;
+                    border-bottom: 1px solid #2b2e4a;
+
+                    .notification-icon-container {
+                        
+                        .notification-icon-level {
+                            color: #172126;
+                            font-size: 1.1rem;
+                        }
+                    }
+
+                    .notification-text-container {
+
+                        .notification-text {
+                            padding: 5px;
+                            font-size: 14px;
+                            color: #172126;
+                            font-family: 'WorkSans-Regular';
+                        }
+                    }
+
+                    .icon-notification-close {
+                        color: #172126;
+                    }
+                }
+
+                .notification-row:hover {
+                    
+
+                    .notification-icon-container {
+
+                        .notification-icon-level {
+                            
+                        }
+                    }
+
+                    .notification-text-container {
+
+                        .notification-text {
+                            
+                        }
+                    }
                 }
             }
 
@@ -61,7 +143,7 @@
                 background: #fff;
                 right: 0;
                 bottom: -400%;
-                width: 200px;
+                width: 250px;
                 height: 250px;
                 border-radius: 8px;
                 border: 1px solid #eee;
@@ -84,10 +166,12 @@
                             width: 40px;
                             height: 40px;
                             border-radius: 50%;
+                            border: 0.5px solid #eee;
 
                             .profile-personalization-picture {
                                 width: 100%;
                                 height: 100%;
+                                object-fit: cover !important;
                                 border-radius: 50%;
                             }
                         }

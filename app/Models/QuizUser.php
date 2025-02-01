@@ -12,7 +12,7 @@ class QuizUser  extends Model
 
     protected $table = 'quiz_user';
 
-    protected $fillable = ['quiz_id', 'user_id', 'enrolled_at', 'completed_at', 'time_given', 'time_taken', 'score'];
+    protected $fillable = ['quiz_id', 'user_id', 'enrolled_at', 'completed_at', 'duration', 'time_remaining', 'score'];
     protected $with = ['user'];
 
     public function user()

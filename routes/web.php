@@ -34,6 +34,7 @@ Route::prefix('lecturer')->group(function () {
 
 // Controller Student
 Route::prefix('student')->group(function () {
+    Route::get('/home', [PostController::class, 'home'])->name('student.home');
     Route::get('/post', [PostController::class, 'show'])->name('student.post'); // Postingan Kuis
     Route::get('/review/{post:slug}', [PostController::class, 'review'])->name('review');
     Route::get('/profile/account', [PostController::class,'profile'])-> name('student.profile');

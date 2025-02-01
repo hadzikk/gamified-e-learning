@@ -1,10 +1,11 @@
 <?php
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Models\ScoreHistory;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class User extends Authenticatable
@@ -70,6 +71,42 @@ class User extends Authenticatable
 
     public function posts(): HasMany
     {
-    return $this->hasMany(Post::class);
+        return $this->hasMany(Post::class);
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::updating(function ($user) {
+            if ($user->isDirty('score')) { // Cek jika skor berubah
+                $previousScore = $user->getOriginal('score');
+                $newScore = $user->score;
+
+                $previousLevel = self::getLevelFromScore($previousScore);
+                $newLevel = self::getLevelFromScore($newScore);
+
+                if ($previousLevel !== $newLevel) {
+                    ScoreHistory::create([
+                        'user_id' => $user->id,
+                        'previous_score' => $previousScore,
+                        'new_score' => $newScore,
+                        'previous_level' => $previousLevel,
+                        'new_level' => $newLevel,
+                    ]);
+                }
+            }
+        });
+    }
+
+    public function getLevelAttribute()
+    {
+        if ($this->score < 300) {
+            return 'basic';
+        } elseif ($this->score >= 300 && $this->score < 500) {
+            return 'advance';
+        } else {
+            return 'proficient';
+        }
     }
 }

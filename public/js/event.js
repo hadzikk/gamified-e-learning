@@ -69,6 +69,21 @@ document.addEventListener('DOMContentLoaded', () => {
       }
   }
 
+  // Handle notification toggle 
+  function handleNotificationToggle() {
+    const notificationIcon = document.querySelector('.icon-notification');
+    const notificationBar = document.querySelector('.notification-bar-wrapper');
+
+    if (notificationIcon && notificationBar) {
+        notificationIcon.addEventListener('click', () => {
+            notificationBar.classList.toggle('--hide');
+            notificationBar.classList.toggle('--appear');
+        });
+    } else {
+        console.warn('Profile picture or navigation wrapper is not found.');
+    }
+}
+
   // Handle logout logic
   function handleLogout() {
       const logoutLink = document.getElementById('logout'); // Assuming the 'keluar' link has href="#"
@@ -177,6 +192,7 @@ function addOptionField(questionElement, questionIndex) {
   handleEnrollmentPopup();
   handleLoginInputs();
   handleAuthenticationStatusPopup();
+  handleNotificationToggle()
   handleProfilePictureToggle();
   handleCharacterCounter();
   addQuestionField();

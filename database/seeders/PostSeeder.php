@@ -23,5 +23,16 @@ class PostSeeder extends Seeder
                 'level' => 'basic'
             ]
         );
+
+        Post::create(
+            [
+                'user_id' => 4,
+                'subject' => 'network programming',
+                'title' => 'network programming dasar',
+                'description' => 'Kuis ini menguji pemahaman Anda tentang dasar-dasar Network Programming dalam konteks IP Address dsb. Cocok untuk pemula yang ingin menguji kemampuan mereka dalam memahami Network Programming.',
+                'slug' => 'network programming',
+                'level' => 'basic'
+            ]
+        );
     }
 }
