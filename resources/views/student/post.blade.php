@@ -70,7 +70,7 @@
         </div>
     </div>
 
-<x-global.footer></x-global.footer>
+    <x-global.footer></x-global.footer>
 
 <script src="{{ asset('js/event.js') }}"></script>
 

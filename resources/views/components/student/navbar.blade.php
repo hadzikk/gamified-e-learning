@@ -22,19 +22,19 @@
                 <p class="notification-bar-title">notifikasi</p>
                 <div class="notification-row">
                     <div class="notification-icon-container">
-                        <i class="fa-regular fa-chess-knight notification-icon-level"></i>
+                        <i class="fa-regular fa-chess-pawn"></i>
                     </div>
                     <div class="notification-text-container">
-                        <p class="notification-text">Naik level advance</p>
+                        <p class="notification-text">Hi &commat;hadzikmochammad, sayang sekali anda harus turun level ke Basic. </p>
                     </div>
                     <i class="fa-solid fa-xmark"></i>
                 </div>
                 <div class="notification-row">
                     <div class="notification-icon-container">
-                        <i class="fa-regular fa-chess-pawn"></i>
+                        <i class="fa-regular fa-chess-knight notification-icon-level"></i>
                     </div>
                     <div class="notification-text-container">
-                        <p class="notification-text">Turun level basic</p>
+                        <p class="notification-text">Selamat &commat;hadzikmochammad anda telah berhasil naik ke level Advance!</p>
                     </div>
                     <i class="fa-solid fa-xmark"></i>
                 </div>

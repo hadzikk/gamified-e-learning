@@ -7,6 +7,7 @@ use App\Models\Quiz;
 use App\Models\User;
 use App\Models\Option;
 use App\Models\Question;
+use App\Models\QuizUser;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -16,10 +17,28 @@ use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
-    public function home()
-    {
+    public function home() {
+        // Ambil data pengguna yang sedang login
         $student = Auth::user();
-        return view('student.home', compact('student'))->with('title', 'home');
+    
+        // Ambil data quiz_user untuk pengguna yang sedang login
+        $quizUser  = QuizUser ::with('quiz.post') // Mengambil relasi quiz dan post
+        ->where('user_id', $student->id)
+        ->get();
+
+        $level = $this->determineLevel($student->score);
+        // Kirim data ke view
+        return view('student.home', ["title" => "home", "quizUser" => $quizUser, "level" => $level]);
+    }
+
+    private function determineLevel($score) {
+        if ($score < 300) {
+            return 'basic';
+        } elseif ($score >= 300 && $score < 500) {
+            return 'advance';
+        } else {
+            return 'proficient';
+        }
     }
 
 
