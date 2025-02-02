@@ -18,8 +18,10 @@ class PostController extends Controller
 {
     public function home()
     {
-        return view('student.home', ['title' => 'home']);
+        $student = Auth::user();
+        return view('student.home', compact('student'))->with('title', 'home');
     }
+
 
     // Menampilkan semua post di halaman mahasiswa
     public function show() 
