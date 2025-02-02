@@ -35,8 +35,8 @@
         </div>
 
         <div class="login-content-wrapper">
-            <div class="login-image-container">
-                <img src="{{ asset('images/cute aesthetic gradient background with blue, red, pink, white aura and noise for iPhone wallpaper.jpg') }}" alt="Login Image" class="login-image-cover">
+            <div class="login-cover-container">
+                <video class="login-video" src="{{ asset('videos/856528-uhd_2160_2160_24fps.mp4') }}" autoplay muted loop loading="lazy"></video>
             </div>
         </div>
     </div>

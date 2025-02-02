@@ -3,176 +3,98 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Edit Profile</title>
+    <title>Profile</title>
+    <link rel="stylesheet" href="{{ asset('css/student/profile.scss') }}">
+    <link rel="stylesheet" href="{{ asset('css/components/student/popup-edit-profile.scss') }}">
     <link rel="stylesheet" href="{{ asset('icons/fontawesome-free-6.5.2-web/css/all.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/components/student/navbar.scss') }}">
-    <link rel="stylesheet" href="{{ asset('css/components/global/footer.scss') }}">
-    <link rel="stylesheet" href="{{ asset('css/student/post.scss') }}">
-    <style>
-        .profile-container {
-            max-width: 800px;
-            margin: auto;
-            padding: 20px;
-        }
-        .profile-section {
-            display: flex;
-            align-items: center;
-            gap: 30px;
-            background: #f9f9f9;
-            padding: 40px;
-            border-radius: 10px;
-        }
-        .profile-picture {
-            width: 180px;
-            height: 180px;
-            border-radius: 50%;
-            overflow: hidden;
-            border: 3px solid #ddd;
-        }
-        .profile-picture img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .profile-info {
-            flex: 1;
-            font-size: 18px;
-        }
-        .profile-info p {
-            margin: 10px 0;
-        }
-        .profile-info p strong {
-            font-size: 18px;
-        }
-        .btn-save {
-            display: inline-block;
-            margin-top: 15px;
-            padding: 10px 20px;
-            background: #007bff;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-        .btn-save:hover {
-            background: #0056b3;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        .form-group label {
-            display: block;
-            font-weight: bold;
-        }
-        .form-group input {
-            width: 100%;
-            padding: 8px;
-            margin-top: 5px;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-        }
-        .btn-back {
-            display: inline-block;
-            margin-top: 15px;
-            padding: 10px 20px;
-            background: #0056b3; /* Warna abu-abu */
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-            font-size: 16px;
-        }
-        .btn-back:hover {
-            background: #022547;
-        }
-        /* Styling untuk form password */
-        .password-change-form {
-            display: none; /* Form password disembunyikan pertama kali */
-            margin-top: 20px;
-            background-color: #f9f9f9;
-            padding: 20px;
-            border-radius: 8px;
-        }
-        .password-change-form input {
-            margin-bottom: 10px;
-        }
-        .toggle-password-form {
-            color: #007bff;
-            cursor: pointer;
-            text-decoration: underline;
-        }
-    </style>
 </head>
 <body>
-    <div class="profile-container">
-        <h1>Edit Profil Siswa</h1>
 
+    <div class="profile-container">
+        
+        <a href="/student/post" class="btn-back"><i class="fa-solid fa-arrow-left-long"></i></a>
         <!-- Form Edit Profil -->
-        <form action="{{ route('updateprofile', ['id' => $student->id]) }}" method="POST" enctype="multipart/form-data">
+        <form class="profile-form" action="{{ route('updateprofile', ['id' => $student->id]) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')
-
             <!-- Foto Profil -->
             <div class="profile-section">
                 <div class="profile-picture">
                     <!-- Memeriksa apakah gambar profil ada, jika tidak tampilkan gambar default -->
-                    <img class="profile-personalization-picture" 
-                        src="{{ Auth::user()->profile_picture ? asset('storage/' . Auth::user()->profile_picture) : asset('images/ec9b92f3-6100-471d-8d8c-42e2ccd004e0.jpg') }}" 
-                        alt="Profile Picture">
+                    <img class="profile-personalization-picture" src="{{ Auth::user()->profile_picture ? asset('storage/' . Auth::user()->profile_picture) : asset('images/wallpaper • car explosion.jpeg') }}">
+                    <input class="input-file" type="file" id="profile_picture" name="profile_picture">
                 </div>
 
                 <div class="profile-info">
-                    <div class="form-group">
-                        <label for="profile_picture">Gambar Profil</label>
-                        <input type="file" id="profile_picture" name="profile_picture">
-                    </div>
-
-                    <div class="form-group">
-                        <label for="username">Username</label>
-                        <input type="text" id="username" name="username" value="{{ Auth::user()->username }}" required>
-                    </div>
-
-                    <!-- Link untuk mengubah password -->
-                    <div class="form-group">
-                        <span id="change-password-link" class="toggle-password-form">Ubah Password</span>
-                    </div>
-                    
-                    <!-- Form Password (tersembunyi awalnya) -->
-                    <div id="password-change-form" class="password-change-form">
+                    <div class="form-input-wrapper">
+                        <p class="form-input-title">nama pengguna</p>
                         <div class="form-group">
-                            <label for="current_password">Password Lama</label>
-                            <input type="password" id="current_password" name="current_password" placeholder="Masukkan password lama">
-                        </div>
-                    
-                        <div class="form-group">
-                            <label for="new_password">Password Baru</label>
-                            <input type="password" id="new_password" name="new_password" placeholder="Masukkan password baru">
-                        </div>
-                    
-                        <div class="form-group">
-                            <label for="confirm_new_password">Konfirmasi Password Baru</label>
-                            <input type="password" id="confirm_new_password" name="new_password_confirmation" placeholder="Konfirmasi password baru">
+                            <input class="form-input" type="text" name="username" value="{{ Auth::user()->username }}" placeholder="Masukkan nama pengguna...">
                         </div>
                     </div>
-
-                    <button type="submit" class="btn-save">Simpan Perubahan</button>
-                    <a href="{{ url()->previous() }}" class="btn-back">Kembali</a>
+                    <div class="form-input-wrapper">
+                        <p class="form-input-title">kata sandi lama</p>
+                        <div class="form-group">
+                            <input class="form-input" type="password" name="current_password" placeholder="Masukkan kata sandi lama...">
+                        </div>
+                    </div>
+                    <div class="form-input-wrapper">
+                        <p class="form-input-title">kata sandi baru</p>
+                        <div class="form-group">
+                            <input class="form-input" type="password" name="new_password" placeholder="Buat kata sandi baru...">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-submit">submit</button>
                 </div>
             </div>
         </form>
     </div>
+    <x-student.popup-edit-profile></x-student.popup-edit-profile>
 
-    <!-- Script JavaScript untuk menampilkan dan menyembunyikan form password -->
     <script>
-        document.getElementById('change-password-link').addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            var passwordChangeForm = document.getElementById('password-change-form');
-            if (passwordChangeForm.style.display === "none" || passwordChangeForm.style.display === "") {
-                passwordChangeForm.style.display = "block";
+        // Ambil elemen yang dibutuhkan
+        const popupEditProfile = document.getElementById('popup-edit-profile');
+        const closePopup = document.querySelector('.close');
+        const submitProfileButton = document.querySelector('.btn-submit'); // Tombol utama
+        const popupInput = document.querySelector('.popup-input');
+        const popupSubmitButton = document.querySelector('.popup-submit');
+        const profileForm = document.querySelector('.profile-form');
+    
+        // Tampilkan Popup saat tombol "Submit" di form utama ditekan
+        submitProfileButton.addEventListener('click', (event) => {
+            event.preventDefault(); // Mencegah submit langsung
+            popupEditProfile.classList.remove('--hide'); // Tampilkan popup
+        });
+    
+        // Tutup popup saat tombol close ditekan
+        closePopup.addEventListener('click', () => {
+            popupEditProfile.classList.add('--hide'); // Sembunyikan popup
+            popupInput.value = ''; // Reset input
+            popupSubmitButton.classList.add('--disabled'); // Kunci kembali tombol submit
+            popupSubmitButton.disabled = true;
+        });
+    
+        // Aktifkan tombol submit di popup jika input sesuai
+        popupInput.addEventListener('input', () => {
+            if (popupInput.value.trim() === "saya-ingin-memperbarui-profil") {
+                popupSubmitButton.classList.remove('--disabled');
+                popupSubmitButton.disabled = false;
             } else {
-                passwordChangeForm.style.display = "none";
+                popupSubmitButton.classList.add('--disabled');
+                popupSubmitButton.disabled = true;
             }
         });
-    </script>
+    
+        // Kirim form utama saat tombol "Perbarui" ditekan di popup
+        popupSubmitButton.addEventListener('click', () => {
+            profileForm.submit(); // Kirim form utama
+    
+            // Reset popup kembali
+            popupEditProfile.classList.add('--hide');
+            popupInput.value = ''; // Reset input
+            popupSubmitButton.classList.add('--disabled');
+            popupSubmitButton.disabled = true;
+        });
+    </script>    
 </body>
 </html>

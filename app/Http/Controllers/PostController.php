@@ -32,13 +32,13 @@ class PostController extends Controller
     public function profile()
     {
         $student = Auth::user();
-        return view('student.profil', compact('student'));
+        return view('student.profile', compact('student'));
     }
 
     public function edit($id)
     {
         $student = User::findOrFail($id);
-        return view('student.profiles', compact('student'));
+        return view('student.profile', compact('student'));
     }
 
     public function updateprofile(Request $request)
@@ -81,6 +81,7 @@ class PostController extends Controller
     // Redirect with success message
     return redirect()->route('student.profile')->with('success', 'Profile updated successfully!');
 }
+
 
     // Menampilkan pratinjau post di halaman mahasiswa
     public function review(Post $post) {

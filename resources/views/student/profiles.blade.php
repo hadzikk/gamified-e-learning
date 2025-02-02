@@ -9,39 +9,43 @@
 </head>
 <body>
     <i class="fa-solid fa-arrow-left-long"></i>
-    <div class="profile">
-        <div class="profile-content">
-            {{-- <p class="profile-title">profil</p> --}}
+    <form action="{{ route('updateprofile', ['id' => $student->id]) }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        @method('PUT')
+        <div class="profile">
+            <div class="profile-content">
+                {{-- <p class="profile-title">profil</p> --}}
 
-            <div class="profile-card">
-                <div class="profile-picture-wrapper">
-                    <img class="profile-picture" src="{{ Auth::user()->profile_picture ? asset('storage/' . Auth::user()->profile_picture) : asset('images/wallpaper • car explosion.jpeg') }}">
-                    <input class="profile-input-file" type="file" name="" id="">
-                </div>
-
-                <div class="profile-information-wrapper">
-                    <div class="profile-information">
-                        <p class="profile-information-title">nama pengguna</p>
-                        <div class="profile-input-wrapper">
-                            <i class="fa-regular fa-user icon"></i>
-                            <input class="profile-input" type="text" placeholder="Masukkan nama pengguna...">
-                            <i></i>
-                        </div>
-                    </div>
-    
-                    <div class="profile-information">
-                        <p class="profile-information-title">kata sandi</p>
-                        <div class="profile-input-wrapper">
-                            <i class="fa-solid fa-lock icon"></i>
-                            <input class="profile-input" type="password" placeholder="Masukkan kata sandi...">
-                            <i class="fa-regular fa-eye-slash icon-password"></i>
-                        </div>
+                <div class="profile-card">
+                    <div class="profile-picture-wrapper">
+                        <img class="profile-picture" src="{{ Auth::user()->profile_picture ? asset('storage/' . Auth::user()->profile_picture) : asset('images/wallpaper • car explosion.jpeg') }}">
+                        <input class="profile-input-file" type="file" name="profile_picture" id="" value="{{ Auth::user()->username }}">
                     </div>
 
-                    <button class="button-submit">submit</button>
+                    <div class="profile-information-wrapper">
+                        <div class="profile-information">
+                            <p class="profile-information-title">nama pengguna</p>
+                            <div class="profile-input-wrapper">
+                                <i class="fa-regular fa-user icon"></i>
+                                <input class="profile-input" type="text" name="username" placeholder="Masukkan nama pengguna...">
+                                <i></i>
+                            </div>
+                        </div>
+        
+                        <div class="profile-information">
+                            <p class="profile-information-title">kata sandi</p>
+                            <div class="profile-input-wrapper">
+                                <i class="fa-solid fa-lock icon"></i>
+                                <input class="profile-input" type="password" placeholder="Masukkan kata sandi...">
+                                <i class="fa-regular fa-eye-slash icon-password"></i>
+                            </div>
+                        </div>
+
+                        <button class="button-submit">submit</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </form>
 </body>
 </html>

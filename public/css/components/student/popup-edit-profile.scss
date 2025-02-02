@@ -1,0 +1,104 @@
+@font-face {
+    font-family: 'WorkSans-Regular';
+    src: url('../../fonts/work-sans/static/WorkSans-Regular.ttf');
+}
+
+* {
+    margin: 0; padding: 0;
+    box-sizing: border-box;
+    font-family: 'WorkSans-Regular';
+}
+
+.popup-edit-profile {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 100;
+
+    .popup-confirm-card {
+        width: 300px;
+        height: 250px;
+        background: #fff;
+        border-radius: 8px;
+        
+        .popup-confirm-navigation {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+
+            .popup-navigation-title {
+                font-weight: bold;
+                font-size: 14px;
+            }
+        }
+
+        .popup-info {
+            width: 100%;
+            height: 40%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            .popup-info-items {
+                text-align: center;
+                padding: 20px;
+
+                .symbol {
+                    font-size: 1rem;
+                    color: gray;
+                }
+
+                .confirmation-message {
+                    text-align: center;
+                    font-size: 14px;
+                    margin: 20px 0;
+                }
+            }
+        }
+
+        .popup-confirmation {
+            padding: 10px;
+
+            .popup-input {
+                width: 100%;
+                padding: 5px;
+                border-radius: 8px;
+            }
+
+            .popup-submit {
+                margin: 5px 0;
+                width: 100%;
+                background: #000;
+                border: none;
+                outline: none;
+                color: #fff;
+                text-transform: capitalize;
+                padding: 6px;
+                border-radius: 8px;
+            }
+        }
+    }
+}
+
+.--appear {
+    display: block;
+    opacity: 1;
+}
+
+.--hide {
+    display: none;
+    opacity: 0;
+}
+
+.--disabled {
+    background: #eee !important;
+    color: #040320;
+}

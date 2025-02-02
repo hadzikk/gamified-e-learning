@@ -2,7 +2,7 @@
     <div class="footer-content">
         <div class="footer-box">
             <div class="footer-video-wrapper">
-                <video class="footer-video" src="{{ asset('videos/2421545-uhd_3840_2160_30fps.mp4') }}" autoplay muted loop></video>
+                <img src="{{ asset('images/download.jpg') }}" alt="" class="footer-video">
             </div>
         </div>
         <div class="footer-box">
