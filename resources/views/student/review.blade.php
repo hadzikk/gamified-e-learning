@@ -170,71 +170,76 @@
     </div>
     <x-global.footer></x-global.footer>
 
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    const enrollForms = document.querySelectorAll(".form-quiz");
-
-    enrollForms.forEach(form => {
-        form.addEventListener("submit", function (event) {
-            // Mengambil waktu yang tersisa dalam milidetik
-            const timeRemainingMillis = parseInt(localStorage.getItem("quizEndTime")) - Date.now();
-
-            // Menghentikan timer saat tombol submit diklik
-            clearInterval(window.timerInterval);
-
-            // Mengonversi milidetik menjadi detik
-            const timeRemainingSeconds = Math.floor(timeRemainingMillis / 1000); // Mengonversi ke detik
-
-            // Menambahkan nilai time_remaining ke dalam input sebelum form disubmit
-            const timeRemainingInput = form.querySelector('.time-remaining');
-            if (timeRemainingInput) {
-                timeRemainingInput.value = timeRemainingSeconds; // Mengirimkan waktu tersisa dalam detik
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const enrollForms = document.querySelectorAll(".form-quiz");
+            const durationElement = document.querySelector(".review-row-duration");
+            
+            function startTimer(duration) {
+                const now = Date.now();
+                let endTime = parseInt(localStorage.getItem("quizEndTime")) || now + duration * 1000; // Jika sudah ada timer, pakai yang lama
+        
+                localStorage.setItem("quizEndTime", endTime); // Simpan waktu akhir
+        
+                function updateTimer() {
+                    const currentTime = Date.now();
+                    const timeRemainingMillis = endTime - currentTime;
+                    const timeRemaining = Math.max(0, Math.floor(timeRemainingMillis / 1000));
+        
+                    if (durationElement) {
+                        durationElement.textContent = formatTime(timeRemaining);
+                    }
+        
+                    if (timeRemaining <= 0) {
+                        clearInterval(window.timerInterval);
+                        durationElement.textContent = "Waktu habis!";
+                        localStorage.removeItem("quizEndTime");
+                    }
+                }
+        
+                updateTimer(); // Jalankan pertama kali
+                window.timerInterval = setInterval(updateTimer, 1000);
+            }
+        
+            function formatTime(seconds) {
+                const minutes = Math.floor(seconds / 60);
+                const secs = seconds % 60;
+                return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+            }
+        
+            // **Event Listener Submit Form Quiz**
+            enrollForms.forEach(form => {
+                form.addEventListener("submit", function (event) {
+                    clearInterval(window.timerInterval); // Hentikan timer saat submit
+        
+                    const timeRemainingMillis = parseInt(localStorage.getItem("quizEndTime")) - Date.now();
+                    const timeRemainingSeconds = Math.max(0, Math.floor(timeRemainingMillis / 1000));
+        
+                    // Masukkan nilai waktu tersisa ke input hidden
+                    const timeRemainingInput = form.querySelector(".time-remaining");
+                    if (timeRemainingInput) {
+                        timeRemainingInput.value = timeRemainingSeconds;
+                    }
+        
+                    localStorage.removeItem("quizEndTime"); // Hapus data timer setelah submit
+                });
+            });
+        
+            // **Cek apakah timer sudah ada**
+            if (localStorage.getItem("quizEndTime")) {
+                startTimer(0); // Lanjutkan timer yang ada
+            } else {
+                // Jika belum ada timer, ambil durasi dari elemen di halaman
+                if (durationElement && durationElement.dataset.duration) {
+                    const quizDuration = parseInt(durationElement.dataset.duration);
+                    if (!isNaN(quizDuration)) {
+                        startTimer(quizDuration);
+                    }
+                }
             }
         });
-    });
-
-    function startTimer(form) {
-        const durationElement = document.querySelector(".review-row-duration");
-        if (!durationElement) return;
-
-        const endTime = parseInt(localStorage.getItem("quizEndTime"));
-        const interval = setInterval(() => {
-            const now = Date.now();
-            const timeRemainingMillis = endTime - now; // Waktu dalam milidetik
-            const timeRemaining = Math.max(0, Math.floor(timeRemainingMillis / 1000)); // Waktu dalam detik
-
-            durationElement.textContent = formatTime(timeRemaining);
-
-            // Update nilai time_remaining pada form
-            const timeRemainingInput = form.querySelector("input[name='time_remaining']");
-            if (timeRemainingInput) {
-                timeRemainingInput.value = timeRemaining; // Update input setiap detik
-            }
-
-            if (timeRemaining <= 0) {
-                clearInterval(interval);
-                durationElement.textContent = "Waktu habis!";
-            }
-        }, 1000);
-
-        // Menyimpan interval untuk penghentian saat submit
-        window.timerInterval = interval;
-    }
-
-    function formatTime(seconds) {
-        const hours = Math.floor(seconds / 3600);
-        const minutes = Math.floor((seconds % 3600) / 60);
-        const secs = seconds % 60;
-
-        return `${hours}:${minutes < 10 ? '0' : ''}${minutes}:${secs < 10 ? '0' : ''}${secs}`;
-    }
-
-    if (localStorage.getItem("quizEndTime")) {
-        startTimer();
-    }
-});
-
-</script>
+        </script>
+        
 
     <script src="{{ asset('js/event.js') }}"></script>
 </body>
