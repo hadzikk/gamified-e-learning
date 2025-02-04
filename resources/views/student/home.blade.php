@@ -42,13 +42,37 @@
             <div class="history-logs">
                 @foreach($quizUser  as $quiz)
                 <div class="history-log">
-                    <p style="text-transform: capitalize"><strong>Kuis</strong> {{ $quiz->quiz->post->title }}</p>
-                    <p><strong>Status:</strong> {{ $quiz->status }}</p>
-                    <p><strong>Durasi:</strong> {{ $quiz->duration }}</p>
-                    <p><strong>Waktu Tersisa:</strong> {{ $quiz->time_remaining }}</p>
-                    <p><strong>Skor:</strong> {{ $quiz->score }}</p>
-                    <p><strong>Waktu Enroll:</strong> {{ $quiz->enrolled_at }}</p>
-                    <p><strong>Waktu Selesai:</strong> {{ $quiz->completed_at }}</p>
+                    <div class="history-log-header">
+                        <div class="history-header-left">
+                            <p class="history-quiz-enrolled">Enroll: {{ $quiz->enrolled_at }}</p>
+                            <p class="history-quiz-title">{{ $quiz->quiz->post->title }}</p>
+                            <div class="history-level-wrapper">
+                                <span class="history-quiz-level">{{ $quiz->quiz->post->level }}</span>
+                                @if ($quiz->quiz->post->level == 'basic')
+                                <i class="fa-regular fa-chess-pawn"></i>
+                                @elseif ($quiz->quiz->post->level == 'advance')
+                                <i class="fa-regular fa-chess-knight"></i>
+                                @else
+                                <i class="fa-regular fa-chess-queen"></i>
+                                @endif
+                            </div>
+                        </div>
+                        <div class="history-header-right">
+                            <p class="history-status">{{ $quiz->status }}</p>
+                            <p class="history-time-completed">{{ $quiz->completed_at }}</p>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="history-log-footer">
+                        <div class="history-footer-left">
+                            <p class="history-duration">Durasi yang diberikan dosen: {{ \Carbon\CarbonInterval::seconds($quiz->duration)->cascade()->forHumans() }}</p>
+                            <p class="history-time-remaining">Durasi pengerjaan: {{ \Carbon\CarbonInterval::seconds($quiz->time_remaining)->cascade()->forHumans() }}</p>
+                        </div>
+                        <div class="history-footer-right">
+                            <br>
+                            <p class="history-score">Skor: {{ $quiz->score }}/100</p>
+                        </div>
+                    </div>
                 </div>
                 @endforeach
             </div>

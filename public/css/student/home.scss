@@ -3,10 +3,19 @@
     src: url('../../fonts/work-sans/static/WorkSans-Regular.ttf');
 }
 
+@font-face {
+    font-family: 'Satoshi-Regular';
+    src: url('../../fonts/satoshi/Fonts/OTF/Satoshi-Regular.otf');
+}
+
+@font-face {
+    font-family: 'PassengerSans-Regular';
+    src: url('../../fonts/passenger-sans/PassengerSans-Regular-BF63eaffd178ad9.otf');
+}
+
 * {
     margin: 0; padding: 0;
     box-sizing: border-box;
-    font-family: 'WorkSans-Regular';
 }
 
 .home {
@@ -37,17 +46,19 @@
         .profile-information {
 
             .profile-level {
+                font-family: 'PassengerSans-Regular';
                 text-transform: capitalize;
             }
             
             .profile-fullname {
+                font-family: 'WorkSans-Regular';
                 text-transform: capitalize;
                 font-size: 2rem;
                 font-weight: bold;
             }
 
             .profile-username {
-
+                font-family: 'WorkSans-Regular';
             }
 
             .profile-score {
@@ -67,8 +78,73 @@
         .history-log {
             width: 100%;
             padding: 20px;
-            background: #f4f5f6;
             border: 1px solid #eee;
+
+            .history-log-header {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+
+                .history-header-left {
+
+                    .history-quiz-enrolled {
+                        font-size: 14px;
+                    }
+
+                    .history-quiz-title {
+                        font-family: 'Times New Roman', Times, serif;
+                        font-size: 1.2rem;
+                        text-transform: capitalize;
+                    }
+    
+                    .history-level-wrapper {
+                        font-size: 12px;
+
+                        .history-quiz-level {
+                            text-transform: capitalize;
+                            font-family: 'PassengerSans-Regular';
+                        }
+                    }
+                }
+
+                .history-header-right {
+                    
+                    .history-status {
+                        font-family: 'Times New Roman', Times, serif;
+                        text-transform: capitalize;
+                    }
+
+                    .history-time-completed {
+                        font-size: 14px;
+                    }
+                }
+            }
+
+            .history-log-footer {
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+
+                .history-footer-left {
+                    
+                    .history-duration {
+                    }
+
+                    .history-time-remaining {
+                    }
+                }
+
+                .history-footer-right {
+
+                    .history-score-title {
+                        text-transform: capitalize;
+                    }
+
+                    .history-score {
+                        font-size: 14px;
+                    }
+                }
+            }
         }
     }
 }
