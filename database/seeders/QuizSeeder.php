@@ -13,20 +13,20 @@ class QuizSeeder extends Seeder
      */
     public function run(): void
     {
-        Quiz::create(
-            [
-                'post_id' => 1,
-                'duration' => 120,
-                'penalty' => 30
-            ]
-        );
+        // Quiz::create(
+        //     [
+        //         'post_id' => 1,
+        //         'duration' => 120,
+        //         'penalty' => 30
+        //     ]
+        // );
 
-        Quiz::create(
-            [
-                'post_id' => 2,
-                'duration' => 20,
-                'penalty' => 30
-            ]
-        );
+        // Quiz::create(
+        //     [
+        //         'post_id' => 2,
+        //         'duration' => 20,
+        //         'penalty' => 30
+        //     ]
+        // );
     }
 }
