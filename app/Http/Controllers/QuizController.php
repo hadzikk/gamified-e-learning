@@ -52,69 +52,77 @@ class QuizController extends Controller
 
     // -------------------- FUNGSI MENGIRIMKAN JAWABAN QUIZ -------------------- //
     public function submitQuiz(Request $request, $quizId)
-    {
-        $quiz = Quiz::with('questions.options')->findOrFail($quizId);
-        $user = Auth::user();
-        $questions = $quiz->questions;
+{
+    $quiz = Quiz::with('questions.options')->findOrFail($quizId);
+    $user = Auth::user();
+    $questions = $quiz->questions;
 
-        // Pastikan kuis memiliki post terkait
-        if (!$quiz->post_id) {
-            return redirect()->back()->with('error', 'Kuis tidak memiliki post terkait.');
-        }
-        $post = Post::findOrFail($quiz->post_id);
-        $postSlug = $post->slug; // Ambil slug dari post
-
-        // Pastikan kuis memiliki pertanyaan
-        $totalQuestions = $questions->count();
-        if ($totalQuestions === 0) {
-            return redirect()->back()->with('error', 'Kuis tidak memiliki pertanyaan.');
-        }
-
-        $scorePerQuestion = 100 / $totalQuestions;
-        $correctAnswers = 0;
-
-        // Periksa jawaban
-        foreach ($questions as $question) {
-            $selectedOptionId = $request->input('question_' . $question->id);
-            $correctOption = $question->options->where('is_correct', true)->first();
-
-            if ($correctOption && $selectedOptionId == $correctOption->id) {
-                $correctAnswers++;
-            }
-        }
-
-        // Hitung skor awal
-        $rawScore = $correctAnswers * $scorePerQuestion;
-
-        // Ambil informasi dari quiz_user
-        $quizUser = QuizUser::where('quiz_id', $quizId)
-            ->where('user_id', $user->id)
-            ->firstOrFail();
-
-        // Ambil sisa waktu dari request atau session
-        $timeRemaining = $request->input('time_remaining', session('time_remaining', $quizUser->time_remaining));
-
-        // Terapkan penalty jika waktu habis
-        $penalty = ($timeRemaining <= 0) ? 0.20 : 0;
-
-        // Hitung skor akhir setelah penalti
-        $score = $rawScore * (1 - $penalty);
-
-        // Simpan hasil ke database
-        $quizUser->completed_at = Carbon::now();
-        $quizUser->time_remaining = $timeRemaining;
-        $quizUser->score = round($score);
-        $quizUser->status = 'completed';
-        $quizUser->save();
-
-        // Hapus session time_remaining setelah submit
-        session()->forget('time_remaining');
-
-        // Update skor user di tabel users
-        DB::table('users')->where('id', $user->id)->increment('score', round($score));
-
-        // Redirect ke halaman review dengan slug post terkait
-        return redirect()->route('review', ['post' => $postSlug])
-            ->with('success', 'Kuis telah diselesaikan!');
+    // Pastikan kuis memiliki post terkait
+    if (!$quiz->post_id) {
+        return redirect()->back()->with('error', 'Kuis tidak memiliki post terkait.');
     }
+    $post = Post::findOrFail($quiz->post_id);
+    $postSlug = $post->slug; // Ambil slug dari post
+
+    // Pastikan kuis memiliki pertanyaan
+    $totalQuestions = $questions->count();
+    if ($totalQuestions === 0) {
+        return redirect()->back()->with('error', 'Kuis tidak memiliki pertanyaan.');
+    }
+
+    $maxScore = 100; // Bobot maksimum kuis
+    $scorePerQuestion = $maxScore / $totalQuestions; // Bobot per pertanyaan
+    $correctAnswers = 0;
+
+    // Periksa jawaban
+    foreach ($questions as $question) {
+        $selectedOptionId = $request->input('question_' . $question->id);
+        $correctOption = $question->options->where('is_correct', true)->first();
+
+        if ($correctOption && $selectedOptionId == $correctOption->id) {
+            $correctAnswers++;
+        }
+    }
+
+    // Hitung skor awal berdasarkan jawaban benar
+    $rawScore = $correctAnswers * $scorePerQuestion;
+
+    // Ambil informasi dari quiz_user
+    $quizUser = QuizUser::where('quiz_id', $quizId)
+        ->where('user_id', $user->id)
+        ->firstOrFail();
+
+    // Ambil sisa waktu dari request atau session
+    $timeRemaining = $request->input('time_remaining', session('time_remaining', $quizUser->time_remaining));
+
+    // *** Tambahan Bonus Skor ***
+    $bonusScore = 0;
+    if ($timeRemaining > 0 && $correctAnswers == $totalQuestions) {
+        $bonusScore = 10; // Bonus jika semua benar dan masih ada sisa waktu
+    }
+
+    // *** Penalti Jika Waktu Habis ***
+    $penalty = ($timeRemaining <= 0) ? 0.20 : 0; // 20% penalty jika waktu habis
+
+    // *** Hitung Skor Akhir ***
+    $finalScore = ($rawScore + $bonusScore) * (1 - $penalty);
+    $finalScore = max(0, round($finalScore)); // Pastikan skor tidak negatif
+
+    // Simpan hasil ke database
+    $quizUser->completed_at = now();
+    $quizUser->time_remaining = $timeRemaining;
+    $quizUser->score = $finalScore;
+    $quizUser->status = 'completed';
+    $quizUser->save();
+
+    // Hapus session time_remaining setelah submit
+    session()->forget('time_remaining');
+
+    // Update skor user di tabel users
+    DB::table('users')->where('id', $user->id)->increment('score', $finalScore);
+
+    // Redirect ke halaman review dengan slug post terkait
+    return redirect()->route('review', ['post' => $postSlug])
+        ->with('success', 'Kuis telah diselesaikan! Skor Anda: ' . $finalScore);
+}
 }
